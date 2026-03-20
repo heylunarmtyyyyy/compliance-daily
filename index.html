@@ -1,0 +1,450 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>游戏合规每日推送 | 2026年3月17日（周二）</title>
+<style>
+  :root {
+    --primary: #6366f1;
+    --primary-light: #eef2ff;
+    --bg: #f8fafc;
+    --card-bg: #ffffff;
+    --text: #1e293b;
+    --text-secondary: #64748b;
+    --border: #e2e8f0;
+    --p0-bg: #fef2f2; --p0-border: #dc2626; --p0-text: #991b1b; --p0-badge: #dc2626;
+    --p1-bg: #fff7ed; --p1-border: #ea580c; --p1-text: #9a3412; --p1-badge: #ea580c;
+    --p2-bg: #fefce8; --p2-border: #ca8a04; --p2-text: #854d0e; --p2-badge: #ca8a04;
+    --tc-direct: #dc2626; --tc-ecosystem: #7c3aed; --tc-spillover: #0891b2;
+    --alert-color: #dc2626; --topnews-color: #6366f1; --unverified-color: #64748b; --notes-color: #059669;
+  }
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body {
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'PingFang SC', 'Hiragino Sans GB', 'Microsoft YaHei', sans-serif;
+    background: var(--bg); color: var(--text); line-height: 1.7; padding: 20px;
+  }
+  .container { max-width: 960px; margin: 0 auto; }
+
+  /* Header */
+  .header {
+    background: linear-gradient(135deg, #6366f1 0%, #4338ca 50%, #3730a3 100%);
+    color: white; padding: 40px; border-radius: 16px; margin-bottom: 30px;
+    box-shadow: 0 4px 24px rgba(99, 102, 241, 0.3); position: relative; overflow: hidden;
+  }
+  .header::before { content: '\2696'; position: absolute; right: 30px; top: 50%; transform: translateY(-50%); font-size: 80px; opacity: 0.15; }
+  .header h1 { font-size: 28px; font-weight: 700; margin-bottom: 8px; }
+  .header .date { font-size: 16px; opacity: 0.9; }
+  .header .scope { font-size: 13px; opacity: 0.7; margin-top: 4px; }
+  .header .version-badge { display: inline-block; background: rgba(255,255,255,0.2); padding: 3px 10px; border-radius: 6px; font-size: 12px; margin-top: 8px; }
+  .header .day-label { font-size: 14px; opacity: 0.85; margin-top: 6px; }
+
+  /* Section */
+  .section {
+    background: var(--card-bg); border-radius: 12px; padding: 24px; margin-bottom: 16px;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.06);
+  }
+  .section-header {
+    display: flex; align-items: center; gap: 10px; margin-bottom: 16px;
+    padding-bottom: 10px; border-bottom: 2px solid var(--border);
+  }
+  .badge {
+    display: inline-flex; align-items: center; justify-content: center;
+    min-width: 32px; height: 28px; padding: 0 10px; border-radius: 6px;
+    font-weight: 700; font-size: 12px; color: white; white-space: nowrap;
+  }
+  .badge-alert { background: var(--alert-color); }
+  .badge-topnews { background: var(--topnews-color); }
+  .badge-notes { background: var(--notes-color); }
+  .section-header h2 { font-size: 16px; font-weight: 600; }
+
+  /* Risk badges */
+  .risk-badge {
+    display: inline-block; padding: 2px 10px; border-radius: 4px;
+    font-size: 12px; font-weight: 700; color: white; margin-right: 6px;
+  }
+  .risk-p0 { background: var(--p0-badge); }
+  .risk-p1 { background: var(--p1-badge); }
+  .risk-p2 { background: var(--p2-badge); }
+
+  /* Tencent tags */
+  .tc-tag {
+    display: inline-block; padding: 1px 8px; border-radius: 3px;
+    font-size: 11px; font-weight: 600; margin-left: 6px; vertical-align: middle;
+  }
+  .tc-direct { background: #fef2f2; color: var(--tc-direct); border: 1px solid #fecaca; }
+  .tc-ecosystem { background: #f5f3ff; color: var(--tc-ecosystem); border: 1px solid #ddd6fe; }
+  .tc-spillover { background: #ecfeff; color: var(--tc-spillover); border: 1px solid #a5f3fc; }
+
+  /* Tags */
+  .region-tag, .topic-tag, .action-tag, .trigger-tag, .trend-tag {
+    display: inline-block; padding: 2px 8px; border-radius: 4px;
+    font-size: 11px; font-weight: 500; margin-right: 4px; margin-bottom: 4px;
+  }
+  .region-cn { background: #fef2f2; color: #dc2626; }
+  .region-us { background: #eff6ff; color: #2563eb; }
+  .region-eu { background: #f0fdf4; color: #16a34a; }
+  .region-br { background: #d1fae5; color: #065f46; }
+  .region-global { background: #f1f5f9; color: #475569; }
+  .region-uk { background: #fdf2f8; color: #db2777; }
+  .topic-consumer { background: #fff1f2; color: #e11d48; }
+  .topic-minors { background: #fffbeb; color: #b45309; }
+  .topic-platform { background: #f5f3ff; color: #8b5cf6; }
+  .topic-rating { background: #ecfeff; color: #0e7490; }
+  .topic-privacy { background: #eff6ff; color: #2563eb; }
+  .topic-ai { background: #faf5ff; color: #7c3aed; }
+  .topic-tencent { background: #fef2f2; color: #dc2626; }
+  .topic-antitrust { background: #f1f5f9; color: #475569; }
+  .topic-license { background: #ecfdf5; color: #059669; }
+  .topic-overseas { background: #fff7ed; color: #c2410c; }
+  .action-enforcement { background: #fee2e2; color: #991b1b; }
+  .action-legislation { background: #dbeafe; color: #1e40af; }
+  .action-rulechange { background: #fef3c7; color: #92400e; }
+  .action-trend { background: #e0f2fe; color: #075985; }
+  .action-warning { background: #fff7ed; color: #9a3412; }
+  .action-litigation { background: #fce7f3; color: #9d174d; }
+  .trigger-tag { background: #fef2f2; color: #991b1b; }
+  .trend-tag { background: #f0f9ff; color: #0369a1; border: 1px dashed #7dd3fc; font-style: italic; }
+
+  /* Alert card */
+  .alert-card { border-radius: 10px; padding: 20px; margin-bottom: 14px; border: 1px solid; }
+  .alert-p0 { background: var(--p0-bg); border-color: #fecaca; }
+  .alert-p1 { background: var(--p1-bg); border-color: #fed7aa; }
+  .alert-p2 { background: var(--p2-bg); border-color: #fef08a; }
+  .alert-card h3 { font-size: 15px; font-weight: 700; margin-bottom: 8px; line-height: 1.5; }
+  .alert-card .alert-meta { display: flex; flex-wrap: wrap; gap: 6px; margin-bottom: 8px; }
+  .alert-card .alert-body { font-size: 14px; line-height: 1.8; margin-bottom: 8px; }
+  .alert-card .alert-fields { display: grid; grid-template-columns: auto 1fr; gap: 4px 12px; font-size: 13px; margin-bottom: 8px; }
+  .alert-card .alert-fields dt { color: var(--text-secondary); font-weight: 500; }
+  .alert-card .alert-fields dd { color: var(--text); }
+  .alert-card .alert-action { padding: 10px 14px; border-radius: 8px; font-size: 13px; line-height: 1.6; margin-top: 8px; }
+  .alert-p0 .alert-action { background: #fee2e2; color: var(--p0-text); }
+  .alert-p1 .alert-action { background: #ffedd5; color: var(--p1-text); }
+  .alert-p2 .alert-action { background: #fef9c3; color: var(--p2-text); }
+
+  /* Alert Hub */
+  .alert-hub {
+    background: linear-gradient(135deg, #fef2f2 0%, #fff7ed 50%, #fefce8 100%);
+    border: 2px solid #fecaca; border-radius: 16px; padding: 28px; margin-bottom: 30px;
+    box-shadow: 0 4px 16px rgba(220, 38, 38, 0.1);
+  }
+  .alert-hub-header {
+    display: flex; align-items: center; gap: 12px; margin-bottom: 20px;
+    padding-bottom: 14px; border-bottom: 2px solid #fecaca;
+  }
+  .alert-hub-header h2 { font-size: 20px; font-weight: 700; color: var(--alert-color); }
+  .alert-hub-header .alert-count {
+    background: var(--alert-color); color: white; padding: 4px 12px; border-radius: 20px;
+    font-size: 13px; font-weight: 700;
+  }
+  .alert-hub .alert-mini {
+    display: flex; align-items: flex-start; gap: 12px; padding: 14px;
+    border-radius: 10px; margin-bottom: 10px; border: 1px solid; transition: transform 0.2s;
+  }
+  .alert-hub .alert-mini:hover { transform: translateX(4px); }
+  .alert-mini-p0 { background: var(--p0-bg); border-color: #fecaca; }
+  .alert-mini-p1 { background: var(--p1-bg); border-color: #fed7aa; }
+  .alert-mini-p2 { background: var(--p2-bg); border-color: #fef08a; }
+  .alert-mini .mini-date { font-size: 12px; color: var(--text-secondary); white-space: nowrap; min-width: 50px; font-weight: 600; }
+  .alert-mini .mini-content h4 { font-size: 14px; font-weight: 600; margin-bottom: 4px; line-height: 1.4; }
+  .alert-mini .mini-content p { font-size: 13px; color: var(--text-secondary); line-height: 1.5; }
+  .alert-mini .mini-link { font-size: 12px; color: var(--primary); text-decoration: none; margin-top: 4px; display: inline-block; }
+  .alert-mini .mini-link:hover { text-decoration: underline; }
+
+  /* Item */
+  .item { padding: 14px 0; border-bottom: 1px solid #f0f0f0; }
+  .item:last-child { border-bottom: none; }
+  .item h3 { font-size: 15px; font-weight: 600; margin-bottom: 6px; line-height: 1.5; }
+  .item .meta { display: flex; flex-wrap: wrap; align-items: center; gap: 6px; margin-bottom: 6px; }
+  .item .source { font-size: 13px; color: var(--text-secondary); margin-bottom: 6px; }
+  .item .source a { color: var(--primary); text-decoration: none; }
+  .item .source a:hover { text-decoration: underline; }
+  .item .body { font-size: 14px; line-height: 1.8; color: #334155; }
+  .impact { padding: 10px 14px; border-radius: 8px; margin-top: 8px; font-size: 13px; line-height: 1.6; }
+  .impact-info { background: #eff6ff; color: #1d4ed8; border-left: 3px solid #3b82f6; }
+  .impact-warning { background: var(--p1-bg); color: var(--p1-text); border-left: 3px solid var(--p1-border); }
+  .impact-caution { background: var(--p2-bg); color: var(--p2-text); border-left: 3px solid var(--p2-border); }
+  .impact-danger { background: var(--p0-bg); color: var(--p0-text); border-left: 3px solid var(--p0-border); }
+  .trend-signal { padding: 8px 12px; border-radius: 6px; margin-top: 6px; font-size: 12px; line-height: 1.5; background: #f0f9ff; color: #0369a1; border-left: 3px dashed #7dd3fc; font-style: italic; }
+
+  /* Notes */
+  .notes-list { list-style-type: disc; padding-left: 20px; }
+  .notes-list li { font-size: 13px; color: var(--text-secondary); margin-bottom: 6px; line-height: 1.6; }
+
+  /* Summary */
+  .exec-summary {
+    background: var(--card-bg); border-left: 4px solid var(--alert-color);
+    border-radius: 12px; padding: 24px; margin-bottom: 24px;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.06);
+  }
+  .exec-summary h2 { font-size: 18px; color: var(--alert-color); margin-bottom: 12px; }
+  .exec-summary ol { padding-left: 20px; }
+  .exec-summary li { margin-bottom: 8px; font-size: 14px; line-height: 1.6; }
+  .exec-summary .verdict { background: var(--primary-light); padding: 14px; border-radius: 8px; margin-top: 14px; font-size: 14px; color: var(--primary); font-weight: 500; }
+
+  /* Footer */
+  .footer { text-align: center; padding: 24px; font-size: 12px; color: var(--text-secondary); }
+  .footer .disclaimer { background: #fffbeb; border: 1px solid #fde68a; border-radius: 8px; padding: 12px 16px; margin-bottom: 12px; font-size: 12px; color: #92400e; }
+
+  /* Countdown box */
+  .countdown-box {
+    background: linear-gradient(135deg, #fef2f2 0%, #fff7ed 100%);
+    border: 1px solid #fecaca; border-radius: 10px; padding: 16px 20px; margin-bottom: 16px;
+    display: flex; align-items: center; gap: 14px;
+  }
+  .countdown-box .countdown-icon { font-size: 32px; }
+  .countdown-box .countdown-content h3 { font-size: 15px; font-weight: 700; color: var(--p0-text); margin-bottom: 4px; }
+  .countdown-box .countdown-content p { font-size: 13px; color: var(--text-secondary); line-height: 1.5; }
+  .countdown-days { font-size: 28px; font-weight: 800; color: var(--p0-badge); margin-left: auto; white-space: nowrap; }
+
+  @media (max-width: 640px) {
+    body { padding: 12px; }
+    .header { padding: 24px; }
+    .header h1 { font-size: 22px; }
+    .section { padding: 18px; }
+    .alert-hub { padding: 18px; }
+  }
+</style>
+</head>
+<body>
+<div class="container">
+
+<!-- ===== Header ===== -->
+<div class="header">
+  <h1>游戏合规每日推送</h1>
+  <div class="date">2026年3月17日（周二）</div>
+  <div class="day-label">&#x1F4C5; UTC 日历日覆盖窗口（3月17日 UTC 00:00 – 23:59）</div>
+  <div class="scope">严格一手来源 | UTC 基准 | 实体追踪搜索 | Alert Hub 动态联动</div>
+  <div class="version-badge">v2.3 · Daily Edition</div>
+</div>
+
+<!-- ===== ALERT HUB（动态 — 自动从正文 alert-card 收集）===== -->
+<div class="alert-hub" id="alert-hub">
+  <div class="alert-hub-header">
+    <span style="font-size:24px;">&#x1F6A8;</span>
+    <h2>Alert 汇总中心</h2>
+    <span class="alert-count" id="alert-count">加载中…</span>
+  </div>
+  <div id="alert-hub-cards">
+    <!-- JS 自动填充 -->
+  </div>
+</div>
+
+<!-- ===== Executive Summary ===== -->
+<div class="exec-summary">
+  <h2>3月17日关键态势速览</h2>
+  <ol>
+    <li><strong>巴西FELCA法（数字ECA）今日正式生效</strong> — 全球最严厉的游戏未成年人保护法落地执行，Rockstar暂停巴西自营平台游戏销售，Riot Games封禁18岁以下账号，面向青少年的loot box被明确禁止。</li>
+    <li><strong>中国音数协「网络游戏管理标准培训班」杭州举办</strong> — 3月16–17日，覆盖游戏内容审查、未成年人保护、数据安全等标准化培训，背景为八部门《分类办法》3月1日起施行。</li>
+  </ol>
+  <div class="verdict">
+    <strong>当日判断：</strong>3月17日的核心事件是巴西FELCA法正式生效。这是全球首部将"禁止年龄自我声明+禁止面向未成年人的loot box+强制监护人关联"三项要求同时写入法律的国家级立法。Rockstar的"退出式合规"（直接暂停自营平台销售）是一个值得关注的行业信号——当合规成本超过区域市场收益时，部分发行商可能选择收缩而非适配。建议合规团队重点评估自身产品线在巴西市场的年龄验证、loot box机制和数据保护合规状态。<br><br>
+    <strong>背景关联：</strong>Valve于3月11日已公开回应NY AG loot box诉讼（将loot box类比宝可梦卡牌，拒绝取消物品交易），FBI于3月13日宣布调查Steam恶意软件游戏——这些事件与巴西FELCA共同构成全球loot box和平台监管收紧的大背景，但其一手来源不在本期覆盖窗口内，详见此前对应日期推送。
+  </div>
+</div>
+
+<!-- ================================================================ -->
+<!-- 3月17日内容主体 -->
+<!-- ================================================================ -->
+<div id="day-0317">
+
+<!-- ===== ALERT: 巴西FELCA正式生效 ===== -->
+<div class="section">
+  <div class="section-header">
+    <span class="badge badge-alert">ALERT</span>
+    <h2>Major Alerts</h2>
+  </div>
+
+  <div class="alert-card alert-p2">
+    <h3>
+      <span class="risk-badge risk-p2">P2</span>
+      巴西FELCA法（数字ECA）正式生效：Rockstar暂停自营平台销售，Riot Games封禁未成年账号
+      <span class="tc-tag tc-ecosystem">Tencent Ecosystem</span>
+    </h3>
+    <div class="alert-meta">
+      <span class="region-tag region-br">巴西</span>
+      <span class="region-tag region-global">全球</span>
+      <span class="topic-tag topic-minors">未成年人保护</span>
+      <span class="action-tag action-enforcement">执法/生效</span>
+      <span class="trigger-tag">监管/执法触发器</span>
+    </div>
+    <dl class="alert-fields">
+      <dt>涉及主体</dt><dd>所有在巴西运营的游戏平台和发行商（Rockstar Games、Riot Games/腾讯、Valve/Steam、Google Play、App Store等）</dd>
+      <dt>法律依据</dt><dd>Lei nº 15.211/2025（Digital ECA / FELCA法）</dd>
+      <dt>来源</dt><dd><a href="https://revistapixel.com.br/en/digital-eca-comes-into-effect-see-what-changes-today-in-games-and-networks/" style="color:var(--primary)">Revista Pixel (3月17日)</a> | <a href="https://playersforlife.com/2026/03/17/rockstar-halts-official-game-sales-in-brazil-due-to-felca-law/" style="color:var(--primary)">Players For Life (3月17日)</a> | <a href="https://www.strafe.com/news/read/brazil-s-felca-law-blocks-kids-from-multiple-games-what-gamers-need-to-know/" style="color:var(--primary)">Strafe.com (3月17日)</a> | <a href="https://www.riotgames.com/pt-br/not%C3%ADcias/eca-digital-brasil" style="color:var(--primary)">Riot Games官网声明</a></dd>
+    </dl>
+    <div class="alert-body">
+      巴西《数字ECA》（俗称FELCA法）于2026年3月17日正式生效，这是全球目前针对未成年人网络保护最严厉的立法之一。核心变化：<strong>(1) 禁止年龄自我声明</strong>——平台必须实施实人年龄验证，不得仅靠"我已满18岁"勾选框；<strong>(2) 禁止面向青少年的loot box</strong>——面向未成年人受众的游戏中明确禁止使用"战利品箱"机制；<strong>(3) 16岁以下社交账号须关联监护人账户</strong>；<strong>(4) 涉及未成年人的有害内容24小时内必须删除</strong>；<strong>(5) 所有未成年人账户默认最高隐私级别</strong>。
+      <br><br>
+      <strong>行业即时反应：</strong>Rockstar Games于3月16日宣布<strong>暂停在巴西自营商店（Rockstar Games Launcher）的所有游戏销售</strong>，声称无法在短期内满足新的身份验证要求。已购游戏仍可访问，GTA Online的鲨鱼卡等微交易仍可购买。<strong>Steam/PlayStation Store/Microsoft Store上的Rockstar游戏不受影响。</strong>Riot Games从3月10日起实施年龄验证，<strong>LoL、TFT、Wild Rift对18岁以下玩家全面封禁</strong>，Valorant要求未成年人获得家长授权。
+    </div>
+    <div class="alert-action">
+      <strong>影响路径：</strong>巴西2.2亿人口、全球第五大游戏市场。罚款上限为企业集团在巴西收入的<strong>10%</strong>，或单次最高5000万雷亚尔。严重违规可暂停服务或吊销运营许可。ANPD（国家数据保护局）将审查平台每半年提交的影响报告。<br>
+      <strong>腾讯关联：</strong>Riot Games为腾讯全资子公司，LoL/Valorant在巴西用户基数巨大。腾讯旗下Level Infinite发行的游戏同样受loot box禁令和年龄验证要求影响。<br>
+      <strong>建议动作：</strong>① 评估巴西市场产品线的年龄验证合规状态；② 审查面向巴西的loot box/gacha机制是否需要区域性关闭；③ 建立巴西专项合规工作组，参考Riot Games的分级处理方案。
+    </div>
+    <div class="trend-signal">
+      &#x1F4CA; <strong>监管趋势信号：</strong>巴西FELCA + 英国Online Safety Act + 澳大利亚社媒禁令 + 印尼MCI社媒禁令——全球"以实人验证取代自我声明"正在形成不可逆趋势。"退出式合规"（Rockstar直接停售）表明部分游戏公司面对严格执法的应急反应是收缩而非适配。
+    </div>
+  </div>
+</div>
+
+<!-- ===== TOP NEWS ===== -->
+<div class="section">
+  <div class="section-header">
+    <span class="badge badge-topnews">TOP</span>
+    <h2>Top News</h2>
+  </div>
+
+  <!-- TOP 1: Valve 三线梳理 (3月17日发布) -->
+  <div class="item">
+    <h3>Valve面临FBI调查+NY AG诉讼+集体诉讼三线夹击，GameRant发布系统性梳理
+      <span class="tc-tag tc-spillover">Tencent Spillover</span>
+    </h3>
+    <div class="meta">
+      <span class="region-tag region-us">美国</span>
+      <span class="topic-tag topic-consumer">消费者保护</span>
+      <span class="topic-tag topic-privacy">数据安全</span>
+      <span class="action-tag action-litigation">诉讼</span>
+    </div>
+    <div class="source">
+      来源：<a href="https://gamerant.com/valve-steam-lawsuit-loot-box-microtransaction-music-licenses/">GameRant (3月17日)</a> | <a href="https://www.msn.com/en-us/news/other/valve-faces-lawsuits-and-fbi-probe/gm-GMC822DF17">MSN News (3月17日)</a>
+    </div>
+    <div class="body">
+      GameRant于3月17日发布Valve当前所有法律问题的系统性梳理文章，将三条线索并列呈现：(1) <strong>NY AG诉讼</strong>——赌博定性，Valve已于3月11日公开抗辩（将loot box比拟宝可梦卡牌）；(2) <strong>联邦集体诉讼</strong>——3月9日由HBS&S律所在华盛顿西区联邦法院提起，指控Valve"运营非法赌博企业"；(3) <strong>FBI刑事调查</strong>——3月13日宣布的恶意软件游戏上架事件调查。三线并发使Valve成为2026年Q1全球游戏行业法律风险最集中的公司。
+    </div>
+    <div class="impact impact-warning">
+      <strong>行业影响：</strong>Valve的三线法律困境可能导致Steam平台政策收紧（上架审核、loot box机制、物品交易规则），间接影响所有Steam发行商。判例结果将定义美国法律下数字loot box的法律边界。
+    </div>
+    <div class="trend-signal">
+      &#x1F4CA; <strong>监管趋势信号：</strong>Valve三线诉讼 + 巴西FELCA禁loot box + PEGI 16+评级——全球loot box法律地位正从"灰色地带"被迫走向"明确定义"。
+    </div>
+  </div>
+
+  <!-- TOP 2: 音数协培训班 (3月16-17日) -->
+  <div class="item">
+    <h3>中国音数协「网络游戏管理标准培训班」杭州举办，覆盖内容审查+未成年人保护标准化</h3>
+    <div class="meta">
+      <span class="region-tag region-cn">中国</span>
+      <span class="topic-tag topic-license">版号/许可</span>
+      <span class="topic-tag topic-minors">未成年人保护</span>
+      <span class="action-tag action-trend">行业动态</span>
+    </div>
+    <div class="source">
+      来源：<a href="http://www.yokaverse.com/2026/03/youkawangluoshenduxietong2026nianhangzhouwangluoyouxiguanlibiaozhunpeixunbanchenggongjuban/">游卡网络 (3月17日报道)</a> | <a href="https://cicaf.hzxcw.gov.cn/content/content_49245.html">中国国际动漫节官网</a> | <a href="https://www.zjgia.org.cn/newsshow.aspx?artid=5145&classid=27">浙江省游戏行业协会</a>
+    </div>
+    <div class="body">
+      3月16日至17日，由<strong>中国音像与数字出版协会游戏出版工作委员会</strong>主办的"网络游戏管理标准培训班"在杭州高新区（滨江）举办。培训覆盖游戏内容审查标准、未成年人保护合规要求、数据安全规范等议题。此次培训背景是：八部门于1月23日联合印发的<strong>《可能影响未成年人身心健康的网络信息分类办法》已于3月1日正式施行</strong>，游戏行业需要快速理解新规的执行标准和分类细则。
+    </div>
+    <div class="impact impact-info">
+      <strong>关注点：</strong>此次培训班通常释放监管部门对近期执法方向和重点的信号。关注后续是否有新的合规标准文件发布或执法案例通报。
+    </div>
+  </div>
+</div>
+
+<!-- ===== NOTES ===== -->
+<div class="section">
+  <div class="section-header">
+    <span class="badge badge-notes">NOTE</span>
+    <h2>Notes</h2>
+  </div>
+  <ul class="notes-list">
+    <li><strong>覆盖窗口：</strong>本期严格覆盖 UTC 3月17日（00:00–23:59），即北京时间3月17日 08:00 至3月18日 08:00。</li>
+    <li><strong>时效性说明：</strong>以下事件的一手来源不在本期覆盖窗口内，仅在正文中作为背景引用，不作为独立条目：① Valve 3月11日公开回应NY AG诉讼；② FBI 3月13日宣布调查Steam恶意软件游戏；③ 苹果 3月13日宣布/3月15日生效的中国App Store降佣；④ 八部门《分类办法》（3月1日施行）。请参阅对应日期推送获取详情。</li>
+    <li><strong>中国监管动态：</strong>国家新闻出版署官网截至3月17日尚未发布3月版号数据。</li>
+    <li><strong>搜索覆盖盲区：</strong>① 韩国GRAC评级政策本日无新动态；② 中东游戏合规覆盖不足；③ 印度市场本日无新进展。</li>
+    <li><strong>后续关注：</strong>① 巴西FELCA执行首周的实际处罚案例；② Valve诉讼法院排期和初步裁定；③ COPPA 4月22日合规截止日（T-36天）；④ PEGI新规7月生效前的产品线评估。</li>
+  </ul>
+</div>
+
+</div><!-- end #day-0317 -->
+
+<!-- ===== Footer ===== -->
+<div class="footer">
+  <div class="disclaimer">
+    免责声明：以上内容为公开信息的自动化整理与摘要，不构成法律意见。如需针对具体业务场景的合规建议，请咨询专业法律顾问。
+  </div>
+  <p>Powered by Game Compliance Daily Brief v2.3 · Daily Edition · UTC Calendar Day</p>
+  <p>信息覆盖窗口：2026年3月17日（UTC 00:00 – 23:59）</p>
+  <p>生成时间：2026年3月20日</p>
+</div>
+
+</div><!-- end .container -->
+
+<!-- ===== JavaScript: Alert Hub 动态收集引擎 ===== -->
+<script>
+function buildAlertHub() {
+  var container = document.getElementById('alert-hub-cards');
+  var countBadge = document.getElementById('alert-count');
+  if (!container || !countBadge) return;
+
+  container.innerHTML = '';
+
+  var cards = document.querySelectorAll('.alert-card');
+  var alerts = [];
+
+  cards.forEach(function(card) {
+    var levelBadge = card.querySelector('.risk-badge');
+    if (!levelBadge) return;
+    var levelText = levelBadge.textContent.trim();
+    var level = levelText.toLowerCase();
+
+    var h3 = card.querySelector('h3');
+    if (!h3) return;
+    var title = '';
+    h3.childNodes.forEach(function(node) {
+      if (node.nodeType === 3) title += node.textContent;
+    });
+    title = title.trim();
+    if (!title) {
+      title = h3.textContent.replace(/P[012]/, '').replace(/Tencent\s*(Direct|Ecosystem|Spillover)/, '').trim();
+    }
+
+    var bodyEl = card.querySelector('.alert-body');
+    var summary = '';
+    if (bodyEl) {
+      summary = bodyEl.textContent.trim();
+      if (summary.length > 120) summary = summary.substring(0, 120) + '…';
+    }
+
+    var weight = level === 'p0' ? 0 : (level === 'p1' ? 1 : 2);
+
+    alerts.push({
+      level: level,
+      levelText: levelText,
+      weight: weight,
+      title: title,
+      summary: summary,
+      dateText: '3月17日',
+      dayId: 'day-0317'
+    });
+  });
+
+  alerts.sort(function(a, b) { return a.weight - b.weight; });
+
+  countBadge.textContent = alerts.length + ' 条Alert';
+
+  alerts.forEach(function(a) {
+    var div = document.createElement('div');
+    div.className = 'alert-mini alert-mini-' + a.level;
+    var link = a.dayId ? ('<a class="mini-link" href="#' + a.dayId + '">查看详情 →</a>') : '';
+    div.innerHTML =
+      '<div class="mini-date">' + a.dateText + '</div>' +
+      '<div class="mini-content">' +
+        '<h4><span class="risk-badge risk-' + a.level + '">' + a.levelText + '</span> ' + a.title + '</h4>' +
+        '<p>' + a.summary + '</p>' +
+        link +
+      '</div>';
+    container.appendChild(div);
+  });
+
+  if (alerts.length === 0) {
+    countBadge.textContent = '0 条Alert';
+    container.innerHTML = '<div style="padding:14px;text-align:center;color:var(--text-secondary);font-size:14px;font-style:italic;">当前无 Alert 级别事件。</div>';
+  }
+}
+
+document.addEventListener('DOMContentLoaded', buildAlertHub);
+</script>
+</body>
+</html>
