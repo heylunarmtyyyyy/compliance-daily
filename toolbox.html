@@ -1,0 +1,1027 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>GCC 合规周报工具箱 — 在线版</title>
+<script src="https://cdn.sheetjs.com/xlsx-0.20.3/package/dist/xlsx.full.min.js"></script>
+<style>
+  :root {
+    --primary: #4338ca;
+    --primary-light: #eef2ff;
+    --primary-hover: #3730a3;
+    --success: #059669;
+    --success-light: #ecfdf5;
+    --warning: #d97706;
+    --warning-light: #fffbeb;
+    --danger: #dc2626;
+    --danger-light: #fef2f2;
+    --bg: #f1f5f9;
+    --card: #ffffff;
+    --text: #1e293b;
+    --text-secondary: #64748b;
+    --border: #e2e8f0;
+    --border-light: #f1f5f9;
+  }
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body {
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'PingFang SC', 'Microsoft YaHei', sans-serif;
+    background: var(--bg); color: var(--text); line-height: 1.6;
+  }
+
+  /* Top Bar */
+  .topbar {
+    background: linear-gradient(135deg, #4338ca 0%, #3730a3 50%, #312e81 100%);
+    color: white; padding: 18px 32px;
+    display: flex; align-items: center; gap: 16px;
+    box-shadow: 0 2px 12px rgba(67, 56, 202, 0.3);
+    position: sticky; top: 0; z-index: 100;
+  }
+  .topbar h1 { font-size: 20px; font-weight: 700; }
+  .topbar .subtitle { font-size: 13px; opacity: 0.8; margin-left: auto; }
+  .topbar .online-badge {
+    background: #10b981; color: white; padding: 3px 10px; border-radius: 12px;
+    font-size: 11px; font-weight: 700; letter-spacing: 0.5px;
+  }
+
+  /* Layout */
+  .main { max-width: 1100px; margin: 0 auto; padding: 24px; }
+
+  /* Tabs */
+  .tabs {
+    display: flex; gap: 4px; margin-bottom: 24px;
+    background: var(--card); padding: 6px; border-radius: 14px;
+    box-shadow: 0 1px 4px rgba(0,0,0,0.06);
+  }
+  .tab {
+    flex: 1; padding: 14px 20px; text-align: center; border-radius: 10px;
+    cursor: pointer; font-weight: 600; font-size: 15px;
+    transition: all 0.2s; color: var(--text-secondary);
+    display: flex; align-items: center; justify-content: center; gap: 8px;
+  }
+  .tab:hover { background: var(--border-light); color: var(--text); }
+  .tab.active { background: var(--primary); color: white; box-shadow: 0 2px 8px rgba(67,56,202,0.3); }
+
+  /* Panels */
+  .panel { display: none; }
+  .panel.active { display: block; }
+
+  /* Card */
+  .card {
+    background: var(--card); border-radius: 14px; padding: 28px;
+    margin-bottom: 20px; box-shadow: 0 1px 4px rgba(0,0,0,0.06);
+    border: 1px solid var(--border);
+  }
+  .card-header {
+    display: flex; align-items: center; gap: 10px;
+    margin-bottom: 20px; padding-bottom: 14px;
+    border-bottom: 2px solid var(--border-light);
+  }
+  .card-header .step-badge {
+    width: 32px; height: 32px; border-radius: 50%;
+    background: var(--primary); color: white;
+    display: flex; align-items: center; justify-content: center;
+    font-weight: 700; font-size: 14px; flex-shrink: 0;
+  }
+  .card-header .step-badge.done { background: var(--success); }
+  .card-header h3 { font-size: 17px; font-weight: 600; }
+  .card-header .step-desc { font-size: 13px; color: var(--text-secondary); margin-left: auto; }
+
+  /* Form */
+  .form-group { margin-bottom: 18px; }
+  .form-group label { display: block; font-weight: 600; font-size: 14px; margin-bottom: 6px; }
+  .form-group .hint { font-size: 12px; color: var(--text-secondary); margin-top: 4px; }
+  input[type="text"], input[type="url"], textarea, select {
+    width: 100%; padding: 10px 14px;
+    border: 1.5px solid var(--border); border-radius: 8px;
+    font-size: 14px; font-family: inherit;
+    transition: border-color 0.2s; color: var(--text); background: white;
+  }
+  select { cursor: pointer; }
+  input:focus, textarea:focus, select:focus { outline: none; border-color: var(--primary); box-shadow: 0 0 0 3px rgba(67,56,202,0.1); }
+  textarea { resize: vertical; min-height: 120px; }
+
+  .form-row { display: flex; gap: 16px; align-items: flex-end; }
+  .form-row .form-group { flex: 1; margin-bottom: 0; }
+
+  /* Buttons */
+  .btn {
+    display: inline-flex; align-items: center; gap: 8px;
+    padding: 10px 20px; border: none; border-radius: 8px;
+    font-size: 14px; font-weight: 600; cursor: pointer;
+    transition: all 0.2s; font-family: inherit;
+  }
+  .btn:disabled { opacity: 0.5; cursor: not-allowed; }
+  .btn-primary { background: var(--primary); color: white; }
+  .btn-primary:hover:not(:disabled) { background: var(--primary-hover); box-shadow: 0 2px 8px rgba(67,56,202,0.3); }
+  .btn-success { background: var(--success); color: white; }
+  .btn-success:hover:not(:disabled) { background: #047857; }
+  .btn-outline { background: white; color: var(--primary); border: 1.5px solid var(--primary); }
+  .btn-outline:hover:not(:disabled) { background: var(--primary-light); }
+  .btn-danger { background: var(--danger); color: white; }
+  .btn-ghost { background: transparent; color: var(--text-secondary); padding: 8px 12px; }
+  .btn-ghost:hover { background: var(--border-light); color: var(--text); }
+  .btn-group { display: flex; gap: 10px; flex-wrap: wrap; }
+  .btn-lg { padding: 14px 28px; font-size: 16px; border-radius: 10px; }
+
+  /* Upload */
+  .upload-zone {
+    border: 2px dashed var(--border); border-radius: 12px; padding: 40px;
+    text-align: center; cursor: pointer; transition: all 0.2s; background: var(--border-light);
+  }
+  .upload-zone:hover, .upload-zone.dragover { border-color: var(--primary); background: var(--primary-light); }
+  .upload-zone .upload-icon { font-size: 48px; margin-bottom: 12px; }
+  .upload-zone .upload-text { font-size: 15px; color: var(--text-secondary); font-weight: 500; }
+  .upload-zone .upload-hint { font-size: 12px; color: var(--text-secondary); margin-top: 6px; }
+  .upload-zone input[type="file"] { display: none; }
+
+  /* News DnD */
+  .news-dnd-container { display: flex; flex-direction: column; gap: 16px; }
+  .news-dnd-section {
+    border: 1.5px solid var(--border); border-radius: 10px; overflow: hidden;
+    transition: border-color 0.2s;
+  }
+  .news-dnd-section.drag-over { border-color: var(--primary); box-shadow: 0 0 0 3px rgba(67,56,202,0.12); }
+  .news-dnd-section-header {
+    padding: 10px 16px; font-weight: 700; font-size: 13px; color: var(--primary);
+    background: var(--primary-light); display: flex; align-items: center; gap: 8px; user-select: none;
+  }
+  .news-dnd-section-header .section-count {
+    background: var(--primary); color: white; border-radius: 10px;
+    padding: 1px 8px; font-size: 11px; font-weight: 700; margin-left: 4px;
+  }
+  .news-dnd-section-body { min-height: 40px; padding: 6px; }
+  .news-dnd-section-body.empty-hint::after {
+    content: '拖拽新闻到此板块'; display: block;
+    text-align: center; padding: 12px; color: #b0b8c4; font-size: 13px;
+  }
+  .news-dnd-item {
+    display: flex; align-items: center; gap: 10px;
+    padding: 10px 14px; margin: 4px 0; border-radius: 8px;
+    background: white; border: 1px solid var(--border-light);
+    cursor: grab; transition: all 0.15s; font-size: 14px; user-select: none;
+  }
+  .news-dnd-item:active { cursor: grabbing; }
+  .news-dnd-item:hover { background: #fafbfe; border-color: var(--border); }
+  .news-dnd-item.dragging { opacity: 0.4; border-style: dashed; }
+  .news-dnd-item .drag-handle { color: #c0c8d4; font-size: 16px; flex-shrink: 0; cursor: grab; }
+  .news-dnd-item .news-title { flex: 1; font-weight: 500; }
+  .news-dnd-item .news-date { font-size: 12px; color: var(--text-secondary); white-space: nowrap; }
+  .news-dnd-item .news-source-link { font-size: 12px; color: var(--primary); text-decoration: none; white-space: nowrap; }
+
+  /* Push preview (dark) */
+  .push-preview {
+    background: #1a1a2e; color: #e0e0e0; border-radius: 12px; padding: 24px;
+    font-family: 'SF Mono', 'Menlo', 'Consolas', monospace;
+    font-size: 13px; line-height: 1.8; white-space: pre-wrap; word-break: break-all;
+    max-height: 500px; overflow-y: auto;
+  }
+
+  /* Status bar */
+  .status-bar {
+    display: flex; align-items: center; gap: 8px;
+    padding: 10px 16px; border-radius: 8px; font-size: 13px; margin-bottom: 16px;
+  }
+  .status-info { background: #eff6ff; color: #1d4ed8; }
+  .status-success { background: var(--success-light); color: var(--success); }
+  .status-warning { background: var(--warning-light); color: var(--warning); }
+  .status-error { background: var(--danger-light); color: var(--danger); }
+
+  /* Byte counter */
+  .byte-counter {
+    display: flex; align-items: center; gap: 12px;
+    padding: 10px 16px; background: var(--border-light);
+    border-radius: 8px; font-size: 13px; margin-top: 12px;
+  }
+  .byte-counter .count { font-weight: 700; }
+  .byte-counter .limit { color: var(--text-secondary); }
+  .byte-bar { flex: 1; height: 6px; background: #e2e8f0; border-radius: 3px; overflow: hidden; }
+  .byte-bar-fill { height: 100%; border-radius: 3px; transition: width 0.3s; }
+
+  /* MD editor */
+  .md-editor {
+    width: 100%; min-height: 500px; padding: 16px;
+    border: 1.5px solid var(--border); border-radius: 10px;
+    font-family: 'SF Mono', 'Menlo', 'Consolas', 'Microsoft YaHei', monospace;
+    font-size: 13px; line-height: 1.7; resize: vertical; color: var(--text);
+  }
+  .md-editor:focus { outline: none; border-color: var(--primary); box-shadow: 0 0 0 3px rgba(67,56,202,0.1); }
+
+  /* Loading / Empty */
+  .loading { text-align: center; padding: 40px; color: var(--text-secondary); }
+  .spinner { width: 36px; height: 36px; border: 3px solid var(--border); border-top-color: var(--primary); border-radius: 50%; animation: spin 0.8s linear infinite; margin: 0 auto 12px; }
+  @keyframes spin { to { transform: rotate(360deg); } }
+  .empty-state { text-align: center; padding: 48px 24px; color: var(--text-secondary); }
+  .empty-state .empty-icon { font-size: 56px; margin-bottom: 12px; }
+  .empty-state h4 { font-size: 16px; color: var(--text); margin-bottom: 6px; }
+
+  /* Toast */
+  .toast-container { position: fixed; top: 80px; right: 24px; z-index: 999; display: flex; flex-direction: column; gap: 8px; }
+  .toast { padding: 12px 20px; border-radius: 10px; font-size: 14px; font-weight: 500; box-shadow: 0 4px 16px rgba(0,0,0,0.12); animation: slideIn 0.3s ease-out; max-width: 400px; }
+  .toast-success { background: #059669; color: white; }
+  .toast-error { background: #dc2626; color: white; }
+  .toast-info { background: #4338ca; color: white; }
+  @keyframes slideIn { from { transform: translateX(100%); opacity: 0; } to { transform: translateX(0); opacity: 1; } }
+
+  /* Report archive list */
+  .archive-list { display: flex; flex-direction: column; gap: 8px; }
+  .archive-item {
+    display: flex; align-items: center; gap: 12px;
+    padding: 12px 16px; border: 1.5px solid var(--border);
+    border-radius: 10px; transition: all 0.2s; text-decoration: none; color: var(--text);
+  }
+  .archive-item:hover { border-color: var(--primary); background: var(--primary-light); }
+  .ext-badge { padding: 3px 10px; border-radius: 6px; font-size: 11px; font-weight: 700; text-transform: uppercase; }
+  .ext-html { background: #dbeafe; color: #1d4ed8; }
+  .ext-md { background: #f0fdf4; color: #16a34a; }
+
+  /* HTML preview iframe */
+  .preview-frame {
+    width: 100%; height: 600px; border: 1.5px solid var(--border);
+    border-radius: 10px; background: white;
+  }
+
+  /* Responsive */
+  @media (max-width: 640px) {
+    .main { padding: 12px; }
+    .card { padding: 18px; }
+    .tabs { flex-direction: column; }
+    .form-row { flex-direction: column; }
+  }
+</style>
+</head>
+<body>
+
+<!-- Top Bar -->
+<div class="topbar">
+  <span style="font-size:24px">&#x1F6E0;&#xFE0F;</span>
+  <h1>GCC 合规周报工具箱</h1>
+  <span class="online-badge">ONLINE</span>
+  <span class="subtitle">Game Compliance Center &middot; Weekly Report Toolbox v2.0</span>
+</div>
+
+<!-- Main -->
+<div class="main">
+
+  <!-- Tab Navigation -->
+  <div class="tabs">
+    <div class="tab active" onclick="switchTab('report')" id="tab-report">
+      <span class="icon">&#x1F4CA;</span> 周报分析
+    </div>
+    <div class="tab" onclick="switchTab('push')" id="tab-push">
+      <span class="icon">&#x1F4E4;</span> 群聊推送
+    </div>
+    <div class="tab" onclick="switchTab('archive')" id="tab-archive">
+      <span class="icon">&#x1F4DA;</span> 历史报告
+    </div>
+  </div>
+
+  <!-- ===================== 功能①: 周报分析 ===================== -->
+  <div class="panel active" id="panel-report">
+
+    <!-- Step 1: 上传 Excel -->
+    <div class="card">
+      <div class="card-header">
+        <div class="step-badge" id="badge-r1">1</div>
+        <h3>上传新闻清单 (Excel)</h3>
+        <span class="step-desc">浏览器本地解析，数据不上传服务器</span>
+      </div>
+      <div class="upload-zone" id="upload-zone" onclick="document.getElementById('file-input').click()">
+        <div class="upload-icon">&#x1F4C2;</div>
+        <div class="upload-text">点击或拖拽上传 Excel 文件</div>
+        <div class="upload-hint">支持 .xlsx / .xls / .csv 格式 &middot; 纯前端解析，数据安全</div>
+        <input type="file" id="file-input" accept=".xlsx,.xls,.csv" onchange="handleFileUpload(this)">
+      </div>
+      <div id="upload-result" style="display:none; margin-top:16px;"></div>
+    </div>
+
+    <!-- Step 2: 生成周报 -->
+    <div class="card" id="card-generate" style="display:none;">
+      <div class="card-header">
+        <div class="step-badge" id="badge-r2">2</div>
+        <h3>生成周报</h3>
+        <span class="step-desc">选择时间范围，生成 Markdown 周报</span>
+      </div>
+      <div class="form-row" style="margin-bottom:20px;">
+        <div class="form-group">
+          <label>周报起始日期</label>
+          <input type="text" id="date-start" placeholder="例: 2026.3.13">
+        </div>
+        <div class="form-group">
+          <label>周报结束日期</label>
+          <input type="text" id="date-end" placeholder="例: 2026.3.19">
+        </div>
+      </div>
+      <div class="btn-group">
+        <button class="btn btn-primary btn-lg" onclick="generateReport()" id="btn-generate">
+          &#x26A1; 生成周报
+        </button>
+      </div>
+      <div id="generate-result" style="display:none; margin-top:16px;"></div>
+    </div>
+
+    <!-- Step 3: 编辑 & 预览 -->
+    <div class="card" id="card-edit" style="display:none;">
+      <div class="card-header">
+        <div class="step-badge" id="badge-r3">3</div>
+        <h3>编辑 &amp; 预览周报</h3>
+        <span class="step-desc">编辑 Markdown，实时预览 HTML</span>
+      </div>
+      <div id="edit-status" style="margin-bottom:12px;"></div>
+      <div class="form-group">
+        <textarea class="md-editor" id="md-editor" placeholder="周报内容将在此显示..."></textarea>
+      </div>
+      <div class="btn-group">
+        <button class="btn btn-primary" onclick="previewHTML()">&#x1F441;&#xFE0F; 预览 HTML</button>
+        <button class="btn btn-outline" onclick="downloadMD()">&#x1F4BE; 下载 MD</button>
+        <button class="btn btn-outline" onclick="downloadHTML()">&#x1F310; 下载 HTML</button>
+      </div>
+      <div id="preview-container" style="display:none; margin-top:20px;">
+        <iframe class="preview-frame" id="preview-frame"></iframe>
+      </div>
+    </div>
+  </div>
+
+  <!-- ===================== 功能②: 群聊推送 ===================== -->
+  <div class="panel" id="panel-push">
+
+    <div class="card">
+      <div class="card-header">
+        <div class="step-badge" id="badge-p1">1</div>
+        <h3>导入周报内容</h3>
+        <span class="step-desc">粘贴或上传 Markdown 周报内容</span>
+      </div>
+      <div class="form-group">
+        <label>周报 Markdown 内容</label>
+        <textarea class="md-editor" id="push-md-input" style="min-height:200px;" placeholder="粘贴周报 Markdown 内容到此处...&#10;&#10;或先在「周报分析」标签中生成周报，内容会自动同步到这里。"></textarea>
+      </div>
+      <div class="btn-group">
+        <button class="btn btn-primary" onclick="buildPushPreview()">&#x1F50D; 生成推送预览</button>
+        <button class="btn btn-outline" onclick="syncFromEditor()">&#x1F504; 从编辑器同步</button>
+      </div>
+    </div>
+
+    <div class="card" id="card-push-preview" style="display:none;">
+      <div class="card-header">
+        <div class="step-badge" id="badge-p2">2</div>
+        <h3>推送内容预览</h3>
+        <span class="step-desc">确认推送格式</span>
+      </div>
+      <div id="push-news-table" style="margin-bottom:16px;"></div>
+      <div class="push-preview" id="push-preview-content"></div>
+      <div class="byte-counter" id="byte-counter" style="display:none;">
+        <span>&#x1F4CF; 消息大小：</span>
+        <span class="count" id="byte-count">0</span>
+        <span class="limit">/ 4096 字节</span>
+        <div class="byte-bar">
+          <div class="byte-bar-fill" id="byte-bar-fill" style="width:0%; background: var(--success);"></div>
+        </div>
+      </div>
+    </div>
+
+    <div class="card" id="card-push-config" style="display:none;">
+      <div class="card-header">
+        <div class="step-badge" id="badge-p3">3</div>
+        <h3>配置并推送</h3>
+        <span class="step-desc">输入 Webhook URL，一键推送到企微群</span>
+      </div>
+      <div class="form-group">
+        <label>企微 Webhook URL *</label>
+        <input type="url" id="webhook-url" placeholder="https://qyapi.weixin.qq.com/cgi-bin/webhook/send?key=...">
+        <div class="hint">从企微群 &#x2192; 群机器人 &#x2192; 添加/管理机器人处获取</div>
+      </div>
+      <div class="form-group">
+        <label>KM 深度分析链接（可选）</label>
+        <input type="url" id="km-url" placeholder="https://km.woa.com/vkm/articles/preview/...">
+        <div class="hint">附在推送底部，引导群友查看完整分析</div>
+      </div>
+      <div class="btn-group" style="margin-top:20px;">
+        <button class="btn btn-success btn-lg" onclick="sendPush()" id="btn-send-push">
+          &#x1F680; 一键推送到企微群
+        </button>
+      </div>
+      <div id="push-result" style="display:none; margin-top:16px;"></div>
+    </div>
+  </div>
+
+  <!-- ===================== 功能③: 历史报告 ===================== -->
+  <div class="panel" id="panel-archive">
+    <div class="card">
+      <div class="card-header">
+        <div class="step-badge">&#x1F4DA;</div>
+        <h3>历史合规日报</h3>
+        <span class="step-desc">已发布到 GitHub Pages 的合规日报</span>
+      </div>
+      <div id="archive-list">
+        <div class="loading"><div class="spinner"></div>加载历史报告...</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Toast Container -->
+<div class="toast-container" id="toast-container"></div>
+
+<script>
+// ─── Config ───
+const GITHUB_USER = 'heylunarmtyyyyy';
+const GITHUB_REPO = 'compliance-daily';
+const GITHUB_PAGES_BASE = `https://${GITHUB_USER}.github.io/${GITHUB_REPO}`;
+const GITHUB_API_BASE = `https://api.github.com/repos/${GITHUB_USER}/${GITHUB_REPO}`;
+
+// ─── Global State ───
+let uploadedNewsItems = [];
+let currentMdContent = '';
+let _dragItem = null;
+
+// ─── Section Config ───
+const DND_SECTIONS = ['游戏行业关注', '中国企业出海', '科技行业关注', '未分类'];
+const DND_ICONS = { '游戏行业关注': '&#x1F3AE;', '中国企业出海': '&#x1F30F;', '科技行业关注': '&#x1F4BB;', '未分类': '&#x1F4C2;' };
+
+// ─── Column name matching keywords ───
+const COL_TITLE_KEYS = ['标题', 'title', '新闻标题', '新闻', 'headline', 'news'];
+const COL_DATE_KEYS = ['日期', 'date', '时间', 'time', '发布日期'];
+const COL_SOURCE_KEYS = ['来源', 'source', '链接', 'link', 'url', '原文链接', '信源'];
+const COL_SECTION_KEYS = ['分类', 'section', '板块', 'category', '类别', '类型'];
+
+// ─── Tab ───
+function switchTab(tab) {
+  document.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
+  document.querySelectorAll('.panel').forEach(p => p.classList.remove('active'));
+  document.getElementById('tab-' + tab).classList.add('active');
+  document.getElementById('panel-' + tab).classList.add('active');
+  if (tab === 'archive') loadArchiveList();
+}
+
+// ─── Toast ───
+function toast(message, type = 'info') {
+  const container = document.getElementById('toast-container');
+  const div = document.createElement('div');
+  div.className = 'toast toast-' + type;
+  div.textContent = message;
+  container.appendChild(div);
+  setTimeout(() => div.remove(), 4000);
+}
+
+// ─── Upload Zone ───
+const uploadZone = document.getElementById('upload-zone');
+uploadZone.addEventListener('dragover', e => { e.preventDefault(); uploadZone.classList.add('dragover'); });
+uploadZone.addEventListener('dragleave', () => uploadZone.classList.remove('dragover'));
+uploadZone.addEventListener('drop', e => {
+  e.preventDefault(); uploadZone.classList.remove('dragover');
+  if (e.dataTransfer.files.length) handleFileUploadFromFile(e.dataTransfer.files[0]);
+});
+
+function handleFileUpload(input) {
+  if (input.files.length) handleFileUploadFromFile(input.files[0]);
+}
+
+// ─── Excel Parsing (SheetJS, pure frontend) ───
+function _matchCol(header, keywords) {
+  const h = (header || '').toString().trim().toLowerCase();
+  return keywords.some(k => h.includes(k.toLowerCase()));
+}
+
+function _guessSection(title) {
+  const t = (title || '').toLowerCase();
+  const gameKeywords = ['游戏', 'game', 'gaming', 'loot box', 'gacha', 'esrb', 'pegi', 'steam', 'playstation', 'xbox', 'nintendo', 'epic', 'ea', 'ubisoft', 'activision'];
+  const chinaKeywords = ['中国', 'china', 'chinese', '出海', '腾讯', 'tencent', '网易', 'netease', 'mihoyo', 'bytedance', '字节', '米哈游', 'tiktok', '小红书'];
+  const techKeywords = ['ai', 'gdpr', '隐私', 'privacy', '数据', 'data', 'apple', 'google', 'meta', 'microsoft', 'amazon', '芯片', 'chip', '反垄断', 'antitrust'];
+
+  if (gameKeywords.some(k => t.includes(k))) return '游戏行业关注';
+  if (chinaKeywords.some(k => t.includes(k))) return '中国企业出海';
+  if (techKeywords.some(k => t.includes(k))) return '科技行业关注';
+  return '未分类';
+}
+
+async function handleFileUploadFromFile(file) {
+  const resultDiv = document.getElementById('upload-result');
+  resultDiv.style.display = 'block';
+  resultDiv.innerHTML = '<div class="status-bar status-info">&#x1F4C4; 正在解析 ' + file.name + '...</div>';
+
+  try {
+    const data = await file.arrayBuffer();
+    const workbook = XLSX.read(data, { type: 'array' });
+    const sheetName = workbook.SheetNames[0];
+    const sheet = workbook.Sheets[sheetName];
+    const rows = XLSX.utils.sheet_to_json(sheet, { defval: '' });
+
+    if (rows.length === 0) {
+      resultDiv.innerHTML = '<div class="status-bar status-error">&#x274C; Excel 为空或格式不正确</div>';
+      return;
+    }
+
+    // Auto-detect columns
+    const headers = Object.keys(rows[0]);
+    const titleCol = headers.find(h => _matchCol(h, COL_TITLE_KEYS)) || headers[0];
+    const dateCol = headers.find(h => _matchCol(h, COL_DATE_KEYS));
+    const sourceCol = headers.find(h => _matchCol(h, COL_SOURCE_KEYS));
+    const sectionCol = headers.find(h => _matchCol(h, COL_SECTION_KEYS));
+
+    uploadedNewsItems = rows.map((row, idx) => {
+      const title = (row[titleCol] || '').toString().trim();
+      if (!title) return null;
+
+      let section = sectionCol ? (row[sectionCol] || '').toString().trim() : '';
+      if (!section) section = _guessSection(title);
+
+      return {
+        _idx: idx,
+        title: title,
+        date: dateCol ? (row[dateCol] || '').toString().trim() : '',
+        source: sourceCol ? (row[sourceCol] || '').toString().trim() : '',
+        section: section,
+      };
+    }).filter(Boolean);
+
+    document.getElementById('badge-r1').classList.add('done');
+    _renderDndNews(uploadedNewsItems, resultDiv, uploadedNewsItems.length);
+    document.getElementById('card-generate').style.display = 'block';
+    _autoFillDates(uploadedNewsItems);
+    toast('Excel 解析成功！共 ' + uploadedNewsItems.length + ' 条新闻', 'success');
+
+  } catch (e) {
+    resultDiv.innerHTML = '<div class="status-bar status-error">&#x274C; 解析失败: ' + e.message + '</div>';
+    toast('解析失败: ' + e.message, 'error');
+  }
+}
+
+// ─── Drag & Drop News Categorization ───
+function _renderDndNews(items, container, totalCount) {
+  const groups = {};
+  DND_SECTIONS.forEach(s => groups[s] = []);
+  items.forEach(item => {
+    const sec = item.section || '未分类';
+    if (!groups[sec]) groups[sec] = [];
+    groups[sec].push(item);
+  });
+
+  let html = '<div class="status-bar status-success">&#x2705; 成功解析 ' + totalCount + ' 条新闻 — <span style="font-size:12px;color:var(--text-secondary);">拖拽新闻条目可调整分类</span></div>';
+  html += '<div class="news-dnd-container">';
+
+  for (const secName of DND_SECTIONS) {
+    const secItems = groups[secName] || [];
+    if (secName === '未分类' && secItems.length === 0) continue;
+    html += '<div class="news-dnd-section" data-section="' + secName + '">';
+    html += '<div class="news-dnd-section-header">' + (DND_ICONS[secName] || '') + ' ' + secName + ' <span class="section-count">' + secItems.length + '</span></div>';
+    html += '<div class="news-dnd-section-body' + (secItems.length === 0 ? ' empty-hint' : '') + '">';
+    for (const item of secItems) {
+      html += _renderDndItem(item);
+    }
+    html += '</div></div>';
+  }
+  html += '</div>';
+  container.innerHTML = html;
+  _bindDndEvents();
+}
+
+function _renderDndItem(item) {
+  const source = item.source
+    ? '<a class="news-source-link" href="' + item.source + '" target="_blank" onclick="event.stopPropagation()">&#x1F517; 链接</a>'
+    : '';
+  return '<div class="news-dnd-item" draggable="true" data-idx="' + item._idx + '">'
+    + '<span class="drag-handle">&#x2630;</span>'
+    + '<span class="news-title">' + (item.title || '-') + '</span>'
+    + '<span class="news-date">' + (item.date || '') + '</span>'
+    + source + '</div>';
+}
+
+function _bindDndEvents() {
+  document.querySelectorAll('.news-dnd-item').forEach(el => {
+    el.addEventListener('dragstart', e => {
+      _dragItem = el;
+      el.classList.add('dragging');
+      e.dataTransfer.effectAllowed = 'move';
+      e.dataTransfer.setData('text/plain', el.dataset.idx);
+    });
+    el.addEventListener('dragend', () => {
+      if (_dragItem) _dragItem.classList.remove('dragging');
+      _dragItem = null;
+      document.querySelectorAll('.news-dnd-section').forEach(s => s.classList.remove('drag-over'));
+    });
+  });
+
+  document.querySelectorAll('.news-dnd-section').forEach(sec => {
+    const body = sec.querySelector('.news-dnd-section-body');
+    sec.addEventListener('dragover', e => {
+      e.preventDefault(); e.dataTransfer.dropEffect = 'move'; sec.classList.add('drag-over');
+    });
+    sec.addEventListener('dragleave', e => {
+      if (!sec.contains(e.relatedTarget)) sec.classList.remove('drag-over');
+    });
+    sec.addEventListener('drop', e => {
+      e.preventDefault(); sec.classList.remove('drag-over');
+      if (!_dragItem) return;
+      const idx = parseInt(_dragItem.dataset.idx);
+      const newSection = sec.dataset.section;
+      body.appendChild(_dragItem);
+      body.classList.remove('empty-hint');
+      const item = uploadedNewsItems.find(it => it._idx === idx);
+      if (item) item.section = newSection === '未分类' ? '' : newSection;
+      _updateDndCounts();
+      _dragItem.classList.remove('dragging');
+      _dragItem = null;
+    });
+  });
+}
+
+function _updateDndCounts() {
+  document.querySelectorAll('.news-dnd-section').forEach(sec => {
+    const body = sec.querySelector('.news-dnd-section-body');
+    const count = body.querySelectorAll('.news-dnd-item').length;
+    const badge = sec.querySelector('.section-count');
+    if (badge) badge.textContent = count;
+    if (count === 0) body.classList.add('empty-hint');
+    else body.classList.remove('empty-hint');
+  });
+}
+
+function _autoFillDates(items) {
+  const dates = items.map(it => it.date).filter(Boolean).map(d => {
+    const m = d.match(/(\d{4})\D+(\d{1,2})\D+(\d{1,2})/);
+    return m ? new Date(+m[1], +m[2]-1, +m[3]) : null;
+  }).filter(Boolean);
+
+  if (dates.length > 0) {
+    dates.sort((a,b) => a-b);
+    const earliest = dates[0];
+    const mon = new Date(earliest);
+    mon.setDate(mon.getDate() - (mon.getDay() || 7) + 1);
+    const sun = new Date(mon);
+    sun.setDate(sun.getDate() + 6);
+    document.getElementById('date-start').value = _fmtDate(mon);
+    document.getElementById('date-end').value = _fmtDate(sun);
+  } else {
+    const now = new Date();
+    const mon = new Date(now);
+    mon.setDate(mon.getDate() - (mon.getDay() || 7) + 1);
+    const sun = new Date(mon);
+    sun.setDate(sun.getDate() + 6);
+    document.getElementById('date-start').value = _fmtDate(mon);
+    document.getElementById('date-end').value = _fmtDate(sun);
+  }
+}
+
+function _fmtDate(d) {
+  return d.getFullYear() + '.' + (d.getMonth()+1) + '.' + d.getDate();
+}
+
+// ─── Generate Report (Frontend) ───
+function generateReport() {
+  const startDate = document.getElementById('date-start').value.trim();
+  const endDate = document.getElementById('date-end').value.trim();
+  if (!startDate || !endDate) { toast('请填写起始和结束日期', 'error'); return; }
+  if (uploadedNewsItems.length === 0) { toast('请先上传 Excel', 'error'); return; }
+
+  const dateRange = startDate + ' - ' + endDate;
+
+  // Group news by section
+  const groups = {};
+  DND_SECTIONS.filter(s => s !== '未分类').forEach(s => groups[s] = []);
+  uploadedNewsItems.forEach(item => {
+    const sec = item.section || '未分类';
+    if (sec === '未分类') {
+      // Put into first section as fallback
+      const firstSec = DND_SECTIONS[0];
+      if (!groups[firstSec]) groups[firstSec] = [];
+      groups[firstSec].push(item);
+    } else {
+      if (!groups[sec]) groups[sec] = [];
+      groups[sec].push(item);
+    }
+  });
+
+  // Build Markdown
+  let md = `# 鹅YOU合规官新闻播报\n\n`;
+  md += `> **周报周期**: ${dateRange}\n\n`;
+  md += `---\n\n`;
+
+  const sectionEmojis = { '游戏行业关注': '🎮', '中国企业出海': '🌏', '科技行业关注': '💻' };
+
+  for (const [secName, items] of Object.entries(groups)) {
+    if (items.length === 0) continue;
+    const emoji = sectionEmojis[secName] || '📋';
+    md += `## ${emoji} ${secName}\n\n`;
+
+    items.forEach((item, i) => {
+      md += `### ${i + 1}. ${item.title}\n\n`;
+      if (item.date) md += `- **日期**: ${item.date}\n`;
+      if (item.source) md += `- **来源**: [原文链接](${item.source})\n`;
+      md += `- **摘要**: [待补充分析内容]\n\n`;
+    });
+  }
+
+  md += `---\n\n`;
+  md += `> 本周报由 GCC 合规周报工具箱生成 | ${new Date().toLocaleDateString('zh-CN')}\n`;
+
+  currentMdContent = md;
+  document.getElementById('badge-r2').classList.add('done');
+
+  const resultDiv = document.getElementById('generate-result');
+  resultDiv.style.display = 'block';
+  resultDiv.innerHTML = '<div class="status-bar status-success">&#x2705; 周报框架已生成！共 ' + uploadedNewsItems.length + ' 条新闻</div>';
+
+  // Show editor
+  document.getElementById('card-edit').style.display = 'block';
+  document.getElementById('md-editor').value = md;
+  document.getElementById('edit-status').innerHTML =
+    '<div class="status-bar status-info">&#x1F4DD; 周报 ' + dateRange + ' — 可直接编辑内容</div>';
+  document.getElementById('badge-r3').classList.add('done');
+
+  toast('周报框架生成成功！可在编辑器中完善内容', 'success');
+  document.getElementById('card-edit').scrollIntoView({ behavior: 'smooth' });
+}
+
+// ─── Preview & Download ───
+function previewHTML() {
+  const md = document.getElementById('md-editor').value;
+  if (!md.trim()) { toast('编辑器为空', 'error'); return; }
+
+  const html = _mdToHtml(md);
+  const container = document.getElementById('preview-container');
+  container.style.display = 'block';
+
+  const frame = document.getElementById('preview-frame');
+  const doc = frame.contentDocument || frame.contentWindow.document;
+  doc.open();
+  doc.write(html);
+  doc.close();
+
+  container.scrollIntoView({ behavior: 'smooth' });
+  toast('HTML 预览已更新', 'info');
+}
+
+function _mdToHtml(md) {
+  // Simple Markdown to styled HTML converter
+  let html = md;
+
+  // Headers
+  html = html.replace(/^### (\d+)\. (.+)$/gm, '<h3 class="news-title"><span class="num">$1</span> $2</h3>');
+  html = html.replace(/^## (.+)$/gm, '<h2 class="section-title">$1</h2>');
+  html = html.replace(/^# (.+)$/gm, '<h1 class="report-title">$1</h1>');
+
+  // Blockquotes
+  html = html.replace(/^> (.+)$/gm, '<blockquote>$1</blockquote>');
+
+  // Bold
+  html = html.replace(/\*\*(.+?)\*\*/g, '<strong>$1</strong>');
+
+  // Links
+  html = html.replace(/\[([^\]]+)\]\(([^)]+)\)/g, '<a href="$2" target="_blank">$1</a>');
+
+  // List items
+  html = html.replace(/^- (.+)$/gm, '<li>$1</li>');
+
+  // HR
+  html = html.replace(/^---$/gm, '<hr>');
+
+  // Wrap in styled document
+  return `<!DOCTYPE html>
+<html lang="zh-CN"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>合规周报</title>
+<style>
+  body { font-family: -apple-system, BlinkMacSystemFont, 'PingFang SC', 'Microsoft YaHei', sans-serif; max-width: 800px; margin: 0 auto; padding: 24px; background: #fafbfc; color: #1e293b; line-height: 1.7; }
+  .report-title { font-size: 24px; color: #4338ca; border-bottom: 3px solid #4338ca; padding-bottom: 12px; margin-bottom: 16px; }
+  .section-title { font-size: 20px; color: #312e81; margin-top: 32px; padding: 8px 16px; background: #eef2ff; border-radius: 8px; border-left: 4px solid #4338ca; }
+  .news-title { font-size: 16px; margin-top: 20px; color: #1e293b; }
+  .news-title .num { display: inline-flex; align-items: center; justify-content: center; width: 24px; height: 24px; background: #4338ca; color: white; border-radius: 50%; font-size: 12px; margin-right: 8px; }
+  blockquote { background: #f1f5f9; border-left: 4px solid #4338ca; padding: 12px 16px; margin: 12px 0; border-radius: 0 8px 8px 0; color: #475569; }
+  li { margin: 4px 0 4px 20px; }
+  a { color: #4338ca; }
+  hr { border: none; border-top: 2px solid #e2e8f0; margin: 24px 0; }
+  strong { color: #312e81; }
+</style>
+</head><body>${html}</body></html>`;
+}
+
+function downloadMD() {
+  const md = document.getElementById('md-editor').value;
+  if (!md.trim()) { toast('编辑器为空', 'error'); return; }
+  const startDate = document.getElementById('date-start').value.trim().replace(/\./g, '');
+  const endDate = document.getElementById('date-end').value.trim().replace(/\./g, '');
+  const filename = `合规周报_${startDate}-${endDate}.md`;
+  _downloadFile(md, filename, 'text/markdown');
+  toast('MD 文件已下载', 'success');
+}
+
+function downloadHTML() {
+  const md = document.getElementById('md-editor').value;
+  if (!md.trim()) { toast('编辑器为空', 'error'); return; }
+  const html = _mdToHtml(md);
+  const startDate = document.getElementById('date-start').value.trim().replace(/\./g, '');
+  const endDate = document.getElementById('date-end').value.trim().replace(/\./g, '');
+  const filename = `合规周报_${startDate}-${endDate}.html`;
+  _downloadFile(html, filename, 'text/html');
+  toast('HTML 文件已下载', 'success');
+}
+
+function _downloadFile(content, filename, mimeType) {
+  const blob = new Blob([content], { type: mimeType + ';charset=utf-8' });
+  const url = URL.createObjectURL(blob);
+  const a = document.createElement('a');
+  a.href = url; a.download = filename;
+  document.body.appendChild(a);
+  a.click();
+  document.body.removeChild(a);
+  URL.revokeObjectURL(url);
+}
+
+// ─── Push: Build Preview ───
+function syncFromEditor() {
+  const editorContent = document.getElementById('md-editor').value;
+  if (editorContent.trim()) {
+    document.getElementById('push-md-input').value = editorContent;
+    toast('已从编辑器同步内容', 'success');
+  } else {
+    toast('编辑器为空，请先生成周报', 'error');
+  }
+}
+
+function buildPushPreview() {
+  const md = document.getElementById('push-md-input').value.trim();
+  if (!md) { toast('请先输入或同步周报内容', 'error'); return; }
+
+  // Extract news items from MD
+  const sections = [];
+  let currentSection = { name: '综合', items: [] };
+  const lines = md.split('\n');
+
+  for (const line of lines) {
+    const secMatch = line.match(/^## (.+)/);
+    if (secMatch) {
+      if (currentSection.items.length > 0) sections.push(currentSection);
+      currentSection = { name: secMatch[1].replace(/[🎮🌏💻📋]\s*/, ''), items: [] };
+      continue;
+    }
+    const newsMatch = line.match(/^### \d+\.\s+(.+)/);
+    if (newsMatch) {
+      currentSection.items.push({ title: newsMatch[1] });
+    }
+  }
+  if (currentSection.items.length > 0) sections.push(currentSection);
+
+  // Build WeChat message
+  const kmUrl = document.getElementById('km-url').value.trim();
+  let msg = '🦢 <font color="warning">**鹅YOU合规官新闻播报**</font>\n\n';
+
+  const sectionEmojis = { '游戏行业关注': '🎮', '中国企业出海': '🌏', '科技行业关注': '💻' };
+  let totalNews = 0;
+
+  for (const sec of sections) {
+    const emoji = sectionEmojis[sec.name] || '📋';
+    msg += `**${emoji} ${sec.name}**\n`;
+    sec.items.forEach((item, i) => {
+      msg += `> ${i + 1}. ${item.title}\n`;
+      totalNews++;
+    });
+    msg += '\n';
+  }
+
+  if (kmUrl) {
+    msg += `📖 [点击查看完整深度分析](${kmUrl})\n`;
+  }
+
+  // Show table
+  let tableHtml = '<div class="status-bar status-success">&#x2705; 已提取 ' + totalNews + ' 条新闻（' + sections.length + ' 个板块）</div>';
+  tableHtml += '<table style="width:100%;border-collapse:collapse;font-size:14px;">';
+  let idx = 0;
+  for (const sec of sections) {
+    tableHtml += '<tr style="background:var(--primary-light);"><td colspan="2" style="padding:8px 14px;font-weight:700;color:var(--primary);">📌 ' + sec.name + ' (' + sec.items.length + '条)</td></tr>';
+    for (const item of sec.items) {
+      idx++;
+      tableHtml += '<tr><td style="padding:6px 14px;width:30px;color:var(--text-secondary);">' + idx + '</td><td style="padding:6px 14px;">' + item.title + '</td></tr>';
+    }
+  }
+  tableHtml += '</table>';
+
+  document.getElementById('push-news-table').innerHTML = tableHtml;
+  document.getElementById('push-preview-content').textContent = msg;
+
+  // Byte count
+  const byteCount = new TextEncoder().encode(msg).length;
+  const counter = document.getElementById('byte-counter');
+  counter.style.display = 'flex';
+  document.getElementById('byte-count').textContent = byteCount;
+  const pct = Math.min((byteCount / 4096) * 100, 100);
+  const fill = document.getElementById('byte-bar-fill');
+  fill.style.width = pct + '%';
+  fill.style.background = byteCount > 4096 ? 'var(--danger)' : (pct > 80 ? 'var(--warning)' : 'var(--success)');
+
+  document.getElementById('card-push-preview').style.display = 'block';
+  document.getElementById('card-push-config').style.display = 'block';
+  document.getElementById('badge-p1').classList.add('done');
+  document.getElementById('badge-p2').classList.add('done');
+
+  // Store for sending
+  window._pushMessage = msg;
+  toast('推送预览已生成', 'success');
+}
+
+// ─── Push: Send ───
+async function sendPush() {
+  const webhookUrl = document.getElementById('webhook-url').value.trim();
+  const resultDiv = document.getElementById('push-result');
+  const btn = document.getElementById('btn-send-push');
+
+  if (!webhookUrl) { toast('请输入 Webhook URL', 'error'); return; }
+  if (!window._pushMessage) { toast('请先生成推送预览', 'error'); return; }
+
+  btn.disabled = true;
+  btn.innerHTML = '&#x23F3; 推送中...';
+  resultDiv.style.display = 'block';
+  resultDiv.innerHTML = '<div class="status-bar status-info">&#x1F680; 正在推送到企微群...</div>';
+
+  try {
+    const payload = {
+      msgtype: 'markdown',
+      markdown: { content: window._pushMessage }
+    };
+
+    const resp = await fetch(webhookUrl, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify(payload),
+    });
+    const data = await resp.json();
+
+    if (data.errcode === 0) {
+      resultDiv.innerHTML = '<div class="status-bar status-success">&#x1F389; <strong>推送成功！</strong> errcode: 0, errmsg: ' + data.errmsg + '</div>';
+      document.getElementById('badge-p3').classList.add('done');
+      toast('推送成功！', 'success');
+    } else {
+      resultDiv.innerHTML = '<div class="status-bar status-error">&#x274C; 推送失败: errcode=' + data.errcode + ', ' + data.errmsg + '</div>';
+      toast('推送失败: ' + data.errmsg, 'error');
+    }
+  } catch (e) {
+    // CORS issue — provide guidance
+    resultDiv.innerHTML = '<div class="status-bar status-warning">&#x26A0;&#xFE0F; 浏览器跨域限制，无法直接调用企微 Webhook。<br>'
+      + '<strong>解决方案</strong>：<br>'
+      + '1. 在本地运行工具箱（localhost 版本）进行推送<br>'
+      + '2. 或复制下方推送内容，手动发送到企微群机器人</div>'
+      + '<div style="margin-top:12px;"><button class="btn btn-outline" onclick="copyPushMessage()">&#x1F4CB; 复制推送内容</button></div>';
+    toast('跨域限制，请复制内容手动推送', 'error');
+  } finally {
+    btn.disabled = false;
+    btn.innerHTML = '&#x1F680; 一键推送到企微群';
+  }
+}
+
+function copyPushMessage() {
+  if (window._pushMessage) {
+    navigator.clipboard.writeText(window._pushMessage).then(() => {
+      toast('推送内容已复制到剪贴板！', 'success');
+    }).catch(() => toast('复制失败，请手动选择复制', 'error'));
+  }
+}
+
+// ─── Archive: Load from GitHub Pages ───
+async function loadArchiveList() {
+  const container = document.getElementById('archive-list');
+  container.innerHTML = '<div class="loading"><div class="spinner"></div>正在从 GitHub 加载...</div>';
+
+  try {
+    // Try GitHub API to list archive directory
+    const resp = await fetch(GITHUB_API_BASE + '/contents/archive', {
+      headers: { 'Accept': 'application/vnd.github.v3+json' }
+    });
+
+    if (!resp.ok) throw new Error('无法加载归档列表');
+
+    const files = await resp.json();
+    const htmlFiles = files.filter(f => f.name.endsWith('.html')).sort((a, b) => b.name.localeCompare(a.name));
+
+    if (htmlFiles.length === 0) {
+      container.innerHTML = '<div class="empty-state"><div class="empty-icon">&#x1F4ED;</div><h4>暂无历史报告</h4></div>';
+      return;
+    }
+
+    let html = '<div class="archive-list">';
+    for (const f of htmlFiles) {
+      const dateMatch = f.name.match(/(\d{4}-\d{2}-\d{2})/);
+      const dateStr = dateMatch ? dateMatch[1] : f.name;
+      const url = GITHUB_PAGES_BASE + '/archive/' + f.name;
+      html += '<a class="archive-item" href="' + url + '" target="_blank">'
+        + '<span class="ext-badge ext-html">HTML</span>'
+        + '<span style="flex:1;font-weight:500;">' + dateStr + ' 合规日报</span>'
+        + '<span style="font-size:12px;color:var(--text-secondary);">点击查看 &#x2197;</span>'
+        + '</a>';
+    }
+    html += '</div>';
+    container.innerHTML = html;
+
+  } catch (e) {
+    // Fallback: show known reports
+    container.innerHTML = '<div class="status-bar status-warning">&#x26A0;&#xFE0F; 无法自动加载归档列表（GitHub API 限流或网络问题）</div>'
+      + '<div style="margin-top:12px;">'
+      + '<p style="font-size:14px;color:var(--text-secondary);margin-bottom:12px;">你可以直接访问以下链接查看已发布的报告：</p>'
+      + '<a class="archive-item" href="' + GITHUB_PAGES_BASE + '/" target="_blank">'
+      + '<span class="ext-badge ext-html">HTML</span>'
+      + '<span style="flex:1;font-weight:500;">最新一期日报</span>'
+      + '<span style="font-size:12px;color:var(--text-secondary);">点击查看 &#x2197;</span>'
+      + '</a></div>';
+  }
+}
+</script>
+
+</body>
+</html>
