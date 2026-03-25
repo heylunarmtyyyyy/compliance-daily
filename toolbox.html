@@ -212,10 +212,12 @@ textarea{resize:vertical;min-height:120px}
       </div>
       <div class="btn-group">
         <button class="btn btn-ai btn-lg" onclick="generateReportAI()" id="btn-generate-ai">&#x2728; AI 深度分析生成</button>
+        <button class="btn btn-primary btn-lg" onclick="exportToWorkBuddy()" id="btn-export-wb">&#x1F4CB; 导出到 WorkBuddy</button>
         <button class="btn btn-outline" onclick="generateReportBasic()" id="btn-generate-basic">&#x26A1; 快速框架生成</button>
       </div>
       <div class="hint" style="margin-top:10px">
-        &#x2728; <b>AI 深度分析</b>：调用 AI 模型对每条新闻生成事件介绍、业务影响、监管趋势分析（需配置 API）<br>
+        &#x2728; <b>AI 深度分析</b>：调用外部 AI API 自动分析（需配置 API Key）<br>
+        &#x1F4CB; <b>导出到 WorkBuddy</b>：生成结构化清单+指令，粘贴到 WorkBuddy 对话框由 Claude 深度分析（免费，推荐）<br>
         &#x26A1; <b>快速框架</b>：仅生成标题框架，需手动补充分析内容
       </div>
       <div id="ai-progress" style="display:none"></div>
@@ -230,13 +232,45 @@ textarea{resize:vertical;min-height:120px}
         <span class="step-desc">编辑 Markdown，实时预览 HTML</span>
       </div>
       <div id="edit-status" style="margin-bottom:12px"></div>
-      <div class="form-group"><textarea class="md-editor" id="md-editor" placeholder="周报内容将在此显示..."></textarea></div>
+      <div style="margin-bottom:16px;padding:14px 18px;background:#f5f3ff;border:1.5px solid #ddd6fe;border-radius:10px;display:flex;align-items:center;gap:12px;flex-wrap:wrap">
+        <span style="font-size:15px;font-weight:600;color:#7c3aed">&#x1F4E5; 导入分析结果</span>
+        <button class="btn btn-ai" onclick="importFromClipboard()" style="padding:8px 16px;font-size:13px">&#x1F4CB; 从剪贴板粘贴</button>
+        <button class="btn btn-outline" onclick="document.getElementById('import-md-file').click()" style="padding:8px 16px;font-size:13px">&#x1F4C4; 上传 MD 文件</button>
+        <button class="btn btn-outline" onclick="document.getElementById('import-html-file').click()" style="padding:8px 16px;font-size:13px">&#x1F310; 上传 HTML 文件</button>
+        <input type="file" id="import-md-file" accept=".md,.txt,.markdown" style="display:none" onchange="importMDFile(this)">
+        <input type="file" id="import-html-file" accept=".html,.htm" style="display:none" onchange="importHTMLFile(this)">
+        <span style="font-size:12px;color:#64748b;margin-left:auto">将 WorkBuddy 生成的分析结果导入到编辑器</span>
+      </div>
+      <div class="form-group"><textarea class="md-editor" id="md-editor" placeholder="周报内容将在此显示...&#10;&#10;方式1: 在上方使用"导出到 WorkBuddy"生成指令，粘贴到对话框获取分析结果，再导入到这里&#10;方式2: 使用"AI 深度分析"直接在工具箱内完成分析&#10;方式3: 使用"快速框架"生成基础内容，手动补充分析"></textarea></div>
       <div class="btn-group">
         <button class="btn btn-primary" onclick="previewHTML()">&#x1F441;&#xFE0F; 预览 HTML</button>
         <button class="btn btn-outline" onclick="downloadMD()">&#x1F4BE; 下载 MD</button>
         <button class="btn btn-outline" onclick="downloadHTML()">&#x1F310; 下载 HTML</button>
       </div>
       <div id="preview-container" style="display:none;margin-top:20px"><iframe class="preview-frame" id="preview-frame"></iframe></div>
+    </div>
+
+    <!-- Step 4: Publish to GitHub Pages -->
+    <div class="card" id="card-publish" style="display:none">
+      <div class="card-header">
+        <div class="step-badge" id="badge-r4">4</div>
+        <h3>&#x1F680; 发布到在线页面</h3>
+        <span class="step-desc">上传 HTML 周报到 GitHub Pages，获取可分享链接</span>
+      </div>
+      <div class="form-row" style="margin-bottom:16px">
+        <div class="form-group"><label>GitHub Token</label>
+          <input type="password" id="gh-token" placeholder="ghp_...">
+          <div class="hint">需要 repo 权限的 Personal Access Token</div>
+        </div>
+      </div>
+      <div style="display:flex;gap:16px;align-items:center;margin-bottom:16px">
+        <label class="toggle-switch"><input type="checkbox" id="save-gh-toggle" checked><span class="toggle-slider"></span></label>
+        <div><div style="font-size:14px;font-weight:500">保存 Token 到浏览器</div></div>
+      </div>
+      <div class="btn-group">
+        <button class="btn btn-success btn-lg" onclick="publishToGitHub()" id="btn-publish">&#x1F680; 发布周报到 GitHub Pages</button>
+      </div>
+      <div id="publish-result" style="display:none;margin-top:16px"></div>
     </div>
   </div>
 
@@ -563,6 +597,285 @@ async function loadArchiveList(){
 
 // ─── Init ───
 loadSavedConfig();
+loadGHToken();
+
+// ─── Export to WorkBuddy ───
+function exportToWorkBuddy() {
+  const startDate = document.getElementById('date-start').value.trim();
+  const endDate = document.getElementById('date-end').value.trim();
+  if (!startDate || !endDate) { toast('请填写日期', 'error'); return; }
+  if (!uploadedNewsItems.length) { toast('请先上传 Excel', 'error'); return; }
+  const dateRange = startDate + ' - ' + endDate;
+
+  // Group by section in DnD order
+  const groups = {};
+  ['游戏行业关注','中国企业出海','科技行业关注'].forEach(s => groups[s] = []);
+  // Read from current DnD state
+  document.querySelectorAll('.news-dnd-section').forEach(sec => {
+    const secName = sec.dataset.section;
+    if (secName === '未分类') return;
+    sec.querySelectorAll('.news-dnd-item').forEach(el => {
+      const idx = parseInt(el.dataset.idx);
+      const item = uploadedNewsItems.find(x => x._idx === idx);
+      if (item && groups[secName]) groups[secName].push(item);
+    });
+  });
+
+  const sectionEmojis = { '游戏行业关注': '🎮', '中国企业出海': '🌏', '科技行业关注': '💻' };
+  let exportText = `请帮我生成合规新闻每周导读周报。\n\n`;
+  exportText += `📅 周报周期: ${dateRange}\n\n`;
+  exportText += `以下是本周新闻清单，请对每条新闻进行深度搜索和分析，然后生成完整周报。\n\n`;
+  exportText += `---\n\n`;
+
+  let totalCount = 0;
+  for (const [sec, items] of Object.entries(groups)) {
+    if (!items.length) continue;
+    const emoji = sectionEmojis[sec] || '📋';
+    exportText += `## ${emoji} ${sec}\n\n`;
+    items.forEach((item, i) => {
+      totalCount++;
+      exportText += `${i+1}. **${item.title}**\n`;
+      if (item.date) exportText += `   - 日期: ${item.date}\n`;
+      if (item.source) exportText += `   - 来源: ${item.source}\n`;
+      if (item.summary) exportText += `   - 备注: ${item.summary}\n`;
+      exportText += `\n`;
+    });
+  }
+
+  exportText += `---\n\n`;
+  exportText += `共 ${totalCount} 条新闻。请按照 SKILL-weekly.md 的要求：\n`;
+  exportText += `1. 对每条新闻进行深度搜索（一手来源+权威报道）\n`;
+  exportText += `2. 撰写每条新闻的 事件介绍 + 直接业务影响 + 监管趋势信号\n`;
+  exportText += `3. 生成 🔺本周高优先级信号总览\n`;
+  exportText += `4. 输出完整的 Markdown 格式周报和 HTML 文件\n`;
+
+  // Show in a modal-like overlay
+  const overlay = document.createElement('div');
+  overlay.id = 'export-overlay';
+  overlay.style.cssText = 'position:fixed;inset:0;background:rgba(0,0,0,.5);z-index:200;display:flex;align-items:center;justify-content:center;padding:20px';
+  overlay.innerHTML = `
+    <div style="background:#fff;border-radius:16px;padding:28px;max-width:800px;width:100%;max-height:85vh;overflow-y:auto;box-shadow:0 20px 60px rgba(0,0,0,.3)">
+      <div style="display:flex;align-items:center;gap:12px;margin-bottom:20px">
+        <span style="font-size:28px">📋</span>
+        <div>
+          <h2 style="margin:0;font-size:20px;color:#4338ca">导出到 WorkBuddy</h2>
+          <p style="margin:4px 0 0;font-size:13px;color:#64748b">复制以下内容，粘贴到 WorkBuddy 对话框中发送</p>
+        </div>
+        <button onclick="document.getElementById('export-overlay').remove()" style="margin-left:auto;background:none;border:none;font-size:24px;cursor:pointer;color:#94a3b8">&times;</button>
+      </div>
+      <div style="background:#f0fdf4;border:1.5px solid #bbf7d0;border-radius:10px;padding:16px;margin-bottom:16px">
+        <div style="font-weight:700;color:#059669;margin-bottom:8px">📌 使用步骤</div>
+        <div style="font-size:14px;line-height:1.8;color:#1e293b">
+          <strong>① 复制</strong> → 点击下方按钮复制全部内容<br>
+          <strong>② 粘贴</strong> → 切换到 WorkBuddy 对话框，Ctrl+V 粘贴并发送<br>
+          <strong>③ 等待</strong> → Claude 会对每条新闻进行深度搜索和分析（约5-15分钟）<br>
+          <strong>④ 导入</strong> → 分析完成后，复制生成的 Markdown 内容，回到工具箱Step3"从剪贴板粘贴"导入<br>
+          <strong>⑤ 推送</strong> → 在工具箱内预览、格式化、推送到企微群
+        </div>
+      </div>
+      <textarea id="export-textarea" style="width:100%;min-height:300px;padding:14px;border:1.5px solid #e2e8f0;border-radius:10px;font-family:'SF Mono','Menlo','Consolas','Microsoft YaHei',monospace;font-size:13px;line-height:1.6;resize:vertical;color:#1e293b">${_escHtml(exportText)}</textarea>
+      <div style="display:flex;gap:12px;margin-top:16px">
+        <button class="btn btn-primary btn-lg" onclick="copyExportText()" style="flex:1">📋 复制全部内容</button>
+        <button class="btn btn-outline" onclick="downloadExportText()" style="flex:none">💾 下载为文件</button>
+      </div>
+      <div id="export-copy-result" style="margin-top:8px;text-align:center;font-size:13px"></div>
+    </div>`;
+  document.body.appendChild(overlay);
+  overlay.addEventListener('click', e => { if (e.target === overlay) overlay.remove(); });
+
+  // Also show step 3 for importing later
+  document.getElementById('card-edit').style.display = 'block';
+  document.getElementById('badge-r2').classList.add('done');
+  document.getElementById('edit-status').innerHTML = '<div class="status-bar status-info">📋 已导出到 WorkBuddy — 分析完成后使用"导入分析结果"按钮导入</div>';
+
+  window._exportText = exportText;
+  toast('导出内容已生成，请复制粘贴到 WorkBuddy 对话框', 'success');
+}
+
+function _escHtml(s) { return s.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;'); }
+
+function copyExportText() {
+  const text = document.getElementById('export-textarea').value;
+  navigator.clipboard.writeText(text).then(() => {
+    document.getElementById('export-copy-result').innerHTML = '<span style="color:#059669;font-weight:600">✅ 已复制到剪贴板！现在切换到 WorkBuddy 对话框粘贴发送</span>';
+    toast('已复制到剪贴板', 'success');
+  }).catch(() => {
+    document.getElementById('export-textarea').select();
+    document.execCommand('copy');
+    document.getElementById('export-copy-result').innerHTML = '<span style="color:#059669">✅ 已复制！</span>';
+  });
+}
+
+function downloadExportText() {
+  const text = document.getElementById('export-textarea').value;
+  const ds = document.getElementById('date-start').value.trim().replace(/\./g,'');
+  const de = document.getElementById('date-end').value.trim().replace(/\./g,'');
+  _downloadFile(text, `周报指令_${ds}-${de}.txt`, 'text/plain');
+  toast('指令文件已下载', 'success');
+}
+
+// ─── Import from WorkBuddy ───
+async function importFromClipboard() {
+  try {
+    const text = await navigator.clipboard.readText();
+    if (!text || text.trim().length < 20) { toast('剪贴板内容为空或太短', 'error'); return; }
+    document.getElementById('md-editor').value = text;
+    currentMdContent = text;
+    document.getElementById('badge-r3').classList.add('done');
+    document.getElementById('card-publish').style.display = 'block';
+    document.getElementById('edit-status').innerHTML = '<div class="status-bar" style="background:#f5f3ff;color:#7c3aed">✨ 已从剪贴板导入分析结果 — 可编辑后预览或推送</div>';
+    toast('已从剪贴板导入内容', 'success');
+    document.getElementById('md-editor').scrollIntoView({ behavior: 'smooth' });
+  } catch(e) {
+    toast('无法读取剪贴板: ' + e.message + '（请使用Ctrl+V手动粘贴到编辑器）', 'error');
+  }
+}
+
+function importMDFile(input) {
+  if (!input.files.length) return;
+  const file = input.files[0];
+  const reader = new FileReader();
+  reader.onload = function(e) {
+    document.getElementById('md-editor').value = e.target.result;
+    currentMdContent = e.target.result;
+    document.getElementById('badge-r3').classList.add('done');
+    document.getElementById('card-publish').style.display = 'block';
+    document.getElementById('edit-status').innerHTML = '<div class="status-bar" style="background:#f5f3ff;color:#7c3aed">✨ 已导入 ' + file.name + ' — 可编辑后预览或推送</div>';
+    toast('已导入 ' + file.name, 'success');
+  };
+  reader.readAsText(file);
+  input.value = '';
+}
+
+function importHTMLFile(input) {
+  if (!input.files.length) return;
+  const file = input.files[0];
+  const reader = new FileReader();
+  reader.onload = function(e) {
+    window._importedHTML = e.target.result;
+    // Try to extract text content for MD editor
+    const tmp = document.createElement('div');
+    tmp.innerHTML = e.target.result;
+    const bodyEl = tmp.querySelector('body');
+    const textContent = bodyEl ? bodyEl.innerText : tmp.innerText;
+    document.getElementById('md-editor').value = '<!-- HTML 文件已导入，可在预览中查看完整效果 -->\n\n' + textContent.slice(0, 500) + '...';
+    // Show directly in preview
+    document.getElementById('preview-container').style.display = 'block';
+    const f = document.getElementById('preview-frame'), doc = f.contentDocument || f.contentWindow.document;
+    doc.open(); doc.write(e.target.result); doc.close();
+    document.getElementById('badge-r3').classList.add('done');
+    document.getElementById('card-publish').style.display = 'block';
+    document.getElementById('edit-status').innerHTML = '<div class="status-bar" style="background:#f5f3ff;color:#7c3aed">✨ 已导入 HTML 文件 ' + file.name + ' — 可直接发布或推送</div>';
+    toast('已导入 HTML 文件 ' + file.name, 'success');
+  };
+  reader.readAsText(file);
+  input.value = '';
+}
+
+// ─── Publish to GitHub Pages ───
+function loadGHToken() {
+  try {
+    const t = localStorage.getItem('gcc_gh_token');
+    if (t) document.getElementById('gh-token').value = t;
+  } catch(e) {}
+}
+
+async function publishToGitHub() {
+  const token = document.getElementById('gh-token').value.trim();
+  if (!token) { toast('请输入 GitHub Token', 'error'); return; }
+
+  // Save token
+  if (document.getElementById('save-gh-toggle').checked) {
+    localStorage.setItem('gcc_gh_token', token);
+  }
+
+  const btn = document.getElementById('btn-publish');
+  const rd = document.getElementById('publish-result');
+  btn.disabled = true;
+  btn.innerHTML = '⏳ 正在发布...';
+  rd.style.display = 'block';
+  rd.innerHTML = '<div class="status-bar status-info">🚀 正在上传到 GitHub Pages...</div>';
+
+  // Determine HTML content
+  let html = '';
+  if (window._importedHTML) {
+    html = window._importedHTML;
+  } else {
+    const md = document.getElementById('md-editor').value;
+    if (!md.trim()) { toast('编辑器为空', 'error'); btn.disabled = false; btn.innerHTML = '🚀 发布周报到 GitHub Pages'; return; }
+    html = _mdToHtml(md);
+  }
+
+  // Determine filename from dates
+  const ds = document.getElementById('date-start').value.trim().replace(/\./g,'-') || 'latest';
+  const de = document.getElementById('date-end').value.trim().replace(/\./g,'-') || '';
+  const filename = de ? `weekly-${ds}_${de}.html` : `weekly-${ds}.html`;
+  const remotePath = `weekly/${filename}`;
+
+  try {
+    const b64 = btoa(unescape(encodeURIComponent(html)));
+    const apiUrl = `https://api.github.com/repos/${GITHUB_USER}/${GITHUB_REPO}/contents/${remotePath}`;
+
+    // Check if file exists (get SHA)
+    let sha = null;
+    try {
+      const checkResp = await fetch(apiUrl, {
+        headers: { 'Authorization': 'token ' + token, 'Accept': 'application/vnd.github.v3+json' }
+      });
+      if (checkResp.ok) {
+        const existing = await checkResp.json();
+        sha = existing.sha;
+      }
+    } catch(e) {}
+
+    const payload = {
+      message: `Publish weekly report: ${filename}`,
+      content: b64,
+      branch: 'main'
+    };
+    if (sha) payload.sha = sha;
+
+    const resp = await fetch(apiUrl, {
+      method: 'PUT',
+      headers: {
+        'Authorization': 'token ' + token,
+        'Accept': 'application/vnd.github.v3+json',
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify(payload)
+    });
+
+    if (resp.ok) {
+      const pageUrl = `${GITHUB_PAGES_BASE}/${remotePath}`;
+      document.getElementById('badge-r4').classList.add('done');
+      rd.innerHTML = `<div class="status-bar status-success">🎉 <b>发布成功！</b></div>
+        <div style="margin-top:12px;padding:14px;background:#eff6ff;border-radius:8px">
+          <div style="font-weight:600;margin-bottom:8px">📎 在线访问链接（1-2分钟后生效）：</div>
+          <a href="${pageUrl}" target="_blank" style="color:#4338ca;word-break:break-all">${pageUrl}</a>
+          <div style="margin-top:8px"><button class="btn btn-outline" onclick="navigator.clipboard.writeText('${pageUrl}').then(()=>toast('链接已复制','success'))">📋 复制链接</button></div>
+        </div>`;
+      toast('周报已发布到 GitHub Pages！', 'success');
+    } else {
+      const err = await resp.json();
+      rd.innerHTML = `<div class="status-bar status-error">❌ 发布失败: ${err.message || resp.statusText}</div>`;
+      toast('发布失败', 'error');
+    }
+  } catch(e) {
+    rd.innerHTML = `<div class="status-bar status-error">❌ 网络错误: ${e.message}</div>`;
+    toast('发布失败: ' + e.message, 'error');
+  } finally {
+    btn.disabled = false;
+    btn.innerHTML = '🚀 发布周报到 GitHub Pages';
+  }
+}
+
+// Also show publish after generating reports
+const _origGenBasic = generateReportBasic;
+generateReportBasic = function() {
+  _origGenBasic();
+  document.getElementById('card-publish').style.display = 'block';
+};
+
 </script>
 </body>
 </html>
