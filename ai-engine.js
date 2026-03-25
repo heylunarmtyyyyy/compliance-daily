@@ -374,6 +374,10 @@ async function generateReportAI() {
       `<div class="status-bar" style="background:var(--ai-light);color:var(--ai);">✨ AI 深度分析周报 ${dateRange} — 可直接编辑优化</div>`;
     document.getElementById('badge-r3').classList.add('done');
 
+    // Show publish card
+    const pubCard = document.getElementById('card-publish');
+    if (pubCard) pubCard.style.display = 'block';
+
     toast('AI 深度分析周报生成成功！', 'success');
     document.getElementById('card-edit').scrollIntoView({ behavior: 'smooth' });
 
