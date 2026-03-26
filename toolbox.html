@@ -277,13 +277,19 @@ textarea{resize:vertical;min-height:120px}
   <!-- ====== 群聊推送 ====== -->
   <div class="panel" id="panel-push">
     <div class="card">
-      <div class="card-header"><div class="step-badge" id="badge-p1">1</div><h3>导入周报内容</h3><span class="step-desc">粘贴或上传 Markdown 周报内容</span></div>
+      <div class="card-header"><div class="step-badge" id="badge-p1">1</div><h3>导入周报内容</h3><span class="step-desc">上传文件或粘贴 Markdown 周报内容</span></div>
+      <div style="margin-bottom:16px;padding:14px 18px;background:var(--primary-light);border:1.5px solid #c7d2fe;border-radius:10px;display:flex;align-items:center;gap:12px;flex-wrap:wrap">
+        <span style="font-size:15px;font-weight:600;color:var(--primary)">&#x1F4C1; 快捷导入</span>
+        <button class="btn btn-primary" onclick="document.getElementById('push-upload-md').click()" style="padding:8px 16px;font-size:13px">&#x1F4C4; 上传 MD 文件</button>
+        <button class="btn btn-outline" onclick="syncFromEditor()" style="padding:8px 16px;font-size:13px">&#x1F504; 从编辑器同步</button>
+        <input type="file" id="push-upload-md" accept=".md,.txt,.markdown" style="display:none" onchange="handlePushMDUpload(this)">
+        <span style="font-size:12px;color:#64748b;margin-left:auto">上传 WorkBuddy 生成的 .md 周报文件，自动解析内容</span>
+      </div>
       <div class="form-group"><label>周报 Markdown 内容</label>
-        <textarea class="md-editor" id="push-md-input" style="min-height:200px" placeholder="粘贴周报 Markdown 内容到此处...&#10;&#10;或先在「周报分析」标签中生成周报，内容会自动同步到这里。"></textarea>
+        <textarea class="md-editor" id="push-md-input" style="min-height:200px" placeholder="支持以下方式导入内容：&#10;&#10;方式1: 点击上方「上传 MD 文件」按钮直接上传周报 .md 文件&#10;方式2: 先在「周报分析」标签中生成周报，点击「从编辑器同步」&#10;方式3: 直接在此框中粘贴 Markdown 内容"></textarea>
       </div>
       <div class="btn-group">
         <button class="btn btn-primary" onclick="buildPushPreview()">&#x1F50D; 生成推送预览</button>
-        <button class="btn btn-outline" onclick="syncFromEditor()">&#x1F504; 从编辑器同步</button>
       </div>
     </div>
     <div class="card" id="card-push-preview" style="display:none">
@@ -522,31 +528,133 @@ function downloadHTML(){
 function _downloadFile(c,fn,mt){const b=new Blob([c],{type:mt+';charset=utf-8'}),u=URL.createObjectURL(b),a=document.createElement('a');a.href=u;a.download=fn;document.body.appendChild(a);a.click();document.body.removeChild(a);URL.revokeObjectURL(u)}
 
 // ─── Push ───
+// ─── Push: MD File Upload ───
+function handlePushMDUpload(input) {
+  if (!input.files.length) return;
+  const file = input.files[0];
+  const reader = new FileReader();
+  reader.onload = function(e) {
+    document.getElementById('push-md-input').value = e.target.result;
+    toast('已导入 ' + file.name + '，点击「生成推送预览」查看效果', 'success');
+  };
+  reader.readAsText(file);
+  input.value = '';
+}
+
 function syncFromEditor(){const c=document.getElementById('md-editor').value;if(c.trim()){document.getElementById('push-md-input').value=c;toast('已从编辑器同步','success')}else toast('编辑器为空','error')}
+
+// ─── Push: Parse MD and Build Preview ───
+function _parseMdForPush(md) {
+  // Parse the weekly report Markdown to extract sections, titles, URLs, dates
+  const sections = [];
+  let cur = null;
+  const lines = md.split('\n');
+
+  for (const line of lines) {
+    // Match section headers: ## 🎮 游戏行业关注 or ## 一、🎮 游戏行业关注 or **游戏行业关注**
+    const secMatch = line.match(/^#{1,3}\s+(?:[一二三四五六七八九十]+[、．.]\s*)?[🎮🌏💻📋⚡🔺📌\s]*(.+)/);
+    if (secMatch) {
+      const secName = secMatch[1].replace(/[🎮🌏💻📋⚡🔺📌\s]/g, '').trim();
+      // Check if this is a known section name
+      const knownSections = ['游戏行业关注', '中国企业出海', '科技行业关注'];
+      const matched = knownSections.find(s => secName.includes(s.replace(/关注|行业/g, '')) || s.includes(secName.replace(/关注|行业/g, '')));
+      if (matched || knownSections.some(s => secName.includes(s))) {
+        if (cur && cur.items.length) sections.push(cur);
+        cur = { name: secName, items: [] };
+        continue;
+      }
+      // Also match "高优先级信号" etc — skip these
+      if (secName.includes('信号') || secName.includes('总览') || secName.includes('趋势')) continue;
+    }
+
+    if (!cur) continue;
+
+    // Match news items: ### 1. Title  or  ### Title  or  1. **Title**  or  - **Title**
+    let titleMatch = line.match(/^###\s+(?:\d+[.、．]\s*)?(.+)/);
+    if (!titleMatch) titleMatch = line.match(/^\d+[.、．]\s+\*\*(.+?)\*\*/);
+    if (!titleMatch) titleMatch = line.match(/^[-*]\s+\*\*(.+?)\*\*/);
+    if (titleMatch) {
+      cur.items.push({ title: titleMatch[1].trim(), url: '', date: '' });
+      continue;
+    }
+
+    // For current item, try to extract URL and date from subsequent lines
+    if (cur.items.length > 0) {
+      const lastItem = cur.items[cur.items.length - 1];
+      // Match: - **来源**: [链接](URL) or - **证据链接**: [text](URL) or - 来源: URL
+      const urlMatch = line.match(/(?:来源|链接|证据|原文|source|url)[：:]\s*(?:\[([^\]]*)\]\(([^)]+)\)|(\S+))/i);
+      if (urlMatch && !lastItem.url) {
+        lastItem.url = urlMatch[2] || urlMatch[3] || '';
+      }
+      // Match: - **日期**: YYYY-MM-DD or (2026-03-17)
+      const dateMatch = line.match(/(?:日期|date)[：:]\s*(\S+)/i) || line.match(/\((\d{4}[-/.]\d{1,2}[-/.]\d{1,2})\)/);
+      if (dateMatch && !lastItem.date) {
+        lastItem.date = dateMatch[1].trim();
+      }
+      // Also try to extract inline link from title like [Title](URL)
+      if (!lastItem.url) {
+        const inlineLink = lastItem.title.match(/\[([^\]]+)\]\(([^)]+)\)/);
+        if (inlineLink) {
+          lastItem.title = inlineLink[1];
+          lastItem.url = inlineLink[2];
+        }
+      }
+    }
+  }
+  if (cur && cur.items.length) sections.push(cur);
+  return sections;
+}
+
 function buildPushPreview(){
-  const md=document.getElementById('push-md-input').value.trim();if(!md){toast('请先输入周报内容','error');return}
-  const sections=[];let cur={name:'综合',items:[]};
-  for(const line of md.split('\n')){
-    const sm=line.match(/^## (.+)/);if(sm){if(cur.items.length)sections.push(cur);cur={name:sm[1].replace(/[🎮🌏💻📋🔺]\s*/,''),items:[]};continue}
-    const nm=line.match(/^### \d+\.\s+(.+)/);if(nm)cur.items.push({title:nm[1]});
-  }
-  if(cur.items.length)sections.push(cur);
+  const md=document.getElementById('push-md-input').value.trim();
+  if(!md){toast('请先输入或上传周报内容','error');return}
+
+  const sections = _parseMdForPush(md);
   const kmUrl=document.getElementById('km-url').value.trim();
-  let msg='🦢 <font color="warning">**鹅YOU合规官新闻播报**</font>\n\n';
-  const se={'游戏行业关注':'🎮','中国企业出海':'🌏','科技行业关注':'💻'};let tot=0;
+
+  // Build standard push message matching send_wecom_weekly.py format
+  let msg='**本周推荐阅读以下与全球业务合规有关的重要新闻：**\n\n';
+  const se={'游戏行业关注':'游戏行业关注','中国企业出海':'中国企业出海','科技行业关注':'科技行业关注'};
+  let tot=0;
+
   for(const sec of sections){
-    if(sec.name.includes('信号总览'))continue;
-    const emoji=Object.entries(se).find(([k])=>sec.name.includes(k))?.[1]||'📋';
-    msg+=`**${emoji} ${sec.name}**\n`;sec.items.forEach((it,i)=>{msg+=`> ${i+1}. ${it.title}\n`;tot++});msg+='\n';
+    if(sec.name.includes('信号')||sec.name.includes('总览'))continue;
+    msg+=`**${sec.name}**\n`;
+    for(const it of sec.items){
+      let line = '- ';
+      if(it.url){
+        line += `[${it.title}](${it.url})`;
+      } else {
+        line += it.title;
+      }
+      if(it.date){
+        line += ` (${it.date})`;
+      }
+      msg += line + '\n';
+      tot++;
+    }
+    msg+='\n';
   }
-  if(kmUrl)msg+=`📖 [点击查看完整深度分析](${kmUrl})\n`;
+
+  if(kmUrl){
+    msg+=`<font color="warning">每周新闻深度分析，请查看KM：</font>${kmUrl}\n`;
+  }
+
+  // Build preview table
   let th='<div class="status-bar status-success">&#x2705; 已提取 '+tot+' 条新闻</div>';
   th+='<table style="width:100%;border-collapse:collapse;font-size:14px">';let idx=0;
-  for(const sec of sections){if(sec.name.includes('信号总览'))continue;
-    th+='<tr style="background:var(--primary-light)"><td colspan="2" style="padding:8px 14px;font-weight:700;color:var(--primary)">📌 '+sec.name+' ('+sec.items.length+'条)</td></tr>';
-    for(const it of sec.items){idx++;th+='<tr><td style="padding:6px 14px;width:30px;color:var(--text-secondary)">'+idx+'</td><td style="padding:6px 14px">'+it.title+'</td></tr>'}
+  for(const sec of sections){
+    if(sec.name.includes('信号')||sec.name.includes('总览'))continue;
+    const secIcon = sec.name.includes('游戏')?'&#x1F3AE;':sec.name.includes('出海')||sec.name.includes('中国')?'&#x1F30F;':'&#x1F4BB;';
+    th+='<tr style="background:var(--primary-light)"><td colspan="3" style="padding:8px 14px;font-weight:700;color:var(--primary)">&#x1F4CC; '+sec.name+' ('+sec.items.length+'条)</td></tr>';
+    for(const it of sec.items){
+      idx++;
+      const urlBadge = it.url ? '<a href="'+it.url+'" target="_blank" style="color:var(--primary);font-size:12px;text-decoration:none">&#x1F517;</a>' : '<span style="color:#ccc;font-size:12px">-</span>';
+      th+='<tr><td style="padding:6px 14px;width:30px;color:var(--text-secondary)">'+idx+'</td><td style="padding:6px 14px">'+it.title+'</td><td style="padding:6px 14px;width:60px;text-align:center">'+urlBadge+'</td></tr>';
+    }
   }
   th+='</table>';
+
   document.getElementById('push-news-table').innerHTML=th;
   document.getElementById('push-preview-content').textContent=msg;
   const bc=new TextEncoder().encode(msg).length;
