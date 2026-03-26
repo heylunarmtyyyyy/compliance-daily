@@ -568,38 +568,43 @@ function _parseMdForPush(md) {
 
   for (let i = 0; i < lines.length; i++) {
     const line = lines[i];
+    const trimmed = line.trim();
 
-    // ─── Match section header: ## 一、🎮 游戏行业关注 ───
-    // Could be: ## 一、🎮 游戏行业关注  or  ## 🎮 游戏行业关注  or  ## 游戏行业关注
-    const secMatch = line.match(/^##\s+(?:[一二三四五六七八九十]+[、．.]\s*)?(.+)/);
-    if (secMatch && !line.startsWith('###')) {
-      const rawName = secMatch[1].trim();
+    // ─── Skip empty lines and horizontal rules ───
+    if (!trimmed || trimmed === '---') continue;
+
+    // ─── Match section header: ## ... (but NOT ### which is news title) ───
+    // Examples:
+    //   ## 一、🎮 游戏行业关注
+    //   ## 二、💻 科技行业关注
+    //   ## 🔺 本周高优先级信号总览
+    //   ## 📌 编者注
+    if (/^##\s/.test(trimmed) && !/^###/.test(trimmed)) {
+      // Extract raw text after ##
+      const rawName = trimmed.replace(/^##\s+/, '').trim();
 
       // Skip non-news sections
       if (skipKeywords.some(k => rawName.includes(k))) { curSection = null; continue; }
 
-      // Check if this is a known news section
-      const isKnownSection = sectionKeywords.some(k => rawName.includes(k));
-      // Also accept date headers like "2026.3.20 - 2026.3.26" — skip them
-      if (!isKnownSection && /^\d{4}/.test(rawName)) continue;
+      // Check if any known section keyword appears in this line
+      const matchedSection = sectionKeywords.find(k => rawName.includes(k));
 
-      if (isKnownSection) {
+      // Skip date-only headers like "## 2026.3.20 - 2026.3.26"
+      if (!matchedSection && /^\d{4}/.test(rawName.replace(/[^\d.]/g, '').trim())) continue;
+
+      if (matchedSection) {
         // Flush previous item
         if (curItem && curSection) curSection.items.push(curItem);
         curItem = null;
         // Flush previous section
         if (curSection && curSection.items.length) sections.push(curSection);
-        // Clean section name: remove emojis, keep Chinese text
-        const cleanName = rawName.replace(/[🎮🌏💻📋⚡🔺📌\s]/g,'').replace(/\(.*?\)/g,'').trim();
-        // Map to canonical name
-        const canonical = sectionKeywords.find(k => cleanName.includes(k)) || cleanName;
-        curSection = { name: canonical, items: [] };
+        curSection = { name: matchedSection, items: [] };
       }
       continue;
     }
 
     // ─── Match news item title: ### 1. 标题  or  ### 标题 ───
-    const itemMatch = line.match(/^###\s+(?:(\d+)[.、．]\s*)?(.+)/);
+    const itemMatch = trimmed.match(/^###\s+(?:(\d+)[.、．]\s*)?(.+)/);
     if (itemMatch && curSection) {
       // Flush previous item
       if (curItem) curSection.items.push(curItem);
