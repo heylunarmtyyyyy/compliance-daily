@@ -293,9 +293,16 @@ textarea{resize:vertical;min-height:120px}
       </div>
     </div>
     <div class="card" id="card-push-preview" style="display:none">
-      <div class="card-header"><div class="step-badge" id="badge-p2">2</div><h3>推送内容预览</h3><span class="step-desc">确认推送格式</span></div>
+      <div class="card-header"><div class="step-badge" id="badge-p2">2</div><h3>推送内容预览</h3><span class="step-desc">可直接编辑推送文案</span></div>
       <div id="push-news-table" style="margin-bottom:16px"></div>
-      <div class="push-preview" id="push-preview-content"></div>
+      <div class="form-group">
+        <label>推送消息内容 <span style="font-size:12px;color:var(--text-secondary);font-weight:400">（可直接编辑）</span></label>
+        <textarea class="push-preview" id="push-preview-content" style="width:100%;min-height:260px;resize:vertical;border:1.5px solid #334155;padding:16px;font-family:'SF Mono','Menlo','Consolas',monospace;font-size:13px;line-height:1.8;white-space:pre-wrap;word-break:break-all;cursor:text" oninput="updatePushByteCount()"></textarea>
+      </div>
+      <div class="btn-group" style="margin-bottom:8px">
+        <button class="btn btn-outline" onclick="copyPushMessage()" style="font-size:13px">&#x1F4CB; 复制推送内容</button>
+        <button class="btn btn-outline" onclick="buildPushPreview()" style="font-size:13px">&#x1F504; 重新生成预览</button>
+      </div>
       <div class="byte-counter" id="byte-counter" style="display:none">
         <span>&#x1F4CF; 消息大小：</span><span class="count" id="byte-count">0</span><span class="limit">/ 4096 字节</span>
         <div class="byte-bar"><div class="byte-bar-fill" id="byte-bar-fill" style="width:0%;background:var(--success)"></div></div>
@@ -308,8 +315,8 @@ textarea{resize:vertical;min-height:120px}
         <div class="hint">从企微群 → 群机器人 → 添加/管理机器人处获取</div>
       </div>
       <div class="form-group"><label>KM 深度分析链接（可选）</label>
-        <input type="url" id="km-url" placeholder="https://km.woa.com/vkm/articles/preview/...">
-        <div class="hint">附在推送底部，引导群友查看完整分析</div>
+        <input type="url" id="km-url" placeholder="https://km.woa.com/group/..." oninput="onKmUrlChange()">
+        <div class="hint">附在推送底部，引导群友查看完整分析。输入后自动刷新推送预览。</div>
       </div>
       <div class="btn-group" style="margin-top:20px">
         <button class="btn btn-success btn-lg" onclick="sendPush()" id="btn-send-push">&#x1F680; 一键推送到企微群</button>
@@ -652,9 +659,12 @@ function buildPushPreview(){
   const sections = _parseMdForPush(md);
   const kmUrl=document.getElementById('km-url').value.trim();
 
+  // Try to extract date range from MD header (## 2026.3.20 - 2026.3.26)
+  const dateRangeMatch = md.match(/(\d{4}[./-]\d{1,2}[./-]\d{1,2})\s*[-–—]\s*(\d{4}[./-]\d{1,2}[./-]\d{1,2})/);
+  const weekDateRange = dateRangeMatch ? dateRangeMatch[0] : '';
+
   // Build standard push message matching send_wecom_weekly.py format
   let msg='**本周推荐阅读以下与全球业务合规有关的重要新闻：**\n\n';
-  const se={'游戏行业关注':'游戏行业关注','中国企业出海':'中国企业出海','科技行业关注':'科技行业关注'};
   let tot=0;
 
   for(const sec of sections){
@@ -667,8 +677,10 @@ function buildPushPreview(){
       } else {
         line += it.title;
       }
-      if(it.date){
-        line += ` (${it.date})`;
+      // Add date: use item-level date if available, otherwise use week range
+      const dateStr = it.date || weekDateRange;
+      if(dateStr){
+        line += ` (${dateStr})`;
       }
       msg += line + '\n';
       tot++;
@@ -685,7 +697,6 @@ function buildPushPreview(){
   th+='<table style="width:100%;border-collapse:collapse;font-size:14px">';let idx=0;
   for(const sec of sections){
     if(sec.name.includes('信号')||sec.name.includes('总览'))continue;
-    const secIcon = sec.name.includes('游戏')?'&#x1F3AE;':sec.name.includes('出海')||sec.name.includes('中国')?'&#x1F30F;':'&#x1F4BB;';
     th+='<tr style="background:var(--primary-light)"><td colspan="3" style="padding:8px 14px;font-weight:700;color:var(--primary)">&#x1F4CC; '+sec.name+' ('+sec.items.length+'条)</td></tr>';
     for(const it of sec.items){
       idx++;
@@ -696,26 +707,49 @@ function buildPushPreview(){
   th+='</table>';
 
   document.getElementById('push-news-table').innerHTML=th;
-  document.getElementById('push-preview-content').textContent=msg;
+  document.getElementById('push-preview-content').value=msg;
+  updatePushByteCount();
+  document.getElementById('card-push-preview').style.display='block';
+  document.getElementById('card-push-config').style.display='block';
+  document.getElementById('badge-p1').classList.add('done');
+  document.getElementById('badge-p2').classList.add('done');
+  window._pushMessage=msg;toast('推送预览已生成 — 可直接编辑文案','success');
+}
+
+function updatePushByteCount(){
+  const msg = document.getElementById('push-preview-content').value || '';
+  window._pushMessage = msg;
   const bc=new TextEncoder().encode(msg).length;
   const counter=document.getElementById('byte-counter');counter.style.display='flex';
   document.getElementById('byte-count').textContent=bc;
   const pct=Math.min(bc/4096*100,100),fill=document.getElementById('byte-bar-fill');
   fill.style.width=pct+'%';fill.style.background=bc>4096?'var(--danger)':pct>80?'var(--warning)':'var(--success)';
-  document.getElementById('card-push-preview').style.display='block';
-  document.getElementById('card-push-config').style.display='block';
-  document.getElementById('badge-p1').classList.add('done');
-  document.getElementById('badge-p2').classList.add('done');
-  window._pushMessage=msg;toast('推送预览已生成','success');
+}
+
+function onKmUrlChange(){
+  const el = document.getElementById('push-preview-content');
+  if(!el || !el.value) return;
+  const kmUrl = document.getElementById('km-url').value.trim();
+  // Remove old KM line if exists
+  let msg = el.value.replace(/<font color="warning">.*?<\/font>[^\n]*\n?/g, '').replace(/\n+$/, '\n');
+  // Append new KM line
+  if(kmUrl){
+    msg += `\n<font color="warning">每周新闻深度分析，请查看KM：</font>${kmUrl}\n`;
+  }
+  el.value = msg;
+  updatePushByteCount();
 }
 
 async function sendPush(){
   const wh=document.getElementById('webhook-url').value.trim(),rd=document.getElementById('push-result'),btn=document.getElementById('btn-send-push');
-  if(!wh){toast('请输入 Webhook URL','error');return}if(!window._pushMessage){toast('请先生成推送预览','error');return}
+  if(!wh){toast('请输入 Webhook URL','error');return}
+  // Read from editable textarea (user may have manually edited)
+  const pushMsg = document.getElementById('push-preview-content').value || '';
+  if(!pushMsg.trim()){toast('请先生成推送预览','error');return}
   btn.disabled=true;btn.innerHTML='&#x23F3; 推送中...';rd.style.display='block';
   rd.innerHTML='<div class="status-bar status-info">&#x1F680; 正在推送...</div>';
   try{
-    const r=await fetch(wh,{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({msgtype:'markdown',markdown:{content:window._pushMessage}})});
+    const r=await fetch(wh,{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({msgtype:'markdown',markdown:{content:pushMsg}})});
     const d=await r.json();
     if(d.errcode===0){rd.innerHTML='<div class="status-bar status-success">&#x1F389; <b>推送成功！</b></div>';document.getElementById('badge-p3').classList.add('done');toast('推送成功！','success')}
     else{rd.innerHTML='<div class="status-bar status-error">&#x274C; 推送失败: '+d.errmsg+'</div>';toast('推送失败','error')}
@@ -724,7 +758,7 @@ async function sendPush(){
     toast('跨域限制，请复制内容手动推送','error');
   }finally{btn.disabled=false;btn.innerHTML='&#x1F680; 一键推送到企微群'}
 }
-function copyPushMessage(){if(window._pushMessage)navigator.clipboard.writeText(window._pushMessage).then(()=>toast('已复制到剪贴板！','success')).catch(()=>toast('复制失败','error'))}
+function copyPushMessage(){const msg=document.getElementById('push-preview-content').value;if(msg)navigator.clipboard.writeText(msg).then(()=>toast('已复制到剪贴板！','success')).catch(()=>toast('复制失败','error'))}
 
 // ─── Archive ───
 async function loadArchiveList(){
