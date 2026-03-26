@@ -568,59 +568,59 @@ function _parseMdForPush(md) {
 
   for (let i = 0; i < lines.length; i++) {
     const line = lines[i];
-    const trimmed = line.trim();
+    const trimmed = line.replace(/\r/g, '').trim();
 
     // ─── Skip empty lines and horizontal rules ───
-    if (!trimmed || trimmed === '---') continue;
+    if (!trimmed || trimmed === '---' || trimmed === '- - -') continue;
 
-    // ─── Match section header: ## ... (but NOT ### which is news title) ───
-    // Examples:
-    //   ## 一、🎮 游戏行业关注
-    //   ## 二、💻 科技行业关注
-    //   ## 🔺 本周高优先级信号总览
-    //   ## 📌 编者注
-    if (/^##\s/.test(trimmed) && !/^###/.test(trimmed)) {
-      // Extract raw text after ##
-      const rawName = trimmed.replace(/^##\s+/, '').trim();
+    // ─── Detect heading level ───
+    const isH3 = trimmed.startsWith('### ');
+    const isH2 = !isH3 && trimmed.startsWith('## ');
+    const isH4 = trimmed.startsWith('#### ');
+
+    // ─── Match section header: ## (level 2 only) ───
+    if (isH2) {
+      const rawName = trimmed.substring(trimmed.indexOf(' ') + 1).trim();
 
       // Skip non-news sections
-      if (skipKeywords.some(k => rawName.includes(k))) { curSection = null; continue; }
+      if (skipKeywords.some(k => rawName.includes(k))) {
+        // Flush before nullifying
+        if (curItem && curSection) { curSection.items.push(curItem); curItem = null; }
+        if (curSection && curSection.items.length) { sections.push(curSection); }
+        curSection = null;
+        continue;
+      }
 
       // Check if any known section keyword appears in this line
       const matchedSection = sectionKeywords.find(k => rawName.includes(k));
 
-      // Skip date-only headers like "## 2026.3.20 - 2026.3.26"
-      if (!matchedSection && /^\d{4}/.test(rawName.replace(/[^\d.]/g, '').trim())) continue;
+      // Skip other non-matching headers (date headers, etc.)
+      if (!matchedSection) continue;
 
-      if (matchedSection) {
-        // Flush previous item
-        if (curItem && curSection) curSection.items.push(curItem);
-        curItem = null;
-        // Flush previous section
-        if (curSection && curSection.items.length) sections.push(curSection);
-        curSection = { name: matchedSection, items: [] };
-      }
-      continue;
-    }
-
-    // ─── Match news item title: ### 1. 标题  or  ### 标题 ───
-    const itemMatch = trimmed.match(/^###\s+(?:(\d+)[.、．]\s*)?(.+)/);
-    if (itemMatch && curSection) {
-      // Flush previous item
-      if (curItem) curSection.items.push(curItem);
-      const title = itemMatch[2].trim();
-      curItem = { title: title, url: '', date: '', urls: [] };
+      // Flush previous item and section
+      if (curItem && curSection) { curSection.items.push(curItem); curItem = null; }
+      if (curSection && curSection.items.length) sections.push(curSection);
+      curSection = { name: matchedSection, items: [] };
       continue;
     }
 
     // ─── Skip #### sub-headings (事件介绍, 直接业务影响, etc.) ───
-    if (line.startsWith('####')) continue;
+    if (isH4) continue;
+
+    // ─── Match news item title: ### 1. 标题  or  ### 标题 ───
+    if (isH3 && curSection) {
+      // Flush previous item
+      if (curItem) curSection.items.push(curItem);
+      const titleText = trimmed.substring(4).replace(/^\d+[.、．]\s*/, '').trim();
+      curItem = { title: titleText, url: '', date: '', urls: [] };
+      continue;
+    }
 
     // ─── Match source line: > **来源：** [Name](URL) | [Name](URL) ───
-    if (curItem && /^>\s*\*\*来源/.test(line)) {
+    if (curItem && (trimmed.startsWith('> **来源') || trimmed.startsWith('>**来源'))) {
       const linkRegex = /\[([^\]]+)\]\(([^)]+)\)/g;
       let m;
-      while ((m = linkRegex.exec(line)) !== null) {
+      while ((m = linkRegex.exec(trimmed)) !== null) {
         curItem.urls.push({ name: m[1], url: m[2] });
       }
       // Use first URL as primary
@@ -631,8 +631,8 @@ function _parseMdForPush(md) {
     }
 
     // ─── Match date from metadata line: **法域：** ... ───
-    if (curItem && /^\*\*法域/.test(line)) {
-      const dateMatch = line.match(/(\d{4}[-/.]\d{1,2}[-/.]\d{1,2})/);
+    if (curItem && trimmed.startsWith('**法域')) {
+      const dateMatch = trimmed.match(/(\d{4}[-/.]\d{1,2}[-/.]\d{1,2})/);
       if (dateMatch) curItem.date = dateMatch[1];
       continue;
     }
