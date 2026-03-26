@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>游戏合规每日推送 | 2026-03-25</title>
+<title>游戏合规每日推送 | 2026-03-26</title>
 <style>
   :root {
     --primary: #6366f1;
@@ -23,48 +23,22 @@
     --topic-tencent: #dc2626; --topic-antitrust: #475569; --topic-license: #059669;
   }
   * { margin: 0; padding: 0; box-sizing: border-box; }
-  body {
-    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'PingFang SC', 'Hiragino Sans GB', 'Microsoft YaHei', sans-serif;
-    background: var(--bg); color: var(--text); line-height: 1.7; padding: 20px;
-  }
+  body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'PingFang SC', 'Hiragino Sans GB', 'Microsoft YaHei', sans-serif; background: var(--bg); color: var(--text); line-height: 1.7; padding: 20px; }
   .container { max-width: 920px; margin: 0 auto; }
-  .header {
-    background: linear-gradient(135deg, #6366f1 0%, #4338ca 50%, #3730a3 100%);
-    color: white; padding: 40px; border-radius: 16px; margin-bottom: 24px;
-    box-shadow: 0 4px 24px rgba(99, 102, 241, 0.3); position: relative; overflow: hidden;
-  }
+  .header { background: linear-gradient(135deg, #6366f1 0%, #4338ca 50%, #3730a3 100%); color: white; padding: 40px; border-radius: 16px; margin-bottom: 24px; box-shadow: 0 4px 24px rgba(99, 102, 241, 0.3); position: relative; overflow: hidden; }
   .header::before { content: '\2696'; position: absolute; right: 30px; top: 50%; transform: translateY(-50%); font-size: 80px; opacity: 0.15; }
   .header h1 { font-size: 28px; font-weight: 700; margin-bottom: 8px; }
   .header .date { font-size: 16px; opacity: 0.9; }
   .header .scope { font-size: 13px; opacity: 0.7; margin-top: 4px; }
-  .summary-box {
-    background: var(--card-bg); border-left: 4px solid var(--alert-color); border-radius: 12px;
-    padding: 28px; margin-bottom: 24px; box-shadow: 0 2px 8px rgba(0,0,0,0.06);
-  }
+  .summary-box { background: var(--card-bg); border-left: 4px solid var(--alert-color); border-radius: 12px; padding: 28px; margin-bottom: 24px; box-shadow: 0 2px 8px rgba(0,0,0,0.06); }
   .summary-box h2 { font-size: 18px; color: var(--alert-color); margin-bottom: 16px; }
   .summary-box ol { padding-left: 20px; }
   .summary-box li { margin-bottom: 10px; font-size: 15px; }
-  .summary-box .verdict {
-    background: var(--primary-light); padding: 14px 18px; border-radius: 8px;
-    margin-top: 16px; font-size: 14px; color: var(--primary); font-weight: 500; line-height: 1.6;
-  }
-  .section {
-    background: var(--card-bg); border-radius: 12px; padding: 28px; margin-bottom: 20px;
-    box-shadow: 0 2px 8px rgba(0,0,0,0.06);
-  }
-  .section-header {
-    display: flex; align-items: center; gap: 10px; margin-bottom: 20px;
-    padding-bottom: 12px; border-bottom: 2px solid var(--border);
-  }
-  .section-header .badge {
-    display: inline-flex; align-items: center; justify-content: center;
-    min-width: 32px; height: 32px; padding: 0 10px; border-radius: 8px;
-    font-weight: 700; font-size: 13px; color: white; white-space: nowrap;
-  }
-  .badge-alert { background: var(--alert-color); }
-  .badge-topnews { background: var(--topnews-color); }
-  .badge-unverified { background: var(--unverified-color); }
-  .badge-notes { background: var(--notes-color); }
+  .summary-box .verdict { background: var(--primary-light); padding: 14px 18px; border-radius: 8px; margin-top: 16px; font-size: 14px; color: var(--primary); font-weight: 500; line-height: 1.6; }
+  .section { background: var(--card-bg); border-radius: 12px; padding: 28px; margin-bottom: 20px; box-shadow: 0 2px 8px rgba(0,0,0,0.06); }
+  .section-header { display: flex; align-items: center; gap: 10px; margin-bottom: 20px; padding-bottom: 12px; border-bottom: 2px solid var(--border); }
+  .section-header .badge { display: inline-flex; align-items: center; justify-content: center; min-width: 32px; height: 32px; padding: 0 10px; border-radius: 8px; font-weight: 700; font-size: 13px; color: white; white-space: nowrap; }
+  .badge-alert { background: var(--alert-color); } .badge-topnews { background: var(--topnews-color); } .badge-unverified { background: var(--unverified-color); } .badge-notes { background: var(--notes-color); }
   .section-header h2 { font-size: 18px; font-weight: 600; }
   .risk-badge { display: inline-block; padding: 2px 10px; border-radius: 4px; font-size: 12px; font-weight: 700; color: white; margin-right: 6px; letter-spacing: 0.5px; }
   .risk-p0 { background: var(--p0-badge); } .risk-p1 { background: var(--p1-badge); } .risk-p2 { background: var(--p2-badge); }
@@ -73,16 +47,18 @@
   .tc-ecosystem { background: #f5f3ff; color: var(--tc-ecosystem); border: 1px solid #ddd6fe; }
   .tc-spillover { background: #ecfeff; color: var(--tc-spillover); border: 1px solid #a5f3fc; }
   .topic-tag { display: inline-block; padding: 2px 8px; border-radius: 4px; font-size: 11px; font-weight: 500; margin-right: 4px; margin-bottom: 4px; }
-  .topic-consumer { background: #fff1f2; color: var(--topic-consumer); }
-  .topic-ai { background: #faf5ff; color: var(--topic-ai); }
+  .topic-consumer { background: #fff1f2; color: var(--topic-consumer); } .topic-minors { background: #fffbeb; color: #b45309; }
+  .topic-platform { background: #f5f3ff; color: var(--topic-platform); } .topic-rating { background: #ecfeff; color: #0e7490; }
+  .topic-privacy { background: #eff6ff; color: var(--topic-privacy); } .topic-ai { background: #faf5ff; color: var(--topic-ai); }
+  .topic-tencent { background: #fef2f2; color: var(--topic-tencent); } .topic-antitrust { background: #f1f5f9; color: var(--topic-antitrust); }
   .region-tag { display: inline-block; padding: 2px 8px; border-radius: 4px; font-size: 12px; font-weight: 500; margin-right: 6px; margin-bottom: 4px; }
-  .region-br { background: #d1fae5; color: #065f46; }
-  .region-eu { background: #f0fdf4; color: #16a34a; }
+  .region-us { background: #eff6ff; color: #2563eb; } .region-eu { background: #f0fdf4; color: #16a34a; }
+  .region-sea { background: #ecfeff; color: #0891b2; } .region-au { background: #e0f2fe; color: #0369a1; }
   .region-global { background: #f1f5f9; color: #475569; }
   .action-tag { display: inline-block; padding: 2px 8px; border-radius: 4px; font-size: 11px; font-weight: 600; margin-right: 4px; background: #f1f5f9; color: #475569; }
-  .action-enforcement { background: #fee2e2; color: #991b1b; }
-  .action-trend { background: #e0f2fe; color: #075985; }
-  .action-warning { background: #fff7ed; color: #9a3412; }
+  .action-legislation { background: #dbeafe; color: #1e40af; } .action-enforcement { background: #fee2e2; color: #991b1b; }
+  .action-litigation { background: #fce7f3; color: #9d174d; } .action-rulechange { background: #fef3c7; color: #92400e; }
+  .action-trend { background: #e0f2fe; color: #075985; } .action-warning { background: #fff7ed; color: #9a3412; }
   .item { padding: 18px 0; border-bottom: 1px solid #f0f0f0; }
   .item:last-child { border-bottom: none; }
   .item h3 { font-size: 16px; font-weight: 600; margin-bottom: 8px; color: var(--text); line-height: 1.5; }
@@ -93,53 +69,49 @@
   .item .body { font-size: 14px; line-height: 1.8; color: #334155; }
   .impact { padding: 10px 14px; border-radius: 8px; margin-top: 10px; font-size: 13px; line-height: 1.6; }
   .impact-warning { background: var(--p1-bg); color: var(--p1-text); border-left: 3px solid var(--p1-border); }
-  .impact-info { background: #eff6ff; color: #1d4ed8; border-left: 3px solid #3b82f6; }
   .impact-caution { background: var(--p2-bg); color: var(--p2-text); border-left: 3px solid var(--p2-border); }
-  .trend-signal { padding: 8px 14px; border-radius: 8px; margin-top: 8px; font-size: 12px; line-height: 1.6; background: #f0f9ff; color: #0c4a6e; border-left: 3px solid #0ea5e9; }
+  .impact-info { background: #eff6ff; color: #1d4ed8; border-left: 3px solid #3b82f6; }
+  .impact-neutral { background: #f8fafc; color: #475569; border-left: 3px solid #94a3b8; }
   .empty-note { padding: 16px; text-align: center; color: var(--text-secondary); font-size: 14px; font-style: italic; }
   .notes-list { list-style-type: disc; padding-left: 20px; }
   .notes-list li { font-size: 13px; color: var(--text-secondary); margin-bottom: 8px; line-height: 1.6; }
   .footer { text-align: center; padding: 24px; font-size: 12px; color: var(--text-secondary); }
   .footer .disclaimer { background: #fffbeb; border: 1px solid #fde68a; border-radius: 8px; padding: 12px 16px; margin-bottom: 12px; font-size: 12px; color: #92400e; }
-  @media (max-width: 640px) {
-    body { padding: 12px; } .header { padding: 24px; } .header h1 { font-size: 22px; }
-    .header::before { font-size: 50px; right: 16px; } .section, .summary-box { padding: 20px; }
-  }
+  .trend-signal { background: #f0fdf4; color: #166534; border-left: 3px solid #22c55e; padding: 8px 12px; border-radius: 6px; margin-top: 8px; font-size: 12px; line-height: 1.5; }
+  @media (max-width: 640px) { body { padding: 12px; } .header { padding: 24px; } .header h1 { font-size: 22px; } .header::before { font-size: 50px; right: 16px; } .section, .summary-box { padding: 20px; } }
 </style>
 </head>
 <body>
 <div class="container">
 
-  <!-- Header -->
   <div class="header">
     <h1>游戏合规每日推送</h1>
-    <div class="date">2026-03-25 · 周三</div>
-    <div class="scope">覆盖窗口：2026-03-24 UTC 00:00 – 23:59 | 严格一手来源</div>
+    <div class="date">2026-03-26 · 周四</div>
+    <div class="scope">覆盖窗口：2026-03-25 UTC 00:00–23:59 | 严格一手来源</div>
   </div>
 
-  <!-- Summary -->
   <div class="summary-box">
     <h2>今日最重要的变化</h2>
     <ol>
-      <li><strong>巴西"数字ECA"正式生效</strong>：含开箱玩法的游戏被强制评级18+，Google Play/App Store已开始执行年龄过滤，违规最高罚款营收10%</li>
-      <li><strong>GDC 2026调查</strong>：52%游戏开发者认为生成式AI对行业有害，投资者与开发者在AI问题上冲突加剧</li>
-      <li><strong>EU AI Act透明度实务守则</strong>第二稿征求意见3月30日截止，游戏行业AI生成内容标注义务即将明确</li>
+      <li><strong>里程碑判决：</strong>美国陪审团首次裁定 Meta 和 Google 对社交媒体致儿童成瘾担责（赔偿 $30M），该判决框架可能直接影响正在推进的游戏成瘾 MDL 诉讼</li>
+      <li><strong>PEGI 分级新规律所密集解读：</strong>含 loot box 游戏6月起最低 PEGI 16，EA Sports FC 可能从 PEGI 3 跳升至 PEGI 16</li>
+      <li><strong>Epic Games 裁员 20%：</strong>超1000人，涉及堡垒之夜和虚幻引擎团队，腾讯为其主要股东</li>
     </ol>
     <div class="verdict">
-      <strong>总判断：</strong>巴西开箱禁令正式执行，是全球首个将loot box直接关联18+强制分级的主要市场，对出海游戏变现模式产生实质影响；AI合规监管从立法走向实操，开发者态度与企业采用形成鲜明对立。
+      <strong>总判断：</strong>本日无 P0/P1 级别直接阻塞风险，但社交媒体成瘾案判决为游戏行业「成瘾性设计」产品责任诉讼树立了重要先例；PEGI 分级改革将在6月对所有含 loot box 的欧洲分发游戏产生直接影响，建议立即启动分级评估。
     </div>
   </div>
 
-  <!-- Section 1: Major Alerts -->
+  <!-- ===== Major Alerts ===== -->
   <div class="section">
     <div class="section-header">
       <span class="badge badge-alert">ALERT</span>
       <h2>Major Alerts — 重大风险预警</h2>
     </div>
-    <div class="empty-note">当日无P0/P1级别重大风险预警</div>
+    <div class="empty-note">当日无重大风险预警</div>
   </div>
 
-  <!-- Section 2: Top News -->
+  <!-- ===== Top News ===== -->
   <div class="section">
     <div class="section-header">
       <span class="badge badge-topnews">TOP</span>
@@ -148,116 +120,137 @@
 
     <!-- News 1 -->
     <div class="item">
-      <h3>
-        巴西"数字ECA"正式生效：开箱游戏强制评级18+，平台已开始执行
+      <h3>美国陪审团裁定 Meta 和 Google 在社交媒体成瘾案中担责，赔偿 3000 万美元
         <span class="tc-tag tc-ecosystem">Tencent Ecosystem</span>
         <span class="tc-tag tc-spillover">Tencent Spillover</span>
       </h3>
       <div class="meta">
-        <span class="region-tag region-br">巴西</span>
-        <span class="topic-tag topic-consumer">游戏机制与消费者保护</span>
-        <span class="action-tag action-enforcement">执法</span>
+        <span class="region-tag region-us">美国</span>
+        <span class="topic-tag topic-minors">未成年人保护</span>
+        <span class="topic-tag topic-consumer">消费者保护</span>
+        <span class="action-tag action-litigation">诉讼裁决</span>
       </div>
-      <div class="source">来源: <a href="https://www.sohu.com/a/1000548191_121124868">搜狐行业资讯</a> · 据巴西联邦政府第12.880/2026号法令</div>
-      <div class="body">
-        2026年3月17日，巴西第15.211/2025号法律（"数字ECA"）正式结束过渡期生效，3月18日配套实施细则（第12.880/2026号法令）颁布。根据该法第20条，禁止在面向未成年人的电子游戏中提供loot box/开箱玩法。巴西司法部明确：含开箱玩法的游戏将被强制评级为18+。Google Play自3月起已针对巴西未成年用户拦截18+应用，App Store亦更新年龄评级。违规企业面临最高上一会计年度巴西营收10%或5000万雷亚尔（约7000万人民币）的罚款。已有《马里奥赛车巡回赛》《荒野乱斗》等游戏被上调至18+。
-      </div>
+      <div class="source">来源: <a href="https://www.usatoday.com/story/tech/2026/03/25/meta-google-trial-verdict/89067895007/" target="_blank">USA Today 报道</a> | <a href="https://www.usnews.com/news/best-states/california/articles/2026-03-25/jury-finds-instagram-and-youtube-liable-in-landmark-social-media-addiction-trial" target="_blank">US News 报道</a></div>
+      <div class="body">3月25日，加州联邦法院陪审团在一项里程碑式诉讼中裁定 Meta（Instagram）和 Google（YouTube）对其平台导致儿童成瘾承担责任，判令赔偿约 3000 万美元。原告主张两家公司的产品设计刻意利用成瘾机制，且未对平台上的危险内容充分警告。这是美国首次在庭审中由陪审团认定社交媒体平台对未成年人成瘾承担责任。</div>
       <div class="impact impact-warning">
-        <strong>直接业务影响：</strong>所有含开箱/gacha机制的出海游戏在巴西市场必须接受18+评级，或移除开箱玩法，或改用"预览包"机制（购前可知内容）。App Store和Google Play均已开始自动过滤，未成年用户将无法下载18+游戏。Riot Games已将旗下产品直接上调至18+；暴雪《守望先锋》选择删除开箱。
+        <strong>直接业务影响：</strong>该判决为"平台设计导致用户成瘾"确立了司法先例，可能外溢至游戏行业——游戏成瘾集体诉讼（MDL）已在同一法院并行推进。目前 Epic Games、Roblox、Microsoft/Activision Blizzard、Nintendo 等游戏公司已面临类似诉讼。如果"成瘾性设计"的举证框架被广泛采用，游戏内的每日签到、FOMO 机制、推送通知等留存设计都可能面临法律审视。
       </div>
       <div class="trend-signal">
-        <strong>📈 监管趋势信号：</strong>巴西是全球首个通过立法将loot box与18+分级直接绑定并正式执行的主要市场，其"预览包"例外机制可能成为全球loot box合规设计的参考范本。
+        <strong>📡 监管趋势信号：</strong>此案打破了科技平台在"平台设计致瘾"维度的免责壁垒，原告律师已明确表示将推动更多类似诉讼。游戏行业正在同一法院面临MDL诉讼，本案判决框架极有可能被援引。
       </div>
     </div>
 
     <!-- News 2 -->
     <div class="item">
-      <h3>
-        GDC 2026调查：52%开发者视AI为行业威胁，企业采用率与反对率同达52%
-        <span class="tc-tag tc-ecosystem">Tencent Ecosystem</span>
+      <h3>菲律宾警方针对 Roblox 平台发起网络犯罪打击行动
+        <span class="tc-tag tc-spillover">Tencent Spillover</span>
       </h3>
       <div class="meta">
-        <span class="region-tag region-global">全球</span>
-        <span class="topic-tag topic-ai">AI合规与透明度</span>
-        <span class="action-tag action-trend">行业动态</span>
+        <span class="region-tag region-sea">菲律宾</span>
+        <span class="topic-tag topic-minors">未成年人保护</span>
+        <span class="topic-tag topic-consumer">消费者保护</span>
+        <span class="action-tag action-enforcement">执法行动</span>
       </div>
-      <div class="source">来源: <a href="https://winbuzzer.com/2026/03/23/generative-ai-gaming-gdc-2026-developer-opposition-xcxwbn/">WinBuzzer</a> · <a href="https://aidirectory.com/news/investors-game-developers-clash-generative-ai-2026">AIDIRECTORY/Ars Technica</a></div>
-      <div class="body">
-        GDC 2026行业现状报告显示，52%受访游戏开发者认为生成式AI对行业有害（同比翻倍，去年30%），而企业层面的AI采用率同样达到52%。但个人实际使用率仅36%，主要用于研究/头脑风暴（81%）和代码辅助（47%），在艺术资产等创意内容领域使用率极低。仅有7%的开发者认为AI对行业有益。Nvidia在GDC演示的DLSS 5（实时神经渲染修改角色外观）遭到概念艺术家批评为"没有灵魂"。
-      </div>
-      <div class="impact impact-info">
-        <strong>直接业务影响：</strong>企业AI采用率与开发者反对率的巨大鸿沟预示AI治理将成为劳资关系核心议题。约90%开发者支持Steam强制AI使用披露，平台治理规则可能进一步收紧。游戏工作室需审慎管理AI部署策略。
-      </div>
-      <div class="trend-signal">
-        <strong>📈 监管趋势信号：</strong>AI在游戏行业的矛盾从技术能力层面转向劳工关系与信任危机，可能催化行业自律标准甚至监管介入。
+      <div class="source">来源: <a href="https://igamingbusiness.com/legal-compliance/regulation/philippine-authorities-target-roblox-online-gaming-cybercrime-push/" target="_blank">iGaming Business 报道</a></div>
+      <div class="body">3月24日，菲律宾国家警察反网络犯罪小组宣布升级打击通过 Roblox 等在线游戏平台进行的犯罪活动。执法行动聚焦两大方向：一是平台被利用于对未成年人的性掠夺和引诱；二是 Roblox 的随机奖励系统和虚拟物品交易被认为构成"儿童赌博"。Roblox 日活超1.11亿用户，其中约40%为13岁以下儿童。</div>
+      <div class="impact impact-caution">
+        <strong>直接业务影响：</strong>Roblox 的随机奖励和内购机制正受到多国监管审查，此次执法反映了东南亚地区对游戏平台儿童安全问题从"行业自律"升级为"刑事执法"的趋势。
       </div>
     </div>
 
     <!-- News 3 -->
     <div class="item">
-      <h3>
-        Tonucci律所：游戏行业面临EU AI Act紧迫合规义务，高风险系统规则8月生效
-        <span class="tc-tag tc-spillover">Tencent Spillover</span>
+      <h3>PEGI 分级新规持续发酵：律所密集解读，含 Loot Box 游戏6月起最低 PEGI 16
+        <span class="tc-tag tc-ecosystem">Tencent Ecosystem</span>
       </h3>
       <div class="meta">
-        <span class="region-tag region-eu">欧盟</span>
-        <span class="topic-tag topic-ai">AI合规与透明度</span>
-        <span class="action-tag action-warning">预警</span>
+        <span class="region-tag region-eu">欧洲</span>
+        <span class="topic-tag topic-rating">游戏评级</span>
+        <span class="topic-tag topic-consumer">消费者保护</span>
+        <span class="action-tag action-rulechange">规则变化</span>
       </div>
-      <div class="source">来源: <a href="https://tonucci.com/en/video-games-and-ai-eu-regulation-urge/">Tonucci & Partners</a> · <a href="https://digital-strategy.ec.europa.eu/en/library/commission-publishes-second-draft-code-practice-marking-and-labelling-ai-generated-content">欧盟委员会 Code of Practice第二稿</a></div>
-      <div class="body">
-        意大利律所Tonucci & Partners于3月24日发表专文分析EU AI Act对游戏行业的合规影响。文章指出高风险AI系统义务将于2026年8月2日正式适用，游戏行业需关注三大合规维度：AI生成内容的透明度标识要求、不同AI应用的风险分类归属、以及合规责任主体的确定。同期，EU AI Act透明度实务守则（Code of Practice）第二稿正在征求意见（截至3月30日），最终版预计6月定稿。
-      </div>
-      <div class="impact impact-caution">
-        <strong>直接业务影响：</strong>游戏中使用的AI NPC对话、AI生成美术资产、AI辅助内容创作等均可能触发EU AI Act透明度标注义务。8月2日前，面向欧盟市场的游戏公司需完成AI系统风险评估和分类。AI实务守则3月30日反馈截止，游戏行业有最后窗口向欧盟表达诉求。
+      <div class="source">来源: <a href="https://pegi.info/news/pegi-expands-age-rating-criteria-interactive-risk-categories" target="_blank">PEGI 官方公告</a> | <a href="https://www.gtlaw.com/en/insights/2026/3/pegi-updates-eu-video-game-age-rating-system" target="_blank">Greenberg Traurig 法律分析</a> | <a href="https://natlawreview.com/article/pegi-updates-eu-video-game-age-rating-system" target="_blank">National Law Review</a></div>
+      <div class="body">3月25日，National Law Review 和 Greenberg Traurig 等律所密集发布 PEGI 新规法律分析。PEGI 于3月12日宣布的分级改革将于2026年6月生效，首次将 loot box/gacha 机制、限时折扣、NFT/区块链、在线交流功能纳入分级考量。关键变化：含付费随机物品（loot box）的游戏最低 PEGI 16；使用 NFT/区块链的游戏 PEGI 18；含限时/稀缺性促销的游戏 PEGI 12。</div>
+      <div class="impact impact-warning">
+        <strong>直接业务影响：</strong>所有在欧洲分发的含 loot box/gacha 机制游戏必须在6月前重新评估年龄分级。EA Sports FC 等含抽卡/开箱的热门游戏可能从 PEGI 3 跳升至 PEGI 16，直接影响目标用户群和商店展示。游戏发行商应立即主动提交新游戏评审。
       </div>
       <div class="trend-signal">
-        <strong>📈 监管趋势信号：</strong>EU AI Act从立法进入实操阶段，游戏行业AI应用将首次面临系统性的合规框架约束。
+        <strong>📡 监管趋势信号：</strong>PEGI 改革与德国 USK 2023年做法一脉相承，标志着欧洲行业自律组织正在主动将 loot box 纳入分级标准，而非等待立法强制。
       </div>
     </div>
 
     <!-- News 4 -->
     <div class="item">
-      <h3>
-        游戏AI合规法律深度分析：开发管线三级风险分层与下游侵权责任
+      <h3>Epic Games 裁员超1000人（约20%），涉及堡垒之夜团队和虚幻引擎部门
+        <span class="tc-tag tc-direct">Tencent Direct</span>
       </h3>
       <div class="meta">
-        <span class="region-tag region-global">全球</span>
-        <span class="topic-tag topic-ai">AI合规与透明度</span>
+        <span class="region-tag region-us">美国</span>
+        <span class="topic-tag topic-platform">行业动态</span>
         <span class="action-tag action-trend">行业动态</span>
       </div>
-      <div class="source">来源: <a href="https://www.gamesindustry.biz/generative-ai-in-game-development-navigating-ip-regulation-and-reputation">GamesIndustry.biz</a></div>
-      <div class="body">
-        GamesIndustry.biz AI Week期间，Perkins Coie合伙人Ali Mirsaidi发表深度法律分析，将游戏开发管线中的AI应用风险分为三级：代码/后端（低风险）→概念艺术/早期构思（中风险）→生产资产如角色模型、语音、纹理（极高风险）。文章警告：即使诉讼目前集中在AI提供商层面，使用第三方AI工具生成最终游戏资产的发布方仍需承担下游侵权责任。美国版权局重申完全由AI生成的作品不受版权保护，但"有意义的人类控制"可获有限保护。
-      </div>
+      <div class="source">来源: <a href="https://screenrant.com/epic-games-layoffs-tim-sweeney-announcement/" target="_blank">Screen Rant 报道</a></div>
+      <div class="body">3月24日，Epic Games 宣布裁员超过1000人，约占员工总数20%，波及《堡垒之夜》开发团队和虚幻引擎部门。CEO Tim Sweeney 在内部备忘录中将裁员归因于《堡垒之夜》用户参与度下降和宏观经济压力，同时回顾了公司与 Apple、Google 的反垄断诉讼历程。</div>
       <div class="impact impact-info">
-        <strong>直接业务影响：</strong>使用第三方AI工具生成最终游戏资产的工作室需自行评估侵权风险，不能依赖"工具提供商负责"。游戏公司应建立明确的AI使用治理规则，区分管线中哪些环节允许使用AI。美国版权局对AI作品的保护立场直接影响游戏IP的法律价值。
+        <strong>直接业务影响：</strong>腾讯为 Epic Games 主要股东（持股约40%），裁员直接影响腾讯的游戏生态系统投资。虚幻引擎作为大量游戏的核心引擎，裁员可能影响引擎更新和技术支持节奏。反平台诉讼成本压力间接体现了 DMA/反垄断合规的长期经济影响。
       </div>
     </div>
 
     <!-- News 5 -->
     <div class="item">
-      <h3>
-        投资者与开发者AI矛盾升级：风投称调查结果"令人震惊"，工会指AI效率被高估
-        <span class="tc-tag tc-ecosystem">Tencent Ecosystem</span>
+      <h3>EU AI Act 透明度实践守则第二稿反馈截止在即，游戏行业 AI 合规窗口收窄
+        <span class="tc-tag tc-spillover">Tencent Spillover</span>
       </h3>
       <div class="meta">
-        <span class="region-tag region-global">全球</span>
-        <span class="topic-tag topic-ai">AI合规与透明度</span>
-        <span class="action-tag action-trend">行业动态</span>
+        <span class="region-tag region-eu">欧盟</span>
+        <span class="topic-tag topic-ai">AI 合规</span>
+        <span class="action-tag action-rulechange">规则制定</span>
       </div>
-      <div class="source">来源: <a href="https://aidirectory.com/news/investors-game-developers-clash-generative-ai-2026">AIDIRECTORY/Ars Technica</a></div>
-      <div class="body">
-        GDC 2026调查结果引发投资者与开发者公开对立。Lightspeed Venture Partners投资人Moritz Baier-Lentz批评开发者对AI的"妖魔化"，称调查结果"令人震惊和悲伤"。Big Friendly Union组织者Chris Hays反驳称大力推行AI的工作室"往往表现不佳"；United Videogame Workers指出AI生成内容仍需大量人工修正，实际效率提升远低于预期。多个工作室因未透明披露AI使用而遭遇玩家强烈抵制，Larian Studios已在粉丝反对后放弃部分AI工具。
+      <div class="source">来源: <a href="https://digital-strategy.ec.europa.eu/en/faqs/guidelines-and-code-practice-transparent-ai-systems" target="_blank">欧盟官方FAQ</a> | <a href="https://tonucci.com/en/video-games-and-ai-eu-regulation-urge/" target="_blank">Tonucci律所分析</a> | <a href="https://www.gamesindustry.biz/generative-ai-in-game-development-navigating-ip-regulation-and-reputation" target="_blank">GamesIndustry.biz</a></div>
+      <div class="body">欧盟 AI Act 第50条透明度义务的配套《AI生成内容透明度实践守则》第二稿已于3月3日发布，利益相关方反馈截止日期为3月30日（仅剩4天）。守则要求对AI生成内容进行标注、水印和可追溯标记。Tonucci律所（3/24）和GamesIndustry.biz（3/18）发布游戏行业AI合规专题分析，指出AI NPC、AI生成对话、AI辅助内容创作等场景均可能触发透明度义务。</div>
+      <div class="impact impact-caution">
+        <strong>直接业务影响：</strong>使用生成式AI创作游戏资产的工作室需评估是否触发 EU AI Act 第50条披露义务。AI驱动的动态NPC对话和非脚本行为可能引发内容安全和分级方面的额外监管关注。GDC 2026调查显示52%开发者认为生成式AI有害行业。
       </div>
-      <div class="impact impact-info">
-        <strong>直接业务影响：</strong>投资者推动AI与开发者/玩家抵制的结构性矛盾，可能影响游戏公司的AI战略节奏。工会组织介入AI议题，预示未来可能出现劳动协议中的AI使用限制条款。透明度已成为行业共识，未披露AI使用的工作室面临声誉风险。
+    </div>
+
+    <!-- News 6 -->
+    <div class="item">
+      <h3>澳大利亚 AML/CTF 反洗钱改革3月31日对博彩业生效，合规要求全面升级
+        <span class="tc-tag tc-spillover">Tencent Spillover</span>
+      </h3>
+      <div class="meta">
+        <span class="region-tag region-au">澳大利亚</span>
+        <span class="topic-tag topic-platform">行业规则</span>
+        <span class="action-tag action-legislation">法规生效</span>
+      </div>
+      <div class="source">来源: <a href="https://www.austrac.gov.au/business/core-guidance" target="_blank">AUSTRAC 官方指南</a> | <a href="https://www.igamingtoday.com/australias-gambling-sector-faces-major-aml-shift-as-march-2026-deadline-nears/" target="_blank">iGaming Today</a></div>
+      <div class="body">澳大利亚 AML/CTF 法案修正案将于3月31日对现有报告实体（含赌场、博彩运营商、投注服务提供商）正式生效。改革要求企业从"合规打勾"模式转向"以风险为导向"的合规体系，需更新风险评估、加强客户尽职调查、新增反扩散融资要求。覆盖面扩展至律师、会计师等博彩关联专业人士。</div>
+      <div class="impact impact-neutral">
+        <strong>直接业务影响：</strong>主要针对传统博彩和赌场，但含有虚拟货币交易、抽卡消费等涉及资金流转的游戏服务可能需评估是否落入扩展的监管范围。澳大利亚市场的合规成本将上升。
+      </div>
+    </div>
+
+    <!-- News 7 -->
+    <div class="item">
+      <h3>美国两党参议员提出《预测市场即赌博法案》，禁止体育博彩预测市场
+        <span class="tc-tag tc-spillover">Tencent Spillover</span>
+      </h3>
+      <div class="meta">
+        <span class="region-tag region-us">美国</span>
+        <span class="topic-tag topic-consumer">消费者保护</span>
+        <span class="topic-tag topic-antitrust">平台治理</span>
+        <span class="action-tag action-legislation">立法提案</span>
+      </div>
+      <div class="source">来源: <a href="https://techcrunch.com/2026/03/23/bipartisan-bill-seeks-to-ban-sports-betting-on-kalshi-and-polymarket/" target="_blank">TechCrunch</a> | <a href="https://www.yahoo.com/news/articles/bipartisan-senators-unveil-bill-banning-193634702.html" target="_blank">Yahoo News</a></div>
+      <div class="body">3月23日，美国参议员 Adam Schiff 和 John Curtis 联合提出《预测市场即赌博法案》，拟禁止受 CFTC 监管的平台（如 Kalshi、Polymarket）提供体育赛事合约或赌场类游戏。法案旨在恢复各州对体育博彩的管辖权，堵住绕过州消费者保护法规的"后门"。</div>
+      <div class="impact impact-neutral">
+        <strong>直接业务影响：</strong>对游戏公司的直接影响有限，但该法案体现了美国联邦对"赌博边界"定义收紧的趋势。如果"预测市场=赌博"的定性被广泛接受，可能为将 loot box 纳入赌博监管提供立法论据参照。
       </div>
     </div>
 
   </div>
 
-  <!-- Section 3: Unverified News -->
+  <!-- ===== Unverified News ===== -->
   <div class="section">
     <div class="section-header">
       <span class="badge badge-unverified">待验证</span>
@@ -266,28 +259,25 @@
     <div class="empty-note">当日无待验证信息</div>
   </div>
 
-  <!-- Section 4: Notes -->
+  <!-- ===== Notes ===== -->
   <div class="section">
     <div class="section-header">
       <span class="badge badge-notes">NOTE</span>
       <h2>Notes — 补充说明</h2>
     </div>
     <ul class="notes-list">
-      <li><strong>搜索覆盖说明：</strong>已完成四阶段搜索，包括中国新闻出版署/网信办（无当日新公告）、美国FTC（无当日新执法动作）、欧盟委员会、英国Ofcom/ICO的定向搜索</li>
-      <li><strong>跟踪事件背景：</strong>纽约州诉Valve loot box案（2月25日提起）、CFIUS审查腾讯游戏投资（3月4日FT报道）、UK儿童数字安全咨询（3月2日启动）等跟踪事件在当期窗口内无实质性新进展</li>
-      <li><strong>合并说明：</strong>AI相关新闻较集中（GDC调查、投资者冲突、Tonucci分析、GamesIndustry.biz法律分析），已按不同角度拆分但注意相互引用关系</li>
-      <li><strong>盲区提醒：</strong>韩国GRAC、日本CERO、中东地区当日未搜索到合规相关新动态</li>
+      <li><strong>COPPA 合规倒计时：</strong>美国 FTC 修订的 COPPA 规则合规截止日为2026年4月22日（不足4周），涉及生物识别数据保护、第三方共享单独同意、书面信息安全计划等新增要求。游戏行业需重点关注涉及儿童用户的移动游戏和在线服务的 COPPA 合规审查。（律所提醒于3/12-13发布，故列入Notes而非Top News）</li>
+      <li><strong>苹果中国区佣金下调：</strong>苹果于3月13日宣布自3月15日起下调中国内地 App Store 佣金率（标准税率30%→25%，小型开发者15%→12%）。该事件已超出本期覆盖窗口。</li>
+      <li><strong>搜索覆盖说明：</strong>本期执行了完整的四阶段搜索策略。覆盖窗口内中国大陆监管机构（新闻出版署、网信办）无游戏相关新增公告。</li>
     </ul>
   </div>
 
-  <!-- Footer -->
   <div class="footer">
     <div class="disclaimer">
-      免责声明：以上内容为公开信息整理与分析摘要，不构成法律意见。
-      如需针对具体业务场景的合规建议，请进一步咨询合规团队-GCC游戏合规中心。
+      免责声明：以上内容为公开信息整理与分析摘要，不构成法律意见。如需针对具体业务场景的合规建议，请进一步咨询合规团队-GCC游戏合规中心。
     </div>
     <p>Powered by Game Compliance Daily Brief v2.3</p>
-    <p>信息截至北京时间 2026-03-25 09:50</p>
+    <p>信息截至北京时间 2026-03-26 10:45</p>
   </div>
 
 </div>
