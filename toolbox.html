@@ -619,7 +619,7 @@ function _parseMdForPush(md) {
       // Flush previous item
       if (curItem) curSection.items.push(curItem);
       const titleText = trimmed.substring(4).replace(/^\d+[.、．]\s*/, '').trim();
-      curItem = { title: titleText, url: '', date: '', urls: [] };
+      curItem = { title: titleText, url: '', date: '', urls: [], _dateCandidates: [] };
       continue;
     }
 
@@ -634,20 +634,55 @@ function _parseMdForPush(md) {
       if (curItem.urls.length && !curItem.url) {
         curItem.url = curItem.urls[0].url;
       }
+      // Try extract date from source URLs (e.g. .../2026/03/19/...)
+      for (const u of curItem.urls) {
+        const udm = u.url.match(/(202[4-9])[/-](\d{2})[/-](\d{2})/);
+        if (udm) curItem._dateCandidates.push({ y: +udm[1], m: +udm[2], d: +udm[3], s: udm[1]+'-'+udm[2]+'-'+udm[3] });
+      }
       continue;
     }
 
-    // ─── Match date from metadata line: **法域：** ... ───
-    if (curItem && trimmed.startsWith('**法域')) {
-      const dateMatch = trimmed.match(/(\d{4}[-/.]\d{1,2}[-/.]\d{1,2})/);
-      if (dateMatch) curItem.date = dateMatch[1];
-      continue;
+    // ─── Collect date candidates from body text ───
+    if (curItem && curItem._dateCandidates && !isH2 && !isH3 && !isH4) {
+      // Full date: 2026年3月24日 or 2026年3月24-25日
+      const fullDates = [...trimmed.matchAll(/(\d{4})年(\d{1,2})月(\d{1,2})(?:[-–]\d{1,2})?日/g)];
+      for (const dm of fullDates) {
+        curItem._dateCandidates.push({ y: +dm[1], m: +dm[2], d: +dm[3], s: dm[1]+'-'+String(dm[2]).padStart(2,'0')+'-'+String(dm[3]).padStart(2,'0') });
+      }
+      // ISO-like: 2026-03-19, 2026/03/19
+      const isoDates = [...trimmed.matchAll(/(202[4-9])[-/.](\d{1,2})[-/.](\d{1,2})/g)];
+      for (const dm of isoDates) {
+        curItem._dateCandidates.push({ y: +dm[1], m: +dm[2], d: +dm[3], s: dm[1]+'-'+String(dm[2]).padStart(2,'0')+'-'+String(dm[3]).padStart(2,'0') });
+      }
+    }
     }
   }
 
   // Flush final item and section
   if (curItem && curSection) curSection.items.push(curItem);
   if (curSection && curSection.items.length) sections.push(curSection);
+
+  // Post-process: pick best date for each item from candidates
+  for (const sec of sections) {
+    for (const it of sec.items) {
+      if (!it.date && it._dateCandidates && it._dateCandidates.length) {
+        const cands = it._dateCandidates;
+        // Prefer 2026 dates (most likely the actual report date)
+        const y2026 = cands.filter(c => c.y === 2026);
+        if (y2026.length) {
+          // Among 2026 dates, pick the latest one (most recent event)
+          y2026.sort((a, b) => (b.m * 100 + b.d) - (a.m * 100 + a.d));
+          it.date = y2026[0].s;
+        } else {
+          // Fall back to latest date from any year
+          cands.sort((a, b) => (b.y * 10000 + b.m * 100 + b.d) - (a.y * 10000 + a.m * 100 + a.d));
+          it.date = cands[0].s;
+        }
+      }
+      // Clean up internal field
+      delete it._dateCandidates;
+    }
+  }
 
   return sections;
 }
@@ -658,10 +693,6 @@ function buildPushPreview(){
 
   const sections = _parseMdForPush(md);
   const kmUrl=document.getElementById('km-url').value.trim();
-
-  // Try to extract date range from MD header (## 2026.3.20 - 2026.3.26)
-  const dateRangeMatch = md.match(/(\d{4}[./-]\d{1,2}[./-]\d{1,2})\s*[-–—]\s*(\d{4}[./-]\d{1,2}[./-]\d{1,2})/);
-  const weekDateRange = dateRangeMatch ? dateRangeMatch[0] : '';
 
   // Build standard push message matching send_wecom_weekly.py format
   let msg='**本周推荐阅读以下与全球业务合规有关的重要新闻：**\n\n';
@@ -677,10 +708,8 @@ function buildPushPreview(){
       } else {
         line += it.title;
       }
-      // Add date: use item-level date if available, otherwise use week range
-      const dateStr = it.date || weekDateRange;
-      if(dateStr){
-        line += ` (${dateStr})`;
+      if(it.date){
+        line += ` (${it.date})`;
       }
       msg += line + '\n';
       tot++;
