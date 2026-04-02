@@ -1,0 +1,192 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>游戏合规每日推送 | 2026-04-01</title>
+<style>
+  :root {
+    --primary: #6366f1; --primary-light: #eef2ff; --bg: #f8fafc; --card-bg: #ffffff;
+    --text: #1e293b; --text-secondary: #64748b; --border: #e2e8f0;
+    --p0-bg: #fef2f2; --p0-border: #dc2626; --p0-text: #991b1b; --p0-badge: #dc2626;
+    --p1-bg: #fff7ed; --p1-border: #ea580c; --p1-text: #9a3412; --p1-badge: #ea580c;
+    --p2-bg: #fefce8; --p2-border: #ca8a04; --p2-text: #854d0e; --p2-badge: #ca8a04;
+    --tc-direct: #dc2626; --tc-ecosystem: #7c3aed; --tc-spillover: #0891b2;
+    --alert-color: #dc2626; --topnews-color: #6366f1; --unverified-color: #64748b; --notes-color: #059669;
+    --topic-consumer: #e11d48; --topic-minors: #f59e0b; --topic-platform: #8b5cf6;
+    --topic-rating: #06b6d4; --topic-privacy: #2563eb; --topic-ai: #7c3aed;
+    --topic-tencent: #dc2626; --topic-antitrust: #475569; --topic-license: #059669;
+  }
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'PingFang SC', 'Hiragino Sans GB', 'Microsoft YaHei', sans-serif; background: var(--bg); color: var(--text); line-height: 1.7; padding: 20px; }
+  .container { max-width: 920px; margin: 0 auto; }
+  .header { background: linear-gradient(135deg, #6366f1 0%, #4338ca 50%, #3730a3 100%); color: white; padding: 40px; border-radius: 16px; margin-bottom: 24px; box-shadow: 0 4px 24px rgba(99, 102, 241, 0.3); position: relative; overflow: hidden; }
+  .header::before { content: '\2696'; position: absolute; right: 30px; top: 50%; transform: translateY(-50%); font-size: 80px; opacity: 0.15; }
+  .header h1 { font-size: 28px; font-weight: 700; margin-bottom: 8px; }
+  .header .date { font-size: 16px; opacity: 0.9; }
+  .header .scope { font-size: 13px; opacity: 0.7; margin-top: 4px; }
+  .summary-box { background: var(--card-bg); border-left: 4px solid var(--alert-color); border-radius: 12px; padding: 28px; margin-bottom: 24px; box-shadow: 0 2px 8px rgba(0,0,0,0.06); }
+  .summary-box h2 { font-size: 18px; color: var(--alert-color); margin-bottom: 16px; }
+  .summary-box ol { padding-left: 20px; }
+  .summary-box li { margin-bottom: 10px; font-size: 15px; }
+  .summary-box .verdict { background: var(--primary-light); padding: 14px 18px; border-radius: 8px; margin-top: 16px; font-size: 14px; color: var(--primary); font-weight: 500; line-height: 1.6; }
+  .section { background: var(--card-bg); border-radius: 12px; padding: 28px; margin-bottom: 20px; box-shadow: 0 2px 8px rgba(0,0,0,0.06); }
+  .section-header { display: flex; align-items: center; gap: 10px; margin-bottom: 20px; padding-bottom: 12px; border-bottom: 2px solid var(--border); }
+  .section-header .badge { display: inline-flex; align-items: center; justify-content: center; min-width: 32px; height: 32px; padding: 0 10px; border-radius: 8px; font-weight: 700; font-size: 13px; color: white; white-space: nowrap; }
+  .badge-alert { background: var(--alert-color); } .badge-topnews { background: var(--topnews-color); } .badge-unverified { background: var(--unverified-color); } .badge-notes { background: var(--notes-color); }
+  .section-header h2 { font-size: 18px; font-weight: 600; }
+  .tc-tag { display: inline-block; padding: 1px 8px; border-radius: 3px; font-size: 11px; font-weight: 600; margin-left: 6px; vertical-align: middle; }
+  .tc-direct { background: #fef2f2; color: var(--tc-direct); border: 1px solid #fecaca; }
+  .tc-ecosystem { background: #f5f3ff; color: var(--tc-ecosystem); border: 1px solid #ddd6fe; }
+  .tc-spillover { background: #ecfeff; color: var(--tc-spillover); border: 1px solid #a5f3fc; }
+  .topic-tag { display: inline-block; padding: 2px 8px; border-radius: 4px; font-size: 11px; font-weight: 500; margin-right: 4px; margin-bottom: 4px; }
+  .topic-minors { background: #fffbeb; color: #b45309; } .topic-privacy { background: #eff6ff; color: var(--topic-privacy); }
+  .topic-ai { background: #faf5ff; color: var(--topic-ai); }
+  .region-tag { display: inline-block; padding: 2px 8px; border-radius: 4px; font-size: 12px; font-weight: 500; margin-right: 6px; margin-bottom: 4px; }
+  .region-cn { background: #fef2f2; color: #dc2626; } .region-au { background: #e0f2fe; color: #0369a1; } .region-uk { background: #fdf2f8; color: #db2777; } .region-us { background: #eff6ff; color: #2563eb; }
+  .action-tag { display: inline-block; padding: 2px 8px; border-radius: 4px; font-size: 11px; font-weight: 600; margin-right: 4px; }
+  .action-enforcement { background: #fee2e2; color: #991b1b; } .action-legislation { background: #dbeafe; color: #1e40af; }
+  .action-warning { background: #fff7ed; color: #9a3412; } .action-trend { background: #e0f2fe; color: #075985; }
+  .item { padding: 18px 0; border-bottom: 1px solid #f0f0f0; }
+  .item:last-child { border-bottom: none; }
+  .item h3 { font-size: 16px; font-weight: 600; margin-bottom: 8px; color: var(--text); line-height: 1.5; }
+  .item .meta { display: flex; flex-wrap: wrap; align-items: center; gap: 6px; margin-bottom: 8px; }
+  .item .source { font-size: 13px; color: var(--text-secondary); margin-bottom: 8px; }
+  .item .source a { color: var(--primary); text-decoration: none; }
+  .item .source a:hover { text-decoration: underline; }
+  .item .body { font-size: 14px; line-height: 1.8; color: #334155; }
+  .impact { padding: 10px 14px; border-radius: 8px; margin-top: 10px; font-size: 13px; line-height: 1.6; }
+  .impact-info { background: #eff6ff; color: #1d4ed8; border-left: 3px solid #3b82f6; }
+  .impact-warning { background: var(--p1-bg); color: var(--p1-text); border-left: 3px solid var(--p1-border); }
+  .impact-caution { background: var(--p2-bg); color: var(--p2-text); border-left: 3px solid var(--p2-border); }
+  .trend-signal { padding: 8px 14px; border-radius: 8px; margin-top: 8px; font-size: 12px; line-height: 1.5; background: #faf5ff; color: #7c3aed; border-left: 3px solid #a78bfa; }
+  .notes-list { list-style-type: disc; padding-left: 20px; }
+  .notes-list li { font-size: 13px; color: var(--text-secondary); margin-bottom: 8px; line-height: 1.6; }
+  .empty-note { padding: 16px; text-align: center; color: var(--text-secondary); font-size: 14px; font-style: italic; }
+  .footer { text-align: center; padding: 24px; font-size: 12px; color: var(--text-secondary); }
+  .footer .disclaimer { background: #fffbeb; border: 1px solid #fde68a; border-radius: 8px; padding: 12px 16px; margin-bottom: 12px; font-size: 12px; color: #92400e; }
+  @media (max-width: 640px) { body { padding: 12px; } .header { padding: 24px; } .header h1 { font-size: 22px; } .header::before { font-size: 50px; right: 16px; } .section, .summary-box { padding: 20px; } }
+</style>
+</head>
+<body>
+<div class="container">
+  <div class="header">
+    <h1>游戏合规每日推送</h1>
+    <div class="date">2026-04-01 · 周三</div>
+    <div class="scope">覆盖窗口：UTC 2026-04-01 00:00–23:59 | 严格一手来源</div>
+  </div>
+  <div class="summary-box">
+    <h2>今日最重要的变化</h2>
+    <ol>
+      <li>中国广电总局AI漫剧备案新规4月1日正式执行，未备案存量动画微短剧全网强制下线，对游戏行业AI内容营销和IP联动有直接溢出影响</li>
+      <li>DLA Piper发布澳大利亚《儿童在线隐私法典》深度法律分析，首次明确游戏服务适用范围及"严格必要"数据收集原则</li>
+      <li>英国Online Safety Act CSEA强制报告义务4月7日生效倒计时，游戏平台须建立儿童性虐待内容报告机制</li>
+    </ol>
+    <div class="verdict">
+      <strong>总判断：</strong>中国AIGC内容监管正式进入强执行阶段（广电总局AI漫剧备案制4月1日落地），与全球儿童数字保护持续收紧形成共振——澳大利亚儿童隐私法典将数据收集标准从"合理必要"升级为"严格必要"，英国OSA CSEA报告截止日迫近。游戏出海企业面临多法域合规成本同步上升。
+    </div>
+  </div>
+
+  <div class="section">
+    <div class="section-header"><span class="badge badge-alert">ALERT</span><h2>Major Alerts — 重大风险预警</h2></div>
+    <div class="empty-note">当日无重大风险预警</div>
+  </div>
+
+  <div class="section">
+    <div class="section-header"><span class="badge badge-topnews">TOP</span><h2>Top News — 每日重点合规新闻</h2></div>
+
+    <div class="item">
+      <h3>中国广电总局AI漫剧备案新规4月1日正式执行，未备案内容全网强制下线<span class="tc-tag tc-spillover">Tencent Spillover</span></h3>
+      <div class="meta">
+        <span class="region-tag region-cn">中国大陆</span>
+        <span class="topic-tag topic-ai">AI合规与透明度</span>
+        <span class="action-tag action-enforcement">执法</span>
+      </div>
+      <div class="source">来源: <a href="https://www.thepaper.cn/newsDetail_forward_32869681" target="_blank">澎湃新闻</a> | <a href="https://news.qq.com/rain/a/20260320A08O2800" target="_blank">腾讯新闻</a></div>
+      <div class="body">国家广电总局AI漫剧备案新规于4月1日正式落地，所有未履行备案程序的存量AIGC类、漫画类、表情包类动画微短剧将被全网强制下线。新规要求"先备案后上线"，投资额超100万元须报省级以上广电部门备案，审核周期7-15个工作日。2025年AI漫剧市场规模达168亿元，日均上线470部，此次新规预计将淘汰大量不合规小团队。</div>
+      <div class="impact impact-warning">
+        <strong>直接业务影响：</strong>游戏公司利用AI制作的微短剧作为买量素材将受直接影响——未备案的AI营销内容面临下架风险。游戏改编漫剧、漫改游戏的IP联动项目需考虑备案等待期。此外，该新规标志着中国对AIGC内容监管收紧，游戏内AI生成内容可能面临类似审核要求。
+      </div>
+      <div class="trend-signal"><strong>📡 监管趋势信号：</strong>中国AIGC监管从"算法备案"扩展到"内容备案"，覆盖面从大模型下沉到具体应用场景，游戏行业应预判类似监管延伸。</div>
+    </div>
+
+    <div class="item">
+      <h3>DLA Piper深度分析：澳大利亚儿童隐私法典将数据收集标准升级为"严格必要"<span class="tc-tag tc-spillover">Tencent Spillover</span></h3>
+      <div class="meta">
+        <span class="region-tag region-au">澳大利亚</span>
+        <span class="topic-tag topic-privacy">数据隐私与数据用途</span>
+        <span class="action-tag action-trend">行业动态</span>
+      </div>
+      <div class="source">来源: <a href="https://privacymatters.dlapiper.com/2026/04/australia-exposure-draft-of-childrens-online-privacy-code-signals-tougher-standards/" target="_blank">DLA Piper分析</a> | <a href="https://www.oaic.gov.au/privacy/privacy-registers/privacy-codes/childrens-online-privacy-code" target="_blank">OAIC官方</a></div>
+      <div class="body">DLA Piper于4月2日发布对澳大利亚OAIC《儿童在线隐私法典》草案的深度法律分析。关键发现：①数据收集标准从"合理必要"升级为"严格必要"（stricter standard），全球首例；②15岁以下用户须获家长/监护人同意，企业须验证监护人身份；③要求进行强制性儿童隐私影响评估（PIA）；④游戏服务明确属于适用范围。征求意见至6月5日，预计12月10日注册。</div>
+      <div class="impact impact-info">
+        <strong>直接业务影响：</strong>在澳运营的游戏产品需要从"合理必要"重新评估为"严格必要"数据收集标准、实施家长身份验证系统、维护儿童专用隐私政策版本、建立PIA登记册。合规成本显著高于GDPR和英国AADC。
+      </div>
+    </div>
+
+    <div class="item">
+      <h3>英国Online Safety Act CSEA强制报告义务4月7日生效<span class="tc-tag tc-ecosystem">Tencent Ecosystem</span></h3>
+      <div class="meta">
+        <span class="region-tag region-uk">英国</span>
+        <span class="topic-tag topic-minors">未成年人保护</span>
+        <span class="action-tag action-legislation">立法</span>
+      </div>
+      <div class="source">来源: <a href="https://www.ofcom.org.uk/online-safety/illegal-and-harmful-content/important-dates-for-online-safety-compliance" target="_blank">Ofcom合规时间表</a> | <a href="https://ohsem.me/2026/04/dating-industry-insights-reveals-major-compliance-gaps-as-online-safety-act-csea-deadline-approaches/" target="_blank">行业分析</a></div>
+      <div class="body">英国《在线安全法》关于儿童性剥削与虐待（CSEA）内容的强制报告义务将于4月7日正式生效。所有提供用户生成内容功能的在线平台——包括游戏平台的社交/聊天功能——必须向英国国家犯罪调查局（NCA）报告CSEA内容。Ofcom已发布合规指南，未合规平台将面临法律行动。</div>
+      <div class="impact impact-warning">
+        <strong>直接业务影响：</strong>含有用户聊天、社交互动、UGC功能的游戏平台必须在4月7日前建立CSEA内容识别和报告流程。对所有在英国运营的带社交功能游戏产品提出新技术和流程要求。
+      </div>
+    </div>
+
+    <div class="item">
+      <h3>Ofcom要求六大平台4月30日前报告儿童保护措施，游戏行业纳入监管视野<span class="tc-tag tc-ecosystem">Tencent Ecosystem</span></h3>
+      <div class="meta">
+        <span class="region-tag region-uk">英国</span>
+        <span class="topic-tag topic-minors">未成年人保护</span>
+        <span class="action-tag action-enforcement">执法</span>
+      </div>
+      <div class="source">来源: <a href="https://www.ofcom.org.uk/online-safety/protecting-children" target="_blank">Ofcom官方</a> | <a href="https://www.globalpolicywatch.com/2026/03/ofcom-and-ico-issue-joint-statement-on-age-assurance/" target="_blank">GlobalPolicyWatch</a></div>
+      <div class="body">Ofcom要求六大平台在4月30日前就四个优先领域报告进展：最低年龄政策、反规避措施、年龄验证实施、儿童安全设计。Ofcom官网确认游戏（gaming）已被纳入在线安全法执法范围，与社交媒体、约会应用并列。Ofcom将于5月公开报告各平台回应情况。</div>
+      <div class="impact impact-caution">
+        <strong>直接业务影响：</strong>游戏平台在英国的合规时间窗口正在收窄——4月7日CSEA报告 → 4月30日年龄保护报告 → 5月公开通报。未能按时回应的平台将面临公开曝光和执法。
+      </div>
+    </div>
+
+    <div class="item">
+      <h3>COPPA新规4月22日生效倒计时20天：多家律所发布最后合规指南<span class="tc-tag tc-ecosystem">Tencent Ecosystem</span></h3>
+      <div class="meta">
+        <span class="region-tag region-us">美国</span>
+        <span class="topic-tag topic-privacy">数据隐私与数据用途</span>
+        <span class="action-tag action-warning">预警</span>
+      </div>
+      <div class="source">来源: <a href="https://www.toyassociation.org/PressRoom2/News/2026-News/updated-coppa-rule-requirements-take-effect-april-22.aspx" target="_blank">Toy Association</a> | <a href="https://www.cooley.com/news/insight/2026/2026-03-02-ftc-issues-coppa-enforcement-discretion-policy-to-incentivize-use-of-age-verification-technologies" target="_blank">Cooley律所</a></div>
+      <div class="body">距COPPA修订规则全面合规截止仅剩20天（4月22日），多家头部律所持续发布合规指南。核心提醒：①书面数据保留政策为新增强制要求；②FTC拒绝年龄验证例外条款；③违规罚款$53,088/次。FTC主席Andrew Ferguson将年龄验证列为2026年执法核心。</div>
+      <div class="impact impact-warning">
+        <strong>直接业务影响：</strong>在美发行游戏产品须在4月22日前完成COPPA合规审查：数据保留政策、家长同意流程、第三方SDK数据共享协议。Level Infinite等腾讯海外发行品牌需确认合规状态。
+      </div>
+    </div>
+  </div>
+
+  <div class="section">
+    <div class="section-header"><span class="badge badge-unverified">待验证</span><h2>Unverified News — 待验证信息</h2></div>
+    <div class="empty-note">当日无待验证信息</div>
+  </div>
+
+  <div class="section">
+    <div class="section-header"><span class="badge badge-notes">NOTE</span><h2>Notes — 补充说明</h2></div>
+    <ul class="notes-list">
+      <li><strong>搜索覆盖说明：</strong>中国国家新闻出版署4月1日无版号相关新公告；FTC当日无新执法动作；欧盟AI Act当日无新进展。中国广电总局AI漫剧新规为UTC 4月1日发布的最重要中国监管动态。</li>
+      <li><strong>动态追踪实体变更：</strong>继续追踪印尼PP TUNAS（4月2日发出第二次传召，将在下期覆盖）、COPPA倒计时（4月22日）、澳大利亚OAIC法典征求意见（6月5日截止）。新增追踪：英国OSA CSEA报告（4月7日）、Ofcom年龄保护报告（4月30日）。</li>
+      <li><strong>事件合并说明：</strong>英国OSA CSEA报告义务和Ofcom年龄保护报告虽同属英国法域，但执法时间线和合规要求不同，分别作为独立条目。</li>
+      <li><strong>盲区提醒：</strong>当日韩国、日本、中东地区未发现与游戏合规直接相关的新动态。</li>
+    </ul>
+  </div>
+
+  <div class="footer">
+    <div class="disclaimer">免责声明：以上内容为公开信息整理与分析摘要，不构成法律意见。如需针对具体业务场景的合规建议，请进一步咨询合规团队-GCC游戏合规中心。</div>
+    <p>Powered by Game Compliance Daily Brief v4.0</p>
+    <p>信息截至北京时间 2026-04-02 20:10</p>
+  </div>
+</div>
+</body>
+</html>
