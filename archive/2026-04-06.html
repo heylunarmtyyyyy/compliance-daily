@@ -1,0 +1,256 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>游戏合规每日推送 | 2026-04-06（含周末）</title>
+<style>
+  :root {
+    --primary: #6366f1;
+    --primary-light: #eef2ff;
+    --bg: #f8fafc;
+    --card-bg: #ffffff;
+    --text: #1e293b;
+    --text-secondary: #64748b;
+    --border: #e2e8f0;
+    --p0-bg: #fef2f2; --p0-border: #dc2626; --p0-text: #991b1b; --p0-badge: #dc2626;
+    --p1-bg: #fff7ed; --p1-border: #ea580c; --p1-text: #9a3412; --p1-badge: #ea580c;
+    --p2-bg: #fefce8; --p2-border: #ca8a04; --p2-text: #854d0e; --p2-badge: #ca8a04;
+    --tc-direct: #dc2626; --tc-ecosystem: #7c3aed; --tc-spillover: #0891b2;
+    --alert-color: #dc2626; --topnews-color: #6366f1; --unverified-color: #64748b; --notes-color: #059669;
+    --topic-consumer: #e11d48; --topic-minors: #f59e0b; --topic-platform: #8b5cf6;
+    --topic-rating: #06b6d4; --topic-privacy: #2563eb; --topic-ai: #7c3aed;
+    --topic-tencent: #dc2626; --topic-antitrust: #475569; --topic-license: #059669;
+  }
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'PingFang SC', 'Hiragino Sans GB', 'Microsoft YaHei', sans-serif; background: var(--bg); color: var(--text); line-height: 1.7; padding: 20px; }
+  .container { max-width: 920px; margin: 0 auto; }
+  .header { background: linear-gradient(135deg, #6366f1 0%, #4338ca 50%, #3730a3 100%); color: white; padding: 40px; border-radius: 16px; margin-bottom: 24px; box-shadow: 0 4px 24px rgba(99, 102, 241, 0.3); position: relative; overflow: hidden; }
+  .header::before { content: '\2696'; position: absolute; right: 30px; top: 50%; transform: translateY(-50%); font-size: 80px; opacity: 0.15; }
+  .header h1 { font-size: 28px; font-weight: 700; margin-bottom: 8px; }
+  .header .date { font-size: 16px; opacity: 0.9; }
+  .header .scope { font-size: 13px; opacity: 0.7; margin-top: 4px; }
+  .summary-box { background: var(--card-bg); border-left: 4px solid var(--alert-color); border-radius: 12px; padding: 28px; margin-bottom: 24px; box-shadow: 0 2px 8px rgba(0,0,0,0.06); }
+  .summary-box h2 { font-size: 18px; color: var(--alert-color); margin-bottom: 16px; }
+  .summary-box ol { padding-left: 20px; }
+  .summary-box li { margin-bottom: 10px; font-size: 15px; }
+  .summary-box .verdict { background: var(--primary-light); padding: 14px 18px; border-radius: 8px; margin-top: 16px; font-size: 14px; color: var(--primary); font-weight: 500; line-height: 1.6; }
+  .section { background: var(--card-bg); border-radius: 12px; padding: 28px; margin-bottom: 20px; box-shadow: 0 2px 8px rgba(0,0,0,0.06); }
+  .section-header { display: flex; align-items: center; gap: 10px; margin-bottom: 20px; padding-bottom: 12px; border-bottom: 2px solid var(--border); }
+  .section-header .badge { display: inline-flex; align-items: center; justify-content: center; min-width: 32px; height: 32px; padding: 0 10px; border-radius: 8px; font-weight: 700; font-size: 13px; color: white; white-space: nowrap; }
+  .badge-alert { background: var(--alert-color); } .badge-topnews { background: var(--topnews-color); }
+  .badge-unverified { background: var(--unverified-color); } .badge-notes { background: var(--notes-color); }
+  .section-header h2 { font-size: 18px; font-weight: 600; }
+  .risk-badge { display: inline-block; padding: 2px 10px; border-radius: 4px; font-size: 12px; font-weight: 700; color: white; margin-right: 6px; letter-spacing: 0.5px; }
+  .risk-p0 { background: var(--p0-badge); } .risk-p1 { background: var(--p1-badge); } .risk-p2 { background: var(--p2-badge); }
+  .tc-tag { display: inline-block; padding: 1px 8px; border-radius: 3px; font-size: 11px; font-weight: 600; margin-left: 6px; vertical-align: middle; }
+  .tc-direct { background: #fef2f2; color: var(--tc-direct); border: 1px solid #fecaca; }
+  .tc-ecosystem { background: #f5f3ff; color: var(--tc-ecosystem); border: 1px solid #ddd6fe; }
+  .tc-spillover { background: #ecfeff; color: var(--tc-spillover); border: 1px solid #a5f3fc; }
+  .topic-tag { display: inline-block; padding: 2px 8px; border-radius: 4px; font-size: 11px; font-weight: 500; margin-right: 4px; margin-bottom: 4px; }
+  .topic-minors { background: #fffbeb; color: #b45309; } .topic-privacy { background: #eff6ff; color: var(--topic-privacy); }
+  .topic-ai { background: #faf5ff; color: var(--topic-ai); } .topic-platform { background: #f5f3ff; color: var(--topic-platform); }
+  .region-tag { display: inline-block; padding: 2px 8px; border-radius: 4px; font-size: 12px; font-weight: 500; margin-right: 6px; margin-bottom: 4px; }
+  .region-cn { background: #fef2f2; color: #dc2626; } .region-us { background: #eff6ff; color: #2563eb; }
+  .region-uk { background: #fdf2f8; color: #db2777; } .region-sea { background: #ecfeff; color: #0891b2; }
+  .region-au { background: #e0f2fe; color: #0369a1; } .region-global { background: #f1f5f9; color: #475569; }
+  .action-tag { display: inline-block; padding: 2px 8px; border-radius: 4px; font-size: 11px; font-weight: 600; margin-right: 4px; background: #f1f5f9; color: #475569; }
+  .action-enforcement { background: #fee2e2; color: #991b1b; } .action-legislation { background: #dbeafe; color: #1e40af; }
+  .action-rulechange { background: #fef3c7; color: #92400e; } .action-trend { background: #e0f2fe; color: #075985; }
+  .item { padding: 18px 0; border-bottom: 1px solid #f0f0f0; }
+  .item:last-child { border-bottom: none; }
+  .item h3 { font-size: 16px; font-weight: 600; margin-bottom: 8px; color: var(--text); line-height: 1.5; }
+  .item .meta { display: flex; flex-wrap: wrap; align-items: center; gap: 6px; margin-bottom: 8px; }
+  .item .source { font-size: 13px; color: var(--text-secondary); margin-bottom: 8px; }
+  .item .source a { color: var(--primary); text-decoration: none; }
+  .item .source a:hover { text-decoration: underline; }
+  .item .body { font-size: 14px; line-height: 1.8; color: #334155; }
+  .impact { padding: 10px 14px; border-radius: 8px; margin-top: 10px; font-size: 13px; line-height: 1.6; }
+  .impact-info { background: #eff6ff; color: #1d4ed8; border-left: 3px solid #3b82f6; }
+  .impact-warning { background: var(--p1-bg); color: var(--p1-text); border-left: 3px solid var(--p1-border); }
+  .empty-note { padding: 16px; text-align: center; color: var(--text-secondary); font-size: 14px; font-style: italic; }
+  .notes-list { list-style-type: disc; padding-left: 20px; }
+  .notes-list li { font-size: 13px; color: var(--text-secondary); margin-bottom: 8px; line-height: 1.6; }
+  .footer { text-align: center; padding: 24px; font-size: 12px; color: var(--text-secondary); }
+  .footer .disclaimer { background: #fffbeb; border: 1px solid #fde68a; border-radius: 8px; padding: 12px 16px; margin-bottom: 12px; font-size: 12px; color: #92400e; }
+  @media (max-width: 640px) { body { padding: 12px; } .header { padding: 24px; } .header h1 { font-size: 22px; } .header::before { font-size: 50px; right: 16px; } .section, .summary-box { padding: 20px; } }
+</style>
+</head>
+<body>
+<div class="container">
+
+  <div class="header">
+    <h1>游戏合规每日推送</h1>
+    <div class="date">2026-04-06（含周末） · 周一</div>
+    <div class="scope">覆盖窗口：UTC 2026-04-02 00:00 – 2026-04-05 23:59 | 严格一手来源</div>
+  </div>
+
+  <div class="summary-box">
+    <h2>本期最重要的变化</h2>
+    <ol>
+      <li><strong>英国OSA CSEA强制报告今日（4/7）生效</strong>——平台须向NCA报告儿童性剥削内容，含UGC/社交功能的游戏平台在范围内</li>
+      <li><strong>印尼PP TUNAS向Meta/YouTube发出第二次传唤</strong>——三次传唤后将启动制裁，Roblox已收到警告信</li>
+      <li><strong>全球五大法域4月同步推进儿童保护执法</strong>——英国OSA+印尼PP TUNAS+澳大利亚COPC+美国COPPA+中国大平台认定，形成罕见的全球监管共振</li>
+    </ol>
+    <div class="verdict">
+      <strong>总判断：</strong>2026年4月正在成为全球儿童数字保护的标志性执法月份。英国OSA CSEA报告今日生效、印尼PP TUNAS传唤升级、美国COPPA 16天倒计时、澳大利亚COPC全球最严标准成型、中国大平台认定落地——五大法域的同步推进意味着合规团队须在本月内完成多法域儿童保护义务的全面审查和行动计划。
+    </div>
+  </div>
+
+  <!-- ===== Major Alerts ===== -->
+  <div class="section">
+    <div class="section-header">
+      <span class="badge badge-alert">ALERT</span>
+      <h2>Major Alerts — 重大风险预警</h2>
+    </div>
+    <div class="empty-note">当日无重大风险预警</div>
+  </div>
+
+  <!-- ===== Top News ===== -->
+  <div class="section">
+    <div class="section-header">
+      <span class="badge badge-topnews">TOP</span>
+      <h2>Top News — 每日重点合规新闻</h2>
+    </div>
+
+    <!-- 1 -->
+    <div class="item">
+      <h3>1. 英国OSA CSEA强制报告义务今日（4/7）生效：平台须向NCA报告儿童性剥削内容 <span class="tc-tag tc-spillover">Tencent Spillover</span></h3>
+      <div class="meta">
+        <span class="region-tag region-uk">英国</span>
+        <span class="topic-tag topic-minors">未成年人保护</span>
+        <span class="action-tag action-enforcement">执法</span>
+      </div>
+      <div class="source">来源: <a href="https://www.legislation.gov.uk/uksi/2026/262/made">英国立法原文</a> · <a href="https://www.nationalcrimeagency.gov.uk/who-we-are/publications/802-the-online-safety-act-and-the-role-of-the-nca">NCA实施指南</a> · <a href="https://www.legislation.gov.uk/uksi/2026/268/made">CSEA报告条例</a></div>
+      <div class="body">根据《在线安全法》第66条及配套法规，从4月7日起，所有受监管的user-to-user平台必须向英国国家犯罪局（NCA）报告在其服务上发现的CSEA内容。NCA已于4月2日发布实施指南。Dating Industry Insights报告揭示，约会平台存在"重大合规缺口"。</div>
+      <div class="impact impact-warning">
+        <strong>直接业务影响：</strong>含UGC/社交/聊天功能的游戏平台属受监管范围，须建立CSEA内容检测和报告机制。未合规可面临Ofcom执法行动，包括罚款和高管个人责任。
+      </div>
+    </div>
+
+    <!-- 2 -->
+    <div class="item">
+      <h3>2. 印尼PP TUNAS执法再升级：Meta和YouTube缺席首次传唤，被发出第二次传唤 <span class="tc-tag tc-spillover">Tencent Spillover</span></h3>
+      <div class="meta">
+        <span class="region-tag region-sea">印尼</span>
+        <span class="topic-tag topic-minors">未成年人保护</span>
+        <span class="action-tag action-enforcement">执法</span>
+      </div>
+      <div class="source">来源: <a href="https://jawawa.id/newsitem/enforcement-of-pp-tunas-meta-and-youtube-absent-second-summons-issued-1775195444">Jawawa/Republika（4/3）</a> · <a href="https://theonlinecitizen.com/2026/04/03/indonesia-presses-global-tech-firms-over-child-protection-rules">The Online Citizen</a></div>
+      <div class="body">印尼通信部于4月3日向Google（YouTube）和Meta发出第二次传唤，原因是两公司以"内部协调"为由缺席首次PP TUNAS合规审查。依据法规，最多可发三次传唤，第三次后仍不出席将启动制裁。TikTok和Roblox已收到警告信，X和Bigo Live合规获认可。</div>
+      <div class="impact impact-warning">
+        <strong>直接业务影响：</strong>PP TUNAS执法呈"三次传唤→制裁"的阶梯升级路径。在印尼运营的游戏平台须加速16岁以下用户限制机制部署。
+      </div>
+    </div>
+
+    <!-- 3 -->
+    <div class="item">
+      <h3>3. Ofcom审查平台第二轮OSA风险评估，指出"重大缺陷"并要求修订 <span class="tc-tag tc-spillover">Tencent Spillover</span></h3>
+      <div class="meta">
+        <span class="region-tag region-uk">英国</span>
+        <span class="topic-tag topic-minors">未成年人保护</span>
+        <span class="action-tag action-enforcement">执法</span>
+      </div>
+      <div class="source">来源: <a href="https://www.ofcom.org.uk/online-safety/illegal-and-harmful-content/pressing-platforms-to-prioritise-safety-by-design-scrutinising-year-2-risk-assessments">Ofcom官方公告</a></div>
+      <div class="body">Ofcom于4月1日发布报告审查科技平台第二轮OSA风险评估，指出部分平台存在"重大缺陷"，要求修订并将安全纳入产品设计（safety by design）。Ofcom同步推进CSEA强制报告+风险评估审查+年龄保证联合声明三条执法线。</div>
+      <div class="impact impact-info">
+        <strong>直接业务影响：</strong>含UGC/社交功能的游戏平台须确保年度风险评估充分覆盖儿童安全，走过场的评估将被要求修订。
+      </div>
+    </div>
+
+    <!-- 4 -->
+    <div class="item">
+      <h3>4. 多家国际律所密集解读澳大利亚《儿童在线隐私法典》草案：全球最严儿童数据保护标准成型 <span class="tc-tag tc-spillover">Tencent Spillover</span></h3>
+      <div class="meta">
+        <span class="region-tag region-au">澳大利亚</span>
+        <span class="topic-tag topic-privacy">数据隐私</span>
+        <span class="action-tag action-legislation">立法</span>
+      </div>
+      <div class="source">来源: <a href="https://privacymatters.dlapiper.com/2026/04/australia-exposure-draft-of-childrens-online-privacy-code-signals-tougher-standards/">DLA Piper（4/2）</a> · <a href="https://www.oaic.gov.au/privacy/privacy-registers/privacy-codes/childrens-online-privacy-code">OAIC官方</a> · <a href="https://www.gtlaw.com.au/insights/exposure-draft-of-childrens-online-privacy-code-released">GT Law（4/2）</a></div>
+      <div class="body">OAIC 3/31发布的COPC征求意见稿引发DLA Piper、Bird & Bird、GT Law等多家国际律所密集解读。核心：数据收集升级为"严格必要"，15岁以下须父母同意+儿童"肯定"，引入"最佳利益"原则、强制PIA和数据销毁权。UNICEF已表态支持。公众咨询至6/5，法典须12/10前注册。</div>
+      <div class="impact impact-info">
+        <strong>直接业务影响：</strong>在澳运营的游戏产品须为COPC做全面准备——数据收集最小化、年龄验证升级、独立儿童隐私政策、PIA流程。"严格必要"标准显著高于GDPR门槛。
+      </div>
+    </div>
+
+    <!-- 5 -->
+    <div class="item">
+      <h3>5. 中国网信办《AI拟人化互动服务管理暂行办法》：AI NPC/伴侣须强制设未成年人模式 <span class="tc-tag tc-direct">Tencent Direct</span></h3>
+      <div class="meta">
+        <span class="region-tag region-cn">中国大陆</span>
+        <span class="topic-tag topic-ai">AI合规</span>
+        <span class="action-tag action-legislation">立法</span>
+      </div>
+      <div class="source">来源: <a href="https://www.mayerbrown.com/en/insights/publications/2026/04/china-issues-draft-rules-on-interactive-ai-services">Mayer Brown分析（4/1）</a> · <a href="https://www.icourt.cc/prac-document/159962.html">iCourt全球AI陪伴合规趋势</a></div>
+      <div class="body">中国网信办发布AI拟人化互动服务管理暂行办法征求意见稿。要求：强制未成年人模式（时长限制+家长监控）、自残/自杀意图强制转人工、连续使用超2小时提示休息、禁止诱导过度使用。注册用户达100万或月活10万以上须提交安全评估。</div>
+      <div class="impact impact-info">
+        <strong>直接业务影响：</strong>游戏内AI NPC互动、AI客服、AI剧情引擎等功能可能被纳入监管范围，含AI社交/伴侣类玩法的产品须评估合规义务。
+      </div>
+    </div>
+
+    <!-- 6 -->
+    <div class="item">
+      <h3>6. COPPA新规4月22日生效倒计时16天：年龄验证成FTC执法重心 <span class="tc-tag tc-spillover">Tencent Spillover</span></h3>
+      <div class="meta">
+        <span class="region-tag region-us">美国</span>
+        <span class="topic-tag topic-privacy">数据隐私</span>
+        <span class="action-tag action-rulechange">规则变化</span>
+      </div>
+      <div class="source">来源: <a href="https://gamesbeat.com/understanding-the-updated-coppa-rules-and-their-impact-on-child-safety/">GamesBeat深度分析</a> · <a href="https://www.toyassociation.org/ta/PressRoom2/News/2026-News/updated-coppa-rule-requirements-take-effect-april-22.aspx">Toy Association</a></div>
+      <div class="body">距COPPA新规全面生效仅剩16天。核心变化：须制定书面数据保留政策、FTC拒绝年龄验证敏感信息豁免、FTC主席重申年龄验证是执法重心、$53,088/次罚款标准已明确。混合受众游戏可在特定条件下收集有限信息用于年龄甄别。</div>
+      <div class="impact impact-info">
+        <strong>直接业务影响：</strong>面向美国市场的游戏产品须在4/22前完成数据保留政策书面化、年龄验证方案合规审查、第三方数据共享评估。
+      </div>
+    </div>
+
+    <!-- 7 -->
+    <div class="item">
+      <h3>7. 中国八部门《未成年人大平台认定办法》4月1日正式施行 <span class="tc-tag tc-direct">Tencent Direct</span></h3>
+      <div class="meta">
+        <span class="region-tag region-cn">中国大陆</span>
+        <span class="topic-tag topic-minors">未成年人保护</span>
+        <span class="action-tag action-legislation">立法</span>
+      </div>
+      <div class="source">来源: <a href="https://www.cac.gov.cn/2026-02/28/c_1774010730056867.htm">国家网信办原文</a> · <a href="https://www.gov.cn/yaowen/liebiao/202603/content_7064330.htm">中国政府网</a></div>
+      <div class="body">八部门《未成年人用户数量巨大和对未成年人群体具有显著影响的网络平台服务提供者认定办法》4/1施行。认定标准：专门面向未成年人平台注册用户超1000万或月活超100万；非专门平台未成年注册用户超3000万或月活超500万。认定后须履行加强型保护义务。</div>
+      <div class="impact impact-info">
+        <strong>直接业务影响：</strong>腾讯系游戏平台大概率触发认定标准，须履行定期合规审计、内部治理强化、风险评估报告等更严格保护义务。
+      </div>
+    </div>
+
+  </div>
+
+  <!-- ===== Unverified ===== -->
+  <div class="section">
+    <div class="section-header">
+      <span class="badge badge-unverified">待验证</span>
+      <h2>Unverified News — 待验证信息</h2>
+    </div>
+    <div class="empty-note">当日无待验证信息</div>
+  </div>
+
+  <!-- ===== Notes ===== -->
+  <div class="section">
+    <div class="section-header">
+      <span class="badge badge-notes">NOTE</span>
+      <h2>Notes — 补充说明</h2>
+    </div>
+    <ul class="notes-list">
+      <li><strong>合并说明：</strong>本期为周一合并推送，覆盖UTC 4/2至4/5（周四至周日）共4天。</li>
+      <li><strong>趋势串联：</strong>全球五大法域在4月同步推进儿童保护立法/执法——英国OSA（CSEA报告4/7+风险评估审查）+ 印尼PP TUNAS（第二次传唤）+ 澳大利亚COPC + 美国COPPA（4/22）+ 中国大平台认定（4/1），形成罕见的全球监管共振。</li>
+      <li><strong>搜索覆盖：</strong>NPPA无新版号公告；FTC无新执法动作；欧盟无新游戏/AI法案动态；韩国/日本无新评级变更。</li>
+      <li><strong>动态追踪：</strong>印尼PP TUNAS（第二次传唤，高度活跃）、COPPA倒计时16天、英国OSA全面执行期、澳大利亚COPC公众咨询、中国AI互动服务草案。</li>
+    </ul>
+  </div>
+
+  <div class="footer">
+    <div class="disclaimer">
+      免责声明：以上内容为公开信息整理与分析摘要，不构成法律意见。如需针对具体业务场景的合规建议，请进一步咨询合规团队-GCC游戏合规中心。
+    </div>
+    <p>Powered by Game Compliance Daily Brief v2.0</p>
+    <p>信息截至北京时间 2026-04-06 13:00</p>
+  </div>
+
+</div>
+</body>
+</html>
