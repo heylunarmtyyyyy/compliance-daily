@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>游戏合规每日推送 | 2026-04-13（含周末）</title>
+<title>游戏合规每日推送 | 2026-04-14</title>
 <style>
   :root {
     --primary: #6366f1;
@@ -23,21 +23,44 @@
     --topic-tencent: #dc2626; --topic-antitrust: #475569; --topic-license: #059669;
   }
   * { margin: 0; padding: 0; box-sizing: border-box; }
-  body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'PingFang SC', 'Hiragino Sans GB', 'Microsoft YaHei', sans-serif; background: var(--bg); color: var(--text); line-height: 1.7; padding: 20px; }
+  body {
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'PingFang SC', 'Hiragino Sans GB', 'Microsoft YaHei', sans-serif;
+    background: var(--bg); color: var(--text); line-height: 1.7; padding: 20px;
+  }
   .container { max-width: 920px; margin: 0 auto; }
-  .header { background: linear-gradient(135deg, #6366f1 0%, #4338ca 50%, #3730a3 100%); color: white; padding: 40px; border-radius: 16px; margin-bottom: 24px; box-shadow: 0 4px 24px rgba(99,102,241,0.3); position: relative; overflow: hidden; }
+  .header {
+    background: linear-gradient(135deg, #6366f1 0%, #4338ca 50%, #3730a3 100%);
+    color: white; padding: 40px; border-radius: 16px; margin-bottom: 24px;
+    box-shadow: 0 4px 24px rgba(99, 102, 241, 0.3); position: relative; overflow: hidden;
+  }
   .header::before { content: '\2696'; position: absolute; right: 30px; top: 50%; transform: translateY(-50%); font-size: 80px; opacity: 0.15; }
   .header h1 { font-size: 28px; font-weight: 700; margin-bottom: 8px; }
   .header .date { font-size: 16px; opacity: 0.9; }
   .header .scope { font-size: 13px; opacity: 0.7; margin-top: 4px; }
-  .summary-box { background: var(--card-bg); border-left: 4px solid var(--alert-color); border-radius: 12px; padding: 28px; margin-bottom: 24px; box-shadow: 0 2px 8px rgba(0,0,0,0.06); }
+  .summary-box {
+    background: var(--card-bg); border-left: 4px solid var(--alert-color); border-radius: 12px;
+    padding: 28px; margin-bottom: 24px; box-shadow: 0 2px 8px rgba(0,0,0,0.06);
+  }
   .summary-box h2 { font-size: 18px; color: var(--alert-color); margin-bottom: 16px; }
   .summary-box ol { padding-left: 20px; }
   .summary-box li { margin-bottom: 10px; font-size: 15px; }
-  .summary-box .verdict { background: var(--primary-light); padding: 14px 18px; border-radius: 8px; margin-top: 16px; font-size: 14px; color: var(--primary); font-weight: 500; line-height: 1.6; }
-  .section { background: var(--card-bg); border-radius: 12px; padding: 28px; margin-bottom: 20px; box-shadow: 0 2px 8px rgba(0,0,0,0.06); }
-  .section-header { display: flex; align-items: center; gap: 10px; margin-bottom: 20px; padding-bottom: 12px; border-bottom: 2px solid var(--border); }
-  .section-header .badge { display: inline-flex; align-items: center; justify-content: center; min-width: 32px; height: 32px; padding: 0 10px; border-radius: 8px; font-weight: 700; font-size: 13px; color: white; white-space: nowrap; }
+  .summary-box .verdict {
+    background: var(--primary-light); padding: 14px 18px; border-radius: 8px;
+    margin-top: 16px; font-size: 14px; color: var(--primary); font-weight: 500; line-height: 1.6;
+  }
+  .section {
+    background: var(--card-bg); border-radius: 12px; padding: 28px; margin-bottom: 20px;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.06);
+  }
+  .section-header {
+    display: flex; align-items: center; gap: 10px; margin-bottom: 20px;
+    padding-bottom: 12px; border-bottom: 2px solid var(--border);
+  }
+  .section-header .badge {
+    display: inline-flex; align-items: center; justify-content: center;
+    min-width: 32px; height: 32px; padding: 0 10px; border-radius: 8px;
+    font-weight: 700; font-size: 13px; color: white; white-space: nowrap;
+  }
   .badge-alert { background: var(--alert-color); }
   .badge-topnews { background: var(--topnews-color); }
   .badge-unverified { background: var(--unverified-color); }
@@ -50,7 +73,10 @@
   .tc-ecosystem { background: #f5f3ff; color: var(--tc-ecosystem); border: 1px solid #ddd6fe; }
   .tc-spillover { background: #ecfeff; color: var(--tc-spillover); border: 1px solid #a5f3fc; }
   .topic-tag { display: inline-block; padding: 2px 8px; border-radius: 4px; font-size: 11px; font-weight: 500; margin-right: 4px; margin-bottom: 4px; }
+  .topic-consumer { background: #fff1f2; color: var(--topic-consumer); }
   .topic-minors { background: #fffbeb; color: #b45309; }
+  .topic-platform { background: #f5f3ff; color: var(--topic-platform); }
+  .topic-rating { background: #ecfeff; color: #0e7490; }
   .topic-privacy { background: #eff6ff; color: var(--topic-privacy); }
   .topic-ai { background: #faf5ff; color: var(--topic-ai); }
   .topic-tencent { background: #fef2f2; color: var(--topic-tencent); }
@@ -59,13 +85,13 @@
   .region-cn { background: #fef2f2; color: #dc2626; }
   .region-us { background: #eff6ff; color: #2563eb; }
   .region-eu { background: #f0fdf4; color: #16a34a; }
-  .region-uk { background: #fdf2f8; color: #db2777; }
-  .region-au { background: #e0f2fe; color: #0369a1; }
+  .region-sea { background: #ecfeff; color: #0891b2; }
+  .region-global { background: #f1f5f9; color: #475569; }
   .action-tag { display: inline-block; padding: 2px 8px; border-radius: 4px; font-size: 11px; font-weight: 600; margin-right: 4px; background: #f1f5f9; color: #475569; }
-  .action-enforcement { background: #fee2e2; color: #991b1b; }
   .action-legislation { background: #dbeafe; color: #1e40af; }
+  .action-enforcement { background: #fee2e2; color: #991b1b; }
+  .action-litigation { background: #fce7f3; color: #9d174d; }
   .action-rulechange { background: #fef3c7; color: #92400e; }
-  .action-warning { background: #fff7ed; color: #9a3412; }
   .action-trend { background: #e0f2fe; color: #075985; }
   .item { padding: 18px 0; border-bottom: 1px solid #f0f0f0; }
   .item:last-child { border-bottom: none; }
@@ -76,38 +102,44 @@
   .item .source a:hover { text-decoration: underline; }
   .item .body { font-size: 14px; line-height: 1.8; color: #334155; }
   .impact { padding: 10px 14px; border-radius: 8px; margin-top: 10px; font-size: 13px; line-height: 1.6; }
+  .impact-warning { background: var(--p1-bg); color: var(--p1-text); border-left: 3px solid var(--p1-border); }
   .impact-info { background: #eff6ff; color: #1d4ed8; border-left: 3px solid #3b82f6; }
-  .impact-caution { background: var(--p2-bg); color: var(--p2-text); border-left: 3px solid var(--p2-border); }
   .impact-neutral { background: #f8fafc; color: #475569; border-left: 3px solid #94a3b8; }
-  .empty-note { padding: 16px; text-align: center; color: var(--text-secondary); font-size: 14px; font-style: italic; }
   .notes-list { list-style-type: disc; padding-left: 20px; }
   .notes-list li { font-size: 13px; color: var(--text-secondary); margin-bottom: 8px; line-height: 1.6; }
+  .empty-note { padding: 16px; text-align: center; color: var(--text-secondary); font-size: 14px; font-style: italic; }
   .footer { text-align: center; padding: 24px; font-size: 12px; color: var(--text-secondary); }
   .footer .disclaimer { background: #fffbeb; border: 1px solid #fde68a; border-radius: 8px; padding: 12px 16px; margin-bottom: 12px; font-size: 12px; color: #92400e; }
-  @media (max-width: 640px) { body { padding: 12px; } .header { padding: 24px; } .header h1 { font-size: 22px; } .header::before { font-size: 50px; right: 16px; } .section, .summary-box { padding: 20px; } }
+  @media (max-width: 640px) {
+    body { padding: 12px; } .header { padding: 24px; } .header h1 { font-size: 22px; }
+    .header::before { font-size: 50px; right: 16px; } .section, .summary-box { padding: 20px; }
+  }
 </style>
 </head>
 <body>
 <div class="container">
 
+  <!-- Header -->
   <div class="header">
     <h1>游戏合规每日推送</h1>
-    <div class="date">2026-04-13（含周末） · 周一</div>
-    <div class="scope">覆盖窗口：UTC 2026-04-11 00:00 至 2026-04-12 23:59 | 严格一手来源</div>
+    <div class="date">2026-04-14 · 星期二</div>
+    <div class="scope">覆盖窗口：UTC 2026-04-13 00:00–23:59（含部分4/10-12持续发酵事件的里程碑进展报道） | 严格一手来源</div>
   </div>
 
+  <!-- Summary -->
   <div class="summary-box">
-    <h2>本期最重要的变化</h2>
+    <h2>今日最重要的变化</h2>
     <ol>
-      <li><strong>全球儿童保护执法三线并进</strong>：英国Ofcom系统披露OSA五大专题执法计划（年龄验证+CSAM+儿童风险评估），COPPA 4/22执行倒计时10天进入最终冲刺，澳大利亚年龄限制法规明确覆盖游戏服务</li>
-      <li><strong>AI治理同步加速</strong>：中国十部门AI伦理审查办法要求游戏AI研发全面纳入审查，EU AI Act落地首个执法信号+推荐算法"潜意识技术"界定明确化</li>
-      <li><strong>关税+DMA双重重塑游戏供应链</strong>：美关税一周年半导体25%关税存续+4/14二阶段截止，EU累计罚Big Tech超70亿美元倒逼应用商店改革</li>
+      <li><strong>印尼Komdigi等待Google回应PP TUNAS制裁</strong>——7天最后期限至4/16，YouTube面临封禁风险，约19国观望</li>
+      <li><strong>Valve loot box三案联邦合并为MDL</strong>——Hagens Berman领衔，30天内提交合并诉状，对全行业开箱机制有先例影响</li>
+      <li><strong>中国五部门AI拟人化互动管理办法7/15施行</strong>——游戏AI NPC/恋爱养成玩法直接受约束，需安全评估+算法备案</li>
     </ol>
     <div class="verdict">
-      <strong>总判断：</strong>全球游戏合规进入"多线程执法"密集期——儿童保护（英/美/澳三大法域4月同步推进）、AI治理（中/欧制度化落地）、平台经济治理（DMA+关税重塑供应链）三条主线同时加压。COPPA 4/22执行和EU AI Act 8/2全面执法是未来120天内最重要的两个合规截止日。
+      <strong>总判断：</strong>本日合规态势以"执法推进+诉讼升级+新规落地"三线并进为特征。印尼PP TUNAS对Google的7天制裁窗口进入最后3天倒计时，将决定东南亚平台合规执法的实际力度基准；Valve loot box联邦MDL合并标志着美国开箱机制法律挑战从分散走向集中；中国AI拟人化互动新规7/15施行，直接影响游戏AI NPC功能设计。COPPA 4/22合规截止日临近（8天），建议各业务线加速自查。
     </div>
   </div>
 
+  <!-- Major Alerts -->
   <div class="section">
     <div class="section-header">
       <span class="badge badge-alert">ALERT</span>
@@ -116,129 +148,125 @@
     <div class="empty-note">当日无重大风险预警</div>
   </div>
 
+  <!-- Top News -->
   <div class="section">
     <div class="section-header">
       <span class="badge badge-topnews">TOP</span>
       <h2>Top News — 每日重点合规新闻</h2>
     </div>
 
+    <!-- News 1 -->
     <div class="item">
-      <h3>1. 英国Ofcom OSA执法策略全景解读：五大专题计划聚焦年龄验证与CSAM，游戏平台明确纳入监管
+      <h3>
+        1. 印尼Komdigi等待Google回应PP TUNAS制裁——7天最后期限进入倒计时
         <span class="tc-tag tc-ecosystem">Tencent Ecosystem</span>
       </h3>
       <div class="meta">
-        <span class="region-tag region-uk">英国</span>
+        <span class="region-tag region-sea">印度尼西亚</span>
         <span class="topic-tag topic-minors">未成年人保护</span>
         <span class="action-tag action-enforcement">执法</span>
       </div>
-      <div class="source">来源：<a href="https://www.onlinesafetyact.net/analysis/ofcoms-approach-to-osa-enforcement/">Online Safety Act Network</a> · <a href="https://www.ofcom.org.uk/online-safety/protecting-children">Ofcom官网</a></div>
-      <div class="body">Ofcom于4月7日发布OSA执法策略全景分析，首次系统披露五大专题执法计划——年龄验证（Part 5和Part 3服务）、CSAM/文件共享、非法内容风险评估(ICRA)、儿童风险评估。2026年执法扩展方向包括将CSAM追溯扩展至文件共享之外、改善女性和女孩在线安全、评估直播对儿童的特殊风险。已有实际罚款先例（4Chan £20,000、Itai Tech £50,000），各国监管机构已采用统一评估模板。</div>
-      <div class="impact impact-info">
-        <strong>直接业务影响：</strong>游戏平台（含社交/直播功能的在线游戏）被明确纳入OSA监管范围。年龄验证专题计划可能导致Ofcom对游戏平台发起定向调查。带直播功能的游戏平台面临额外的儿童风险评估要求。
+      <div class="source">来源: <a href="https://teknologi.bisnis.com/read/20260413/101/1966235/komdigi-masih-tunggu-respons-google-soal-sanksi-ketidakpatuhan-pp-tunas" target="_blank">Bisnis.com</a> · <a href="https://nasional.kompas.com/read/2026/04/10/05040061/belum-patuhi-pp-tunas-google-ditegur-komdigi-tiktok-roblox-dapat-peringatan" target="_blank">Kompas</a></div>
+      <div class="body">印尼通信与数字部（Komdigi）4月13日确认仍在等待Google就PP TUNAS合规制裁作出回应。Google于4月9日收到首份书面警告，被给予7个日历日（至4月16日）调整YouTube系统以符合儿童保护要求。截至4月13日Google未作任何回应。与此同时，Meta（Facebook/Instagram）已被认定合规。若Google逾期未整改，将面临更严厉法律后果，YouTube在印尼面临封禁风险。</div>
+      <div class="impact impact-warning">
+        <strong>直接业务影响：</strong>PP TUNAS要求多层年龄验证、限制儿童行为数据采集和广告定向——这些要求同样适用于所有在印尼运营的游戏平台。Google/YouTube的合规走向将直接影响行业基准。约19个国家正在观望印尼PP TUNAS的执行效果。
       </div>
     </div>
 
+    <!-- News 2 -->
     <div class="item">
-      <h3>2. COPPA 4/22执行倒计时10天：GGWP发布游戏公司最终合规指南，五大核心变更全面解析
+      <h3>
+        2. Valve loot box三案联邦合并：Hagens Berman领衔，诉讼进入实质推进阶段
         <span class="tc-tag tc-spillover">Tencent Spillover</span>
       </h3>
       <div class="meta">
         <span class="region-tag region-us">美国</span>
-        <span class="topic-tag topic-privacy">数据隐私</span>
-        <span class="topic-tag topic-minors">未成年人保护</span>
-        <span class="action-tag action-warning">预警</span>
+        <span class="topic-tag topic-consumer">游戏机制与消费者保护</span>
+        <span class="action-tag action-litigation">诉讼</span>
       </div>
-      <div class="source">来源：<a href="https://www.ggwp.com/blog/coppa-compliance-for-game-companies/">GGWP</a> · <a href="https://www.lexology.com/library/detail.aspx?g=0f55539f-4b7c-4b2f-a050-7e2081461fed">Lexology律所分析</a> · <a href="https://www.toyassociation.org/ta/PressRoom2/News/2026-News/updated-coppa-rule-requirements-take-effect-april-22.aspx">Toy Association</a></div>
-      <div class="body">GGWP于4月9日发布面向游戏公司的COPPA合规最终指南。五大核心变更：①家长同意验证标准提高（低摩擦方法不再被接受）②数据最小化原则可操作化③第三方SDK/审核平台纳入监管④"实际知情"标准扩展（"不问年龄"抗辩失效）⑤定向广告须分离同意。FTC可按每项违规每天$53,088罚款。K-ID统计2026年初单月43项儿童在线安全法规变更。</div>
-      <div class="impact impact-caution">
-        <strong>直接业务影响：</strong>面向美国市场的游戏须在4/22前完成：年龄门控重建、第三方SDK数据合规审计、家长同意机制升级、数据保留/删除自动化。"通用受众"免费手游若有大量13岁以下用户将面临最大风险。
+      <div class="source">来源: <a href="https://www.hbsslaw.com/cases/valve-loot-box-gambling-class-action" target="_blank">Hagens Berman律所官方</a> · <a href="https://www.vpesports.com/games/cs-go/valve-and-cs2-loot-box-lawsuits" target="_blank">VPesports</a></div>
+      <div class="body">4月9日，美国华盛顿州西区联邦法院John H. Chun法官批准将三起针对Valve的loot box集体诉讼合并为「In re Valve Loot Box Litigation」多区诉讼。消费者权益律所Hagens Berman被任命为临时首席集体诉讼律师。原告指控CS2/Dota 2/TF2的开箱机制构成非法赌博——玩家花$2.49买钥匙，开箱结果完全随机，绝大多数物品价值仅几美分。原告须在30天内提交合并诉状，Valve有45天回应。</div>
+      <div class="impact impact-warning">
+        <strong>直接业务影响：</strong>案件合并标志着法律挑战从分散走向集中化诉讼，由顶级消费者维权律所领衔。若最终裁定loot box构成赌博，将对全行业开箱/抽卡机制产生先例效应。与PEGI 6月起对含付费随机物品游戏强制PEGI-16评级形成美欧双线夹击。
       </div>
     </div>
 
+    <!-- News 3 -->
     <div class="item">
-      <h3>3. 中国十部门联合发布《AI伦理审查与服务办法》：游戏AI研发全面纳入伦理审查范围
+      <h3>
+        3. Epic v Google"最终章"听证确定：法官对和解方案持明显怀疑态度
+        <span class="tc-tag tc-ecosystem">Tencent Ecosystem</span>
+      </h3>
+      <div class="meta">
+        <span class="region-tag region-us">美国</span>
+        <span class="topic-tag topic-antitrust">反垄断与平台治理</span>
+        <span class="action-tag action-litigation">诉讼</span>
+      </div>
+      <div class="source">来源: <a href="https://www.stash.gg/blog/blog-epic-v-google-settlement-update-april-2026" target="_blank">Stash.gg法庭现场报道</a> · <a href="https://www.msn.com/en-us/news/other/epic-v-google-heads-to-final-hearing-as-judge-questions-deal/gm-GM4DD0DF63" target="_blank">MSN/The Verge</a></div>
+      <div class="body">4月10日Epic v Google听证会上，Donato法官安排2026年夏季举行"最终章"证据听证——将在批准Epic-Google和解协议或维持2024年10月原始永久禁令两者之间作出最终裁决。法官对和解方案持明显怀疑态度，引用MIT经济学家Nancy Rose的分析称和解可能消除禁令中的重要竞争条款。当前2024年禁令仍然有效：开发者可在美国市场推广替代支付、使用替代计费、进行DTC分发。</div>
+      <div class="impact impact-info">
+        <strong>直接业务影响：</strong>游戏开发者当前处于"窗口期"——禁令保护下可积极推进Android DTC策略。夏季听证结果将决定Google Play分发体系是否发生结构性变化。全球应用商店反垄断持续升温：欧盟DMA、日本应用商店立法、韩国替代计费法已形成全球包围态势。
+      </div>
+    </div>
+
+    <!-- News 4 -->
+    <div class="item">
+      <h3>
+        4. 中国五部门发布《AI拟人化互动服务管理暂行办法》——游戏AI NPC/恋爱养成玩法直接受约束
         <span class="tc-tag tc-direct">Tencent Direct</span>
       </h3>
       <div class="meta">
         <span class="region-tag region-cn">中国</span>
-        <span class="topic-tag topic-ai">AI合规</span>
+        <span class="topic-tag topic-ai">AI合规与透明度</span>
         <span class="action-tag action-legislation">立法</span>
       </div>
-      <div class="source">来源：<a href="https://www.elawcn.com/rule/2026/0409/1795.html">中国互联网法务网 - 办法全文</a></div>
-      <div class="body">工信部等十部门于3月20日联合印发《人工智能科技伦理审查与服务办法（试行）》（工信部联科〔2026〕75号）。要求AI科技活动企业设立伦理委员会，对可能带来伦理风险的AI研发须事前申请审查。审查涵盖人类福祉、公平公正、可控可信、透明可解释、责任可追溯、隐私保护六大维度。对人类心理情绪有较强影响的人机融合系统须专家复核（30+30天）。</div>
-      <div class="impact impact-info">
-        <strong>直接业务影响：</strong>游戏行业中AI NPC/对话系统、个性化推荐、AIGC内容生成、AI反作弊系统均可能触发伦理审查。情感计算类AI角色/自适应系统可能需专家复核。大型游戏公司须设立AI伦理委员会。中国AI治理进入制度化阶段。
+      <div class="source">来源: <a href="https://www.cac.gov.cn/2026-04/10/c_1777558395078289.htm" target="_blank">网信办官方原文</a> · <a href="https://www3.xinhuanet.com/tech/20260413/fe2ec20194ab4196a042c0a804f469bc/c.html" target="_blank">新华网4/13深度解读</a> · <a href="https://news.17173.com/content/04112026/005633810.shtml" target="_blank">17173</a></div>
+      <div class="body">国家网信办等五部门4月10日公布《人工智能拟人化互动服务管理暂行办法》，7月15日起施行。4月13日新华网发布深度解读。核心条款：①禁止生成鼓励自残自杀内容；②禁止诱导情感依赖或沉迷；③禁止向未成年人提供虚拟亲属/虚拟伴侣等虚拟亲密关系服务；④要求安全评估和算法备案。这是中国首部针对AI拟人化互动的专项监管规定。</div>
+      <div class="impact impact-warning">
+        <strong>直接业务影响：</strong>游戏中基于大语言模型的AI NPC（具备性格/记忆/共情特征）、恋爱养成/虚拟伴侣玩法直接落入监管范围。游戏企业需在7月15日前完成合规自查，对AI互动功能进行安全评估和算法备案。
       </div>
     </div>
 
+    <!-- News 5 -->
     <div class="item">
-      <h3>4. EU AI Act进入实战执法阶段：首个Article 11请求落地，推荐算法"潜意识技术"界定明确化
-        <span class="tc-tag tc-ecosystem">Tencent Ecosystem</span>
-      </h3>
-      <div class="meta">
-        <span class="region-tag region-eu">欧盟</span>
-        <span class="topic-tag topic-ai">AI合规</span>
-        <span class="action-tag action-enforcement">执法</span>
-      </div>
-      <div class="source">来源：<a href="https://ainewsdesk.app/eu-ai-act-news-today-april-2026/">AI News Desk</a> · <a href="https://www.legiscope.com/blog/eu-ai-act-timeline-deadlines.html">Legiscope</a></div>
-      <div class="body">爱尔兰DPC于4月4日发出首个正式Article 11技术文档请求，标志EU AI Act从理论进入执法。4月2-5日欧盟委员会连发三项更新：①Article 5禁止行为指南明确"潜意识技术"界定（含停留时间、微交互信号引导行为）②GPAI行为准则v2.1要求超10²⁵ FLOP模型公开训练数据③微调(fine-tuning)可能使微调者成为"提供者"。距8/2全面执法仅117天。</div>
-      <div class="impact impact-caution">
-        <strong>直接业务影响：</strong>游戏内推荐算法若使用停留时间/微交互数据引导消费行为，需进行"用户利益测试"。情绪识别调整难度/推送内购8月起全面禁止。微调基础模型用于NPC对话/内容生成可能被认定为"提供者"。非欧盟公司同样受域外效力约束。<br>
-        <strong>外溢路径：</strong>Article 5"潜意识技术"界定直接关联游戏氪金引导、动态定价、个性化推送等机制。
-      </div>
-    </div>
-
-    <div class="item">
-      <h3>5. 澳大利亚eSafety发布在线安全监管指南更新，年龄限制内容守则明确覆盖游戏服务
-        <span class="tc-tag tc-spillover">Tencent Spillover</span>
-      </h3>
-      <div class="meta">
-        <span class="region-tag region-au">澳大利亚</span>
-        <span class="topic-tag topic-minors">未成年人保护</span>
-        <span class="action-tag action-rulechange">规则变化</span>
-      </div>
-      <div class="source">来源：<a href="https://www.esafety.gov.au/sites/default/files/2026-04/OnlineSafetyCodesandStandardsRegulatoryGuidance-April2026_2.pdf">eSafety监管指南(PDF)</a> · <a href="https://standards.ieee.org/beyond-standards/the-australian-social-media-ban-age-verification-what-does-it-mean-for-your-global-app/">IEEE SA分析</a> · <a href="https://www.esafety.gov.au/sites/default/files/2026-03/Age-Restricted-Material-Codes-fact-sheet-March2026.pdf">eSafety年龄限制法规说明(PDF)</a></div>
-      <div class="body">eSafety Commissioner于4月1日发布在线安全法规监管指南更新版。此前3月发布的Age-Restricted Material Codes要求对年龄限制内容实施年龄验证。IEEE SA（4月10日）确认Phase 2行业法规已将年龄保证义务扩展至电子邮件、消息、游戏等社交媒体以外的服务。与社交媒体16岁禁令形成互补监管框架。</div>
-      <div class="impact impact-info">
-        <strong>直接业务影响：</strong>在澳大利亚运营的游戏服务若包含暴力/成人内容，须实施年龄验证机制。Phase 2法规明确将游戏纳入年龄保证义务范围。
-      </div>
-    </div>
-
-    <div class="item">
-      <h3>6. 美国"解放日"关税一周年：最高法院推翻IEEPA关税，但25%半导体关税存续，4/14二阶段截止
+      <h3>
+        5. COPPA新规4/22执行倒计时8天：GGWP发布游戏公司最终实操合规指南
         <span class="tc-tag tc-spillover">Tencent Spillover</span>
       </h3>
       <div class="meta">
         <span class="region-tag region-us">美国</span>
-        <span class="topic-tag topic-tencent">中国企业出海</span>
-        <span class="action-tag action-warning">预警</span>
+        <span class="topic-tag topic-privacy">数据隐私与数据用途</span>
+        <span class="action-tag action-rulechange">规则变化</span>
       </div>
-      <div class="source">来源：<a href="https://tech-insider.org/liberation-day-tariffs-tech-industry-one-year-impact-2026/">Tech Insider</a> · <a href="https://www.cnbc.com/2026/04/03/trump-tariffs-trade-war-impact.html">CNBC</a></div>
-      <div class="body">据Tech Insider 4月8日综合分析，"解放日"关税一年后，最高法院2月20日以6:3裁定IEEPA不授权总统征收关税，10%基准关税和所有对等关税被推翻。但Section 232半导体25%关税仍有效（主要针对高端AI芯片再出口），4月14日为二阶段谈判截止日。科技行业失去89,000就业岗位。游戏硬件因豁免已不受直接影响，但云游戏数据中心成本持续上升。</div>
-      <div class="impact impact-neutral">
-        <strong>直接业务影响：</strong>游戏主机/PC硬件直接关税影响已消除。25%半导体关税推高AI芯片成本（影响云游戏/AI训练算力），4/14二阶段结果可能扩大范围。中美科技脱钩加速，中国游戏公司海外云服务供应链面临不确定性。
+      <div class="source">来源: <a href="https://www.ggwp.com/blog/coppa-compliance-for-game-companies/" target="_blank">GGWP官方指南</a> · <a href="https://www.lexology.com/library/detail.aspx?g=0f55539f-4b7c-4b2f-a050-7e2081461fed" target="_blank">Lexology</a> · <a href="https://www.toyassociation.org/ta/PressRoom2/News/2026-News/updated-coppa-rule-requirements-take-effect-april-22.aspx" target="_blank">Toy Association</a></div>
+      <div class="body">COPPA修订规则4月22日全面合规期限仅剩8天。游戏行业信任与安全平台GGWP于4月9日发布面向产品经理/工程师/T&amp;S团队的最终合规指南，梳理五大关键变更：①家长同意机制标准更严格；②数据最小化原则可操作化；③运营商对所有第三方SDK/广告/分析平台的儿童数据负责（最大曝光风险区）；④"实际知悉"标准扩大到"有理由知道"；⑤定向广告需单独获家长同意。违规最高$53,088/次/天罚款。</div>
+      <div class="impact impact-warning">
+        <strong>直接业务影响：</strong>F2P手游、有账户系统的多人在线游戏、含游戏内经济的青少年向游戏均面临紧迫的合规审查窗口。"有理由知道"替代"实际知悉"意味着不问年龄不再是免责辩护。
       </div>
     </div>
 
+    <!-- News 6 -->
     <div class="item">
-      <h3>7. EU两年对Big Tech累计罚款超70亿美元：DMA执法效果显现，Snapchat因儿童安全被DSA调查
-        <span class="tc-tag tc-ecosystem">Tencent Ecosystem</span>
+      <h3>
+        6. Phrase全景分析：全球游戏发行商合规+反垄断策略2026——PEGI 6月新规+EU数字公平法案+AI资产审计
+        <span class="tc-tag tc-spillover">Tencent Spillover</span>
       </h3>
       <div class="meta">
-        <span class="region-tag region-eu">欧盟</span>
+        <span class="region-tag region-global">全球</span>
+        <span class="topic-tag topic-consumer">游戏机制与消费者保护</span>
         <span class="topic-tag topic-antitrust">反垄断与平台治理</span>
-        <span class="action-tag action-enforcement">执法</span>
+        <span class="action-tag action-trend">行业动态</span>
       </div>
-      <div class="source">来源：<a href="https://www.cnbc.com/2026/04/10/google-meta-big-tech-6-billion-euros-eu-fine.html">CNBC</a></div>
-      <div class="body">CNBC 4月10日统计，欧盟自2024年以来累计罚Big Tech超60亿欧元（约70亿美元）。DMA执法已产生实际合规效果：Apple允许竞争设备互操作、Meta修改"付费或同意"方案。2026年3月Snapchat因儿童在线安全问题被DSA调查，表明儿童保护执法从社交媒体扩展到更广泛数字服务。美国政府考虑以关税回应欧盟罚款，美欧经济关系摩擦加剧。</div>
-      <div class="impact impact-neutral">
-        <strong>直接业务影响：</strong>Apple/Google在DMA压力下的应用商店政策变化持续影响游戏分发渠道和佣金结构。DSA儿童安全执法扩展趋势值得游戏平台关注。<br>
-        <strong>外溢路径：</strong>DMA重塑应用商店佣金结构→游戏分发成本变化；Snapchat DSA调查→儿童保护执法覆盖面扩大
+      <div class="source">来源: <a href="https://phrase.com/blog/posts/gaming-regulation-compliance-antitrust-strategy/" target="_blank">Phrase官方博客（4/13更新）</a></div>
+      <div class="body">Phrase于4月13日更新发布全球游戏发行商合规策略深度分析。关键要点：①PEGI 2026年6月起含付费随机物品游戏最低PEGI-16，大量F2P/移动游戏受影响；②预计2026Q4欧盟《数字公平法案》可能全面禁止面向未成年人的开箱机制；③EA额外内容收入增至约44亿美元（Ultimate Team驱动），发行商不能再视此类收入为结构性稳定；④AI生成资产需审计法律地位——纯AI生成内容不受版权保护。</div>
+      <div class="impact impact-info">
+        <strong>外溢影响：</strong>PEGI评级调整直接影响所有在欧洲发行的游戏的目标受众和商业化设计；EU数字公平法案对开箱机制的潜在全面禁令将重塑全球游戏货币化格局。
       </div>
     </div>
 
   </div>
 
+  <!-- Unverified News -->
   <div class="section">
     <div class="section-header">
       <span class="badge badge-unverified">待验证</span>
@@ -247,27 +275,28 @@
     <div class="empty-note">当日无待验证信息</div>
   </div>
 
+  <!-- Notes -->
   <div class="section">
     <div class="section-header">
       <span class="badge badge-notes">NOTE</span>
       <h2>Notes — 补充说明</h2>
     </div>
     <ul class="notes-list">
-      <li><strong>合并说明：</strong>本期为周一合并推送，覆盖UTC 4月11日（周六）至4月12日（周日）。周末新闻发布节奏放缓，多数条目来源于4月7-10日发布的深度分析和执法更新（在周末传播窗口内持续发酵）。</li>
-      <li><strong>里程碑触发说明：</strong>本期以GGWP新发布的游戏行业合规指南为切入点关注COPPA执行准备，而非倒计时式追踪。印尼IGRS/Valve道歉事件在4/10日报已充分报道，本期无新进展不重复纳入。</li>
-      <li><strong>搜索覆盖：</strong>中国新闻出版署当日无新版号公告；美国FTC无新游戏行业执法动作；韩国GRC/日本CERO无新政策变化；英国ASA/CAP无新游戏广告执法。</li>
-      <li><strong>动态追踪实体变更：</strong>印尼IGRS/Valve（维持追踪，等待调查结论）；Valve loot box诉讼（维持追踪，等待法院进展）；COPPA 4/22（将于执行日总结后退出追踪）。</li>
-      <li>📊 <strong>Meltwater 查询：</strong>因数据采集管道自3月17日后停止更新，本期11组查询跳过执行。数据恢复后将重新启用。</li>
+      <li><strong>搜索覆盖：</strong>中国新闻出版署当日无新版号公告；美国FTC当日无新游戏行业执法动作；英国Ofcom/ASA当日无新公告。</li>
+      <li><strong>动态追踪实体更新：</strong>本期新增动态追踪「Valve loot box联邦合并诉讼」（4/9合并裁定，30天合并诉状期限）和「Epic v Google夏季听证」（4/10确定时间表）。维持追踪「印尼PP TUNAS Google制裁」（7天期限至4/16）。</li>
+      <li><strong>时效性说明：</strong>4月13日为UTC周日，新闻产出量较工作日偏低。本期纳入的多条新闻为4/9-4/10发生的里程碑事件在4/13的持续报道和深度分析。</li>
+      <li>📊 <strong>Meltwater 查询：</strong>11 组关键词已全部执行（Q1-Q11），4月13日（周日UTC）均无返回结果。Meltwater数据采集管道在3月17日后停止更新的问题持续存在，补充纳入 0 条新闻。</li>
     </ul>
   </div>
 
+  <!-- Footer -->
   <div class="footer">
     <div class="disclaimer">
       免责声明：以上内容为公开信息整理与分析摘要，不构成法律意见。
       如需针对具体业务场景的合规建议，请进一步咨询合规团队-GCC游戏合规中心。
     </div>
-    <p>Powered by Game Compliance Daily Brief v4.0</p>
-    <p>信息截至北京时间 2026-04-13 10:00</p>
+    <p>Powered by Game Compliance Daily Brief v2.0</p>
+    <p>信息截至北京时间 2026-04-14 09:00</p>
   </div>
 
 </div>
