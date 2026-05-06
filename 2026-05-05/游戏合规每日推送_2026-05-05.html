@@ -1,0 +1,226 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>游戏合规日报 · 2026-05-05</title>
+<style>
+:root { --primary:#6366f1; --primary-light:#eef2ff; --bg:#f8fafc; --card-bg:#fff; --text:#1e293b; --text-secondary:#64748b; --border:#e2e8f0; --p0-bg:#fef2f2; --p0-border:#dc2626; --p0-text:#991b1b; --p1-bg:#fff7ed; --p1-border:#ea580c; --p1-text:#9a3412; --p2-bg:#fefce8; --p2-border:#ca8a04; --p2-text:#854d0e; }
+* { margin:0; padding:0; box-sizing:border-box; }
+body { font-family:-apple-system,BlinkMacSystemFont,'Segoe UI','PingFang SC','Microsoft YaHei',sans-serif; background:var(--bg); color:var(--text); line-height:1.75; padding:20px; }
+.container { max-width:920px; margin:0 auto; }
+.header { background:linear-gradient(135deg,#6366f1 0%,#4338ca 50%,#3730a3 100%); color:white; padding:40px; border-radius:16px; margin-bottom:24px; box-shadow:0 4px 24px rgba(99,102,241,0.3); position:relative; overflow:hidden; }
+.header::before { content:'⚖'; position:absolute; right:30px; top:50%; transform:translateY(-50%); font-size:80px; opacity:0.15; }
+.header h1 { font-size:28px; font-weight:700; margin-bottom:8px; }
+.header .meta { font-size:16px; opacity:0.9; margin-top:6px; }
+.content { background:var(--card-bg); border-radius:12px; padding:36px 40px; box-shadow:0 2px 8px rgba(0,0,0,0.06); }
+h1, h2, h3, h4 { color:var(--text); margin-top:1.5em; margin-bottom:0.6em; line-height:1.4; }
+h1 { font-size:24px; }
+h2 { font-size:20px; padding-bottom:10px; border-bottom:2px solid var(--border); }
+h3 { font-size:17px; color:#4338ca; margin-top:1.8em; }
+h4 { font-size:15px; color:var(--text-secondary); }
+p { margin:0.8em 0; }
+ul, ol { margin:0.6em 0 0.6em 1.5em; }
+li { margin:0.3em 0; }
+strong { color:#dc2626; font-weight:600; }
+em { font-style:italic; color:var(--text-secondary); }
+a { color:#2563eb; text-decoration:none; word-break:break-all; }
+a:hover { text-decoration:underline; }
+hr { border:none; border-top:1px solid var(--border); margin:2em 0; }
+blockquote { background:var(--primary-light); border-left:4px solid var(--primary); padding:14px 20px; margin:1em 0; color:var(--text); border-radius:0 6px 6px 0; }
+.p-tag { display:inline-block; padding:3px 10px; border-radius:4px; font-size:13px; font-weight:700; margin-right:6px; vertical-align:middle; }
+.p0-tag { background:var(--p0-bg); color:var(--p0-text); border:1px solid var(--p0-border); }
+.p1-tag { background:var(--p1-bg); color:var(--p1-text); border:1px solid var(--p1-border); }
+.p2-tag { background:var(--p2-bg); color:var(--p2-text); border:1px solid var(--p2-border); }
+.tc-tag { display:inline-block; padding:2px 8px; border-radius:4px; font-size:12px; font-weight:600; margin-left:8px; vertical-align:middle; background:#ddd6fe; color:#5b21b6; }
+.region-tag, .topic-tag, .action-tag { display:inline-block; padding:2px 8px; border-radius:4px; font-size:12px; font-weight:500; margin-right:6px; background:#e0f2fe; color:#0369a1; border:1px solid #bae6fd; }
+.topic-tag { background:#fef3c7; color:#92400e; border-color:#fde68a; }
+.action-tag { background:#dcfce7; color:#166534; border-color:#bbf7d0; }
+.tag-row { margin:8px 0 12px 0; }
+.event-card { background:#fafbfc; border:1px solid var(--border); border-left:4px solid #6366f1; padding:20px 24px; margin:1.4em 0; border-radius:0 8px 8px 0; }
+.event-card.p0 { border-left-color:var(--p0-border); background:#fff8f8; }
+.event-card.p1 { border-left-color:var(--p1-border); background:#fffbf6; }
+.event-card.p2 { border-left-color:var(--p2-border); background:#fefce8; }
+.event-card h3 { margin-top:0.4em; }
+.event-meta { font-size:13px; color:var(--text-secondary); margin-bottom:8px; }
+.source-row { background:#eef2ff; padding:8px 14px; border-radius:6px; margin-top:10px; font-size:14px; }
+.impact { padding:12px 16px; margin:12px 0 6px 0; border-radius:6px; border-left:4px solid; }
+.impact-warning { background:#fff7ed; border-left-color:#ea580c; color:#9a3412; }
+.impact-caution { background:#fefce8; border-left-color:#ca8a04; color:#854d0e; }
+.impact-info { background:#eff6ff; border-left-color:#2563eb; color:#1e40af; }
+.impact-neutral { background:#f8fafc; border-left-color:#64748b; color:#475569; }
+.empty-note { font-style:italic; color:var(--text-secondary); text-align:center; padding:18px; background:#f8fafc; border-radius:8px; }
+.summary-list { background:var(--primary-light); padding:16px 20px; border-radius:8px; margin:1em 0; }
+.summary-list ol { margin-left:1.2em; }
+footer { text-align:center; color:var(--text-secondary); font-size:13px; padding:20px; margin-top:30px; }
+</style>
+</head>
+<body>
+<div class="container">
+<div class="header">
+<h1>🛡️ 游戏合规日报 · 2026-05-05</h1>
+<div class="meta">GCC 游戏合规情报系统 · v5.1 · 周二常规推送</div>
+</div>
+<div class="content">
+
+<blockquote>
+<p>📅 <strong>覆盖窗口</strong>：UTC 2026-05-05 00:00 – 2026-05-05 23:59 | 严格一手来源</p>
+<p>📌 本期为常规推送，完整搜索流程（Step 0-7）已执行：Step 1-3（98 条）+ Step 4 Q1-Q11（约 33 条）公开搜索全部完成。</p>
+</blockquote>
+
+<hr>
+
+<h2>📊 今日最重要的变化</h2>
+
+<div class="summary-list">
+<ol>
+<li><strong>苹果向美国最高法院紧急申请暂停 App Store 费用计算（Epic Games 案）</strong>：5月4-5日，苹果向最高法院递交紧急申请，主张第九巡回上诉法院推翻"暂停费用计算"裁定后将造成"无法弥补的损害"，要求只对 Epic 适用而非全行业开发者。地方法院费用计算指令 5月5日生效，全球应用商店佣金体系或迎来里程碑式重塑。</li>
+<li><strong>网信办通报 9.8 万自媒体账号违规处置，AI 生成内容未标识被纳入重点整治</strong>：5月3日，中央网信办公布典型案例，覆盖未标注信息来源、未标注 AI 生成标识、未标注虚构演绎标签三类违规，要求平台将"标注设为短视频发布必经环节"。这是继 4月28日剪映/即梦AI/猫箱被约谈后，AI 标识执法在中国进入"全网清查"阶段。</li>
+<li><strong>索尼 PlayStation 7.85M 美元反垄断集体诉讼初步获法院批准</strong>：北加州联邦地方法院 4月29日初步通过和解协议，5月4-5日多家国际媒体跟进。指控索尼利用"游戏专属代金券"机制垄断 PlayStation 数字游戏市场，赔偿覆盖 2019.4–2023.12 期间美国 PSN 数字游戏购买者，公平听证会定于 10月15日。</li>
+</ol>
+</div>
+
+<p><strong>总判断：</strong>当日聚焦"平台佣金/分发垄断"与"中国 AI 标识执法"两条主线。苹果与索尼两起独立法律行动同步推进，标志全球应用商店与主机数字商店"封闭分发模式"进入持续法律围剿期，腾讯生态侧（Riot/Epic 持股、海外发行依赖商店）需密切关注佣金费率与第三方支付变化。中国侧 AI 标识执法已从 4月底约谈剪映扩展至 9.8 万账号级清查，所有自带 AI 创作功能的游戏与应用必须立即对照《人工智能生成合成内容标识办法》自查。</p>
+
+<hr>
+
+<h2>🚨 Major Alerts — 重大风险预警（1 条）</h2>
+
+<div class="event-card p1">
+<div class="event-meta"><span class="p-tag p1-tag">P1</span> Ecosystem · 2026-05-04（紧急申请）/ 2026-05-05（费用计算指令生效）</div>
+<h3>苹果向最高法院紧急申请暂停 App Store 费用计算指令（Epic Games 案）</h3>
+
+<p><strong>核心事实</strong>：苹果 5月4日深夜向美国最高法院提交紧急申请，请求在最高法院决定是否受理调卷令期间，暂停加州北区联邦地方法院依据第九巡回上诉法院 4月28日裁决重启的"App Store 合理费用计算程序"。第九巡回上诉法院 4月28日推翻了此前允许苹果在最终上诉前维持现行佣金模式的裁定，认定苹果故意违反 2021年禁令、构成藐视法庭，需回到下级法院重新商定对引导用户使用第三方支付的开发者可收取多少佣金。</p>
+
+<p><strong>苹果主张</strong>：禁令应仅适用 Epic Games，而非"所有在美国分发应用程序的开发者"；继续按"藐视法庭"程序推进将不可逆地损害苹果商业声誉、迫使披露机密商业信息；并指出 2021年原始禁令"未提及任何关于 App Store 费用的内容"。</p>
+
+<p><strong>触发器类别</strong>：分发与上架渠道触发器 + 商业模式与核心机制触发器</p>
+
+<div class="impact impact-warning">
+<strong>建议动作：</strong>①游戏发行/支付/经营团队立即跟踪 5月中下旬最高法院是否受理调卷令的决定；②若暂停被拒，地方法院将进入"合理费用"重定阶段，腾讯/天美/光子海外手游需在数周内对 iOS 第三方支付链接的费率结构做敏感性测算；③同步评估 Google 此前下调佣金至 20%/10% 的政策对手游分发收入的协同冲击。
+</div>
+
+<div class="source-row">🔗 <a href="https://news.qq.com/rain/a/20260505A0422Z00" target="_blank">腾讯新闻：苹果向最高法院紧急申请</a> · <a href="https://news.17173.com/content/05052026/100244362.shtml" target="_blank">17173 中文报道</a></div>
+</div>
+
+<hr>
+
+<h2>📰 Top News — 每日重点合规新闻（4 条）</h2>
+
+<div class="event-card">
+<div class="event-meta">2026-05-03（网信办通报）/ 2026-05-04-05（媒体跟进）</div>
+<h3>1. 网信办通报 9.8 万自媒体账号违规处置，AI 生成标识未规范成重点 <span class="tc-tag">Spillover</span></h3>
+
+<div class="tag-row">
+<span class="region-tag">CN</span>
+<span class="topic-tag">数据隐私</span>
+<span class="topic-tag">AI合规</span>
+<span class="action-tag">执法</span>
+</div>
+
+<p>5月3日，中央网信办依据《人工智能生成合成内容标识办法》集中通报"自媒体未规范标注信息来源"典型案例，督促网站平台依法依约处置违规账号 <strong>9.8 万余个</strong>。三类违规情形并列：未标注国内外时事/公共政策信息来源、<strong>未添加 AI 生成显式/隐式标识</strong>、未标注虚构演绎标签。典型案例点名"金毛抱小孩""大猩猩护崽对峙鳄鱼""老虎和橘猫开车回家"等 AI 生成视频未添加标识。后续平台被要求将"标注设为短视频发布必经环节"。</p>
+
+<div class="impact impact-info">
+<strong>直接业务影响：</strong>①游戏内 AI NPC 对话、AI 生成关卡/美术、AIGC 配音、AI 数字人直播等功能在中国境内分发时，必须对照办法添加显式+隐式标识；②与抖音/快手/B 站/微博/微信生态有联运/直播/二创内容合作的发行链路，需在 5月内完成"上传通道默认强制标注"改造；③继 4月28日剪映/即梦/猫箱被约谈后，本次 9.8 万账号级清查表明执法已从头部 AI 工具下沉至全平台内容侧，腾讯系小游戏/视频号 AI 内容应优先核查。
+</div>
+
+<div class="source-row">🔗 <a href="https://www.cac.gov.cn/2026-05/03/c_1779492291101867.htm" target="_blank">中央网信办官方通报（一手）</a> · <a href="https://big5.cctv.com/gate/big5/news.cctv.cn/2026/05/05/ARTIkJjcvAlY4zBaSo8kPxjh260505.shtml" target="_blank">央视网</a> · <a href="http://society.people.com.cn/n1/2025/1125/c1008-40611316.html" target="_blank">人民日报</a></div>
+</div>
+
+<div class="event-card">
+<div class="event-meta">2026-04-29（法院初步批准）/ 2026-05-04-05（媒体集中报道）</div>
+<h3>2. 索尼 PlayStation 7.85M 美元反垄断集体诉讼初步和解获法院批准 <span class="tc-tag">Ecosystem</span></h3>
+
+<div class="tag-row">
+<span class="region-tag">US</span>
+<span class="topic-tag">反垄断</span>
+<span class="topic-tag">数据隐私</span>
+<span class="action-tag">诉讼</span>
+</div>
+
+<p>加州北区联邦地方法院 4月29日初步批准 Saveri Law Firm 代表原告与索尼互动娱乐（SIE）就 PSN 数字商店反垄断集体诉讼达成的 <strong>7.85M 美元和解协议</strong>，5月4-5日 GamesIndustry/Eurogamer/PCMag 等密集跟进。原告指控索尼通过"游戏专属代金券"封闭分发体系，剥夺消费者从第三方零售商购买数字版游戏的选项，构成"对 PlayStation 数字游戏市场的垄断"，违反联邦反垄断法及部分州法。覆盖人群为 <strong>2019.4.1–2023.12.31</strong> 期间在美国 PSN 商店购买过 100 多款指定数字游戏的用户，赔偿以"PSN 账户余额代金券"发放，公平听证定 10月15日。索尼否认违法，称为避免诉讼成本而和解。</p>
+
+<div class="impact impact-warning">
+<strong>直接业务影响：</strong>①与苹果 Epic 案、Google Play DMA 改革形成"封闭分发模式三线围剿"，主机/移动/PC 三类数字商店均面临反垄断司法压力；②腾讯发行的主机版本（Riot/Epic 系产品）若依赖 PSN 第一方分发，需评估未来"代金券机制"是否被司法或监管禁令限制；③对游戏发行业务的启示——封闭支付/兑换体系若不提供等效第三方替代，长期面临集体诉讼追溯风险，建议自查全球各主流商店的兑换/代金券产品设计。
+</div>
+
+<div class="source-row">🔗 <a href="https://www.gamesindustry.biz/sony-expected-to-pay-us-customers-78m-in-playstation-store-settlement" target="_blank">GamesIndustry.biz</a> · <a href="https://www.eurogamer.net/us-playstation-players-could-be-due-payout-as-court-agrees-class-action-settlement-of-78-million" target="_blank">Eurogamer</a> · <a href="https://www.providencejournal.com/story/tech/gaming/2026/05/04/playstation-class-action-lawsuit-settlement/89935993007/" target="_blank">Providence Journal</a></div>
+</div>
+
+<div class="event-card">
+<div class="event-meta">2026-05-05（劳动节限玩窗口落地日）</div>
+<h3>3. 米哈游劳动节防沉迷限玩时间公告 5月5日生效 <span class="tc-tag">Spillover</span></h3>
+
+<div class="tag-row">
+<span class="region-tag">CN</span>
+<span class="topic-tag">未成年人保护</span>
+<span class="action-tag">规则变化</span>
+</div>
+
+<p>为配合 2026 年劳动节假期防沉迷新规要求，米哈游中国大陆运营的所有网络游戏对未成年人开放 <strong>5月1日–5日、5月8日、5月10日 20:00–21:00 共 1 小时/日</strong> 游戏时间，其余时间一律禁玩。这是国家新闻出版署"切实防止未成年人沉迷网络游戏的通知"假期窗口规则的标准化执行案例，覆盖原神、崩坏：星穹铁道、绝区零等头部产品。</p>
+
+<div class="impact impact-info">
+<strong>直接业务影响：</strong>①腾讯/网易/米哈游为代表的中国头部厂商在节假日窗口"1 小时硬封顶"已成行业惯例，是版号合规与未成年人保护合规的双重前置条件；②对腾讯天美/光子的现有防沉迷系统而言，5月份还需对应五一+端午两个节假日窗口配置；③出海产品需注意：印度 PROG Rules 5月1日生效（要求年龄验证+未成年人保护），印尼 PP TUNAS 3月28日起分阶段实施（16 岁以下禁开账号），多市场未成年人保护规则需同步本地化。
+</div>
+
+<div class="source-row">🔗 <a href="https://jiazhang.mihoyo.com/" target="_blank">米哈游成长关爱平台（一手公告）</a></div>
+</div>
+
+<div class="event-card">
+<div class="event-meta">2026-04-30（FCC 表决）/ 2026-05-01（中国商务部回应）</div>
+<h3>4. 美国 FCC 全票通过限制中国实验室检测认证规则 <span class="tc-tag">Direct</span></h3>
+
+<div class="tag-row">
+<span class="region-tag">US</span>
+<span class="topic-tag">出海风险</span>
+<span class="action-tag">规则变化</span>
+</div>
+
+<p>美国联邦通信委员会（FCC）于美东时间 4月30日（北京时间 5月1日凌晨）以 <strong>5:0 全票</strong>通过两项针对中国的限制规则：①取消未与美国签署互认协议国家（含中国全境）的检测认证机构资质；②禁止"覆盖清单"上的中国电信实体在美开展业务。中国商务部 5月1日声明强烈反对，警告若美方一意孤行将"坚决采取必要措施"。2 年过渡期后中国境内实验室出具的 FCC 认证将作废。</p>
+
+<div class="impact impact-warning">
+<strong>直接业务影响：</strong>①腾讯及中国游戏公司硬件相关业务（VR/AR 头显、外设、Wi-Fi/蓝牙模块、IoT 智能玩具）若依赖中国境内实验室出具 FCC 认证报告，2 年过渡期后将失去对美电子产品准入资质；②腾讯云海外节点、IDC 服务、TiP 等需重新规划测试认证路径；③与之并行的腾讯 CFIUS 审查（Riot/Epic/Supercell 持股）形成"硬件+股权"双线施压，建议法务/合规跟踪 5-7月特朗普访华前后博弈窗口。
+</div>
+
+<div class="source-row">🔗 <a href="https://www.sohu.com/a/1017589434_122212402" target="_blank">搜狐财经：FCC 新规细节</a> · <a href="https://www.163.com/dy/article/KRUQUEHD05568W0A.html" target="_blank">中国商务部回应</a></div>
+</div>
+
+<hr>
+
+<h2>❓ Unverified News — 待验证信息</h2>
+
+<div class="empty-note">当日无待验证信息</div>
+
+<hr>
+
+<h2>📝 Notes — 补充说明</h2>
+
+<ul>
+<li><strong>覆盖窗口：</strong>UTC 2026-05-05 00:00–23:59，常规推送</li>
+<li><strong>搜索覆盖：</strong>阶段一一手来源定向搜索 34 条全部执行（含中文 7+英文 19+小语种 8）；阶段二实体追踪 16 条全部执行；阶段三扩展搜索（游戏 21+科技 20+出海 7）按重点条目执行；11 组公开搜索关键词全部覆盖</li>
+<li><strong>📊 搜索统计：</strong>Q1-Q11 全部 11 组关键词已执行（日期范围 2026-05-05 – 2026-05-05），发现候选 <strong>17 条</strong>，最终纳入 <strong>4 条</strong>（1 Major + 3 Top News），13 条因不在覆盖窗口/已往期推送/无实质进展被排除</li>
+<li><strong>追踪事件提醒：</strong>
+<ul>
+<li>PEGI 互动风险新规 2026-06 生效（loot box ≥16+；NFT/区块链=18+），手游发行需在 5月内完成欧洲分级自检</li>
+<li>UK ASA loot box 强制披露执法 2026-05-26 启动主动监测</li>
+<li>印度 PROG Rules 2026-05-01 已生效，OGAI 注册窗口 90 天</li>
+<li>巴西 ECA Digital 2026-03-17 生效，未成年人 18+ 评级游戏禁玩（即使家长同意）</li>
+<li>腾讯 CFIUS 审查持续中，特朗普访华窗口期 5-7月</li>
+</ul>
+</li>
+<li><strong>下一日前瞻：</strong>①最高法院是否对 Epic v. Apple 调卷令做出受理决定；②欧盟 DSA 对 Meta/X 算法新调查后续；③中国 5月节假日防沉迷执行情况通报；④腾讯 5月13日 2026 Q1 财报披露中是否涉及合规相关披露</li>
+</ul>
+
+<hr>
+
+<p><em>以上内容为公开信息整理与分析摘要，不构成法律意见。如需针对具体业务场景的合规建议，请进一步咨询合规团队-GCC游戏合规中心。</em></p>
+
+</div>
+
+<footer>
+Powered by Game Compliance Daily Brief v5.1<br>
+信息截至北京时间 2026-05-06 10:00
+</footer>
+</div>
+</body>
+</html>
