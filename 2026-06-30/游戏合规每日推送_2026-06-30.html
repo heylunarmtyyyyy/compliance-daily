@@ -46,9 +46,10 @@ footer{text-align:center;color:#a0aec0;font-size:12px;margin-top:40px;padding-to
 
 <div class="summary">
 <h2>本期摘要</h2>
-<p><strong>0 Major Alerts + 2 Top News + 0 Unverified</strong></p>
+<p><strong>0 Major Alerts + 3 Top News + 0 Unverified</strong></p>
 <p><strong>Top 1</strong>：美国众议院 6/29 以 267-117 通过 KIDS Act——游戏平台须设默认未成年人安全保护，删除 Duty of Care 条款致两院僵局</p>
 <p><strong>Top 2</strong>：美国最高法院 6/29 裁定 FTC 委员免职保护违宪——总统可随意解雇 FTC 委员，游戏消费者执法稳定性受冲击</p>
+<p><strong>Top 3</strong>：Riot 6/24 推出 Vanguard 反作弊"按需启动"模式——内核级反作弊不再开机自启，行业首个以硬件安全门槛换数据最小化的实践方案</p>
 </div>
 
 <div class="section-title">Major Alerts</div>
@@ -74,6 +75,15 @@ footer{text-align:center;color:#a0aec0;font-size:12px;margin-top:40px;padding-to
 <div class="section"><strong>信源</strong>：⭐⭐ 华尔街见闻、AInvest（6/30 报道最高法院 6:3 裁定、推翻汉弗莱执行人案先例、Roberts 多数意见、美联储豁免、Lisa Cook 单独裁定，转述美最高法院判决原文）</div>
 </div>
 
+<div class="topnews">
+<div class="meta-line"><span>level=TOP</span><span>topic=数据隐私</span><span>juris=全球</span></div>
+<!-- META: level=TOP; topic=数据隐私; juris=全球 -->
+<h3><span class="tag-p2">P2</span>Riot 6/24 推出 Vanguard 反作弊"按需启动"模式：内核级反作弊不再开机自启，行业首个以硬件安全门槛换数据最小化的实践方案<span class="tencent-tag tag-direct">Direct</span></h3>
+<div class="section"><strong>事件核心</strong>：Riot Games 反作弊主管 Phillip Koskinas 于 2026 年 6 月 24 日通过官方博客宣布，旗下《英雄联盟》《无畏契约》采用的内核级反作弊系统 Vanguard 新增"按需启动（on-demand）"可选模式。开启后，Vanguard 驱动组件不再随系统开机自动加载并常驻后台，仅在玩家启动 Riot 旗下游戏时运行，退出游戏即彻底关闭，系统托盘不再常驻图标。该模式以一整套硬件安全门槛为前提：设备须升级至 Windows 11 25H2 或更高版本，并启用安全启动（Secure Boot）、TPM 2.0、IOMMU、基于虚拟化的安全性（VBS）与基于虚拟化的代码完整性保护（HVCI）。技术上依赖微软自 Windows 11 25H2 起引入的运行时驱动认证报告功能，使反作弊在启动后可获知开机到其加载之间所有已载入的驱动，从而在不全程常驻的情况下维持反作弊有效性。官方数据称目前约 35% 的玩家设备达标可直接开启，65% 需手动开启相关 Windows 安全功能，约 3% 老旧硬件无法满足、继续沿用开机常驻模式；达标设备占比正以每月 1%-2% 增长。按需模式完全自愿，未达标玩家不受游玩限制。此次调整是 Riot 对玩家多年来对内核级反作弊"全程常驻、隐私与安全顾虑"反馈的正面回应。</div>
+<div class="section"><strong>对游戏厂商意味着什么</strong>：其一，这是头部 PC 游戏厂商在"反作弊强度"与"数据最小化/最小权限"两难间给出的一个可借鉴工程方案——把内核级反作弊从"全程常驻"改为"用时加载、退出即关"，在 GDPR 数据最小化与必要性原则、以及欧盟对内核级软件常驻的合规审视下，显著缩小了反作弊程序对用户终端的常驻面与数据触达窗口，为同样依赖内核级反作弊的出海产品提供了一条"以硬件信任根换取常驻豁免"的合规化改造路径。其二，方案把合规收益与微软 Windows 11 安全栈（Secure Boot/TPM/VBS/HVCI + 运行时驱动认证）深度绑定，意味着反作弊的数据最小化能力高度依赖终端硬件代际，出海厂商在评估自有反作弊的合规改造时，须同步评估目标市场用户的硬件达标率（本例仅 35% 即时达标），并为低配设备保留兼容路径以避免变相准入门槛。其三，内核级反作弊在欧盟（数据最小化、对终端的侵入性）、韩国与多法域的隐私审查持续趋紧，Riot 主动收缩常驻范围的做法，可作为出海厂商应对监管问询、证明"已采取技术措施降低侵入性"的实践参照，建议把反作弊的权限范围、常驻时长、数据采集清单纳入隐私影响评估（DPIA）与上架合规自查。</div>
+<div class="section"><strong>信源</strong>：⭐⭐ 17173 游戏（6/28 转述 Riot 官方博客 6/24 公告：反作弊主管 Phillip Koskinas 署名、按需启动模式机制、Win11 25H2/Secure Boot/TPM2.0/VBS/HVCI 硬件门槛、35% 达标率、运行时驱动认证依赖）；建议补 Riot 官方博客一手信源</div>
+</div>
+
 <div class="section-title">Unverified</div>
 <div class="no-alert">无。</div>
 
@@ -84,6 +94,7 @@ footer{text-align:center;color:#a0aec0;font-size:12px;margin-top:40px;padding-to
 <ul>
 <li><strong>Top 1</strong>：KIDS Act 众议院通过——6/29 美国众议院以 267-117 表决通过 KIDS Act（实质进展第 1 类"法案进入下一立法阶段：委员会通过 → 全院通过"）。US-KOSA-KIDS-ACT-2026 链 6/22 推过两党协议、6/25-6/26 推过投票排期与游戏平台专项要求（均以前瞻/延伸排除），本期为众院全院正式表决通过的全新立法节点，区别于此前的协议/排期前瞻，列 Top News；属立法推进（非生效），按 P1 标尺"立法推进 ≠ 生效"降 Top P2；非腾讯 Direct，tencent_tag 标 Ecosystem。</li>
 <li><strong>Top 2</strong>：FTC 独立性违宪裁定——6/29 美国最高法院 6:3 裁定 FTC 委员有因免职保护违宪（实质进展第 4 类"新司法裁定"，终审判决）。US-FTC-INDEPENDENCE-2026 链全库无记录，为全新司法裁定，web_fetch 华尔街见闻（6/30 02:17 GMT+8 = UTC 6/29 晚，落窗）核实票数、推翻先例、美联储豁免等关键事实，dc=high；FTC 为游戏消费者保护核心执法机构，间接影响出海游戏执法环境，非 Direct，列 Top News P2，tencent_tag 标 Ecosystem。</li>
+<li><strong>Top 3</strong>：Riot Vanguard 按需启动模式——6/24 Riot 官方博客宣布内核级反作弊改为按需加载（按实质进展常规口径属企业产品技术调整，非监管/执法/司法节点）。<strong>经用户指令明确：本项目监测目标含"行业头部厂商对监管压力的实际技术/产品应对方案（行业实践范本）"，此类合规化工程实践具情报价值，纳入。</strong> Riot 为腾讯 Direct（被投），方案直接回应内核级反作弊在 GDPR 数据最小化与多法域隐私审查下的侵入性顾虑，列 Top News；非既成监管/执法重大事件，按 P 级标尺定 P2，tencent_tag 标 Direct，主标签按 9 板块优先级取数据隐私。web_fetch 17173 核实机制/门槛/达标率，dc=high。</li>
 </ul>
 
 <h4>合并铁律体检（回查近 7 天 news_kb + known_events 双路放行）</h4>
@@ -97,7 +108,6 @@ footer{text-align:center;color:#a0aec0;font-size:12px;margin-top:40px;padding-to
 <li>❌ DoJ Operation Offsides 查封约 400 个世界杯盗播域名（005）——US-DOJ-WORLDCUP-PIRACY 链系体育赛事直播盗播域名查封，主体为世界杯流媒体盗播网站，非游戏产品 IP 执法，对游戏直播虽有示范但偏离游戏合规核心 → 主体相关性排除。</li>
 <li>❌ 中国商务部 6/29 对 40 家日本实体实施出口管制（101）——CN-EXPORT-CTRL-JAPAN 链系双用途物项出口管制与中日地缘博弈，主体为三菱/富士通等防务相关企业，与游戏平台/发行/分发零主体重合，对出海游戏仅间接供应链影响 → 主体相关性硬 Gate 排除。</li>
 <li>❌ 市场监管总局 6/29 召开第二次企业公平竞争座谈会（103，Direct）——CN-SAMR-FAIR-COMPETITION 链系部级座谈会 + 监管表态，无具体新法规生效/罚单/裁定，属国内程序性会议/普法宣传 → 程序性会议排除（执法落地后再立条）。</li>
-<li>❌ Riot Games Vanguard 反作弊 6/24 上线按需启动模式（011，Direct，dc=high）——RIOT-VANGUARD-ONDEMAND 链系企业产品功能调整（反作弊隐私优化），非监管/执法/司法合规事件，且 6/24 在覆盖窗口外 → 非合规事件 + 窗口外排除。</li>
 <li>❌ Valve 被英国 PRS for Music 起诉音乐版权侵权（104，dc=low，first_disclosure_date=2026-03-09）——UK-PRS-VALVE-COPYRIGHT 链诉讼提起于 3/4、首披于 3/9（窗口外），采集棒所挂信源链接为 2008 年旧页面，6/29 系二次回声无新节点 → 旧闻 + 时戳排除。</li>
 <li>❌ 玩家起诉任天堂关税重复收费集体诉讼（102，None，dc=high）——US-NINTENDO-TARIFF 链 6/15 已记录同一消费者集体诉讼、6/24 已推任天堂起诉美政府退税，本条为同链消费者诉讼角度，关税成本争议偏离游戏合规核心议题 → 延伸 + 主题边缘排除。</li>
 </ul>
@@ -133,9 +143,9 @@ footer{text-align:center;color:#a0aec0;font-size:12px;margin-top:40px;padding-to
 
 <h4>信源分布</h4>
 <ul>
-<li>⭐⭐⭐ 政府/监管一手：本期入选两条均为美国联邦立法/司法节点，经海外主流媒体一手转述（众院投票记录 / 最高法院判决原文）</li>
-<li>⭐⭐ 海外/主流媒体一手：USA TODAY、Axios、Reuters、Investing.com（KIDS Act）、华尔街见闻、AInvest（FTC 裁定）</li>
-<li>⭐ 中文转载：未作唯一信源</li>
+<li>⭐⭐⭐ 政府/监管一手：本期入选 KIDS Act / FTC 裁定为美国联邦立法/司法节点，经海外主流媒体一手转述（众院投票记录 / 最高法院判决原文）</li>
+<li>⭐⭐ 海外/主流媒体一手：USA TODAY、Axios、Reuters、Investing.com（KIDS Act）、华尔街见闻、AInvest（FTC 裁定）、17173 转述 Riot 官方博客（Vanguard 按需模式）</li>
+<li>⭐ 中文转载：未作唯一信源（Vanguard 条建议补 Riot 官方博客一手）</li>
 </ul>
 
 <h4>下一日前瞻（6/30-9/22 监测重点）</h4>
@@ -158,16 +168,19 @@ footer{text-align:center;color:#a0aec0;font-size:12px;margin-top:40px;padding-to
 <ul>
 <li>本期链式自动化：10-1/10-2/10-3 三分片采集 + 10-4 决策发布。</li>
 <li>就绪门退出码 0（三分片全就绪：10-1=18 条 / 10-2=6 条 / 10-3=1 条，静默 1205/1100/1346s），共 25 条候选；jsonl_safe 三分片仍坏 0 行；三分片均缺 search_log（配额无法核对，仅告警不阻塞）。</li>
-<li>决策：0 Major Alerts + 2 Top News P2（KIDS Act 众院通过 + FTC 独立性违宪裁定）+ 0 Unverified。本期覆盖 UTC 6/29 工作日单日，25 条候选中多为倒计时前瞻（1260H/Google Play 6/30、越南 7/1、Apple SCOTUS、EU AI Act 8/2）与已推事件链延伸（巴西暴雪/Roblox 证券/印尼 PP Tunas/帕鲁/荷兰 Valve），无腾讯 Direct 重大既成事件，严守"宁可简报不硬凑"，0 Major Alert。</li>
+<li>决策：0 Major Alerts + 3 Top News P2（KIDS Act 众院通过 + FTC 独立性违宪裁定 + Riot Vanguard 按需启动行业实践）+ 0 Unverified。本期覆盖 UTC 6/29 工作日单日，25 条候选中多为倒计时前瞻（1260H/Google Play 6/30、越南 7/1、Apple SCOTUS、EU AI Act 8/2）与已推事件链延伸（巴西暴雪/Roblox 证券/印尼 PP Tunas/帕鲁/荷兰 Valve），无腾讯 Direct 重大既成事件，0 Major Alert；Top 3（Vanguard）经用户指令按"行业实践范本"口径纳入，扩展了本项目的监测目标边界。</li>
 </ul>
 
 </div>
+
+
 
 <!-- CANDIDATES_BLOCK_BEGIN -->
 <div class="notes" style="margin-top:24px">
 <h3>全量备选新闻清单（2026-06-29 全量入库 25 条，判断留痕）</h3>
 <p style="font-size:13px;color:#718096">本板块列出当日扫描入库的<strong>全部</strong>候选新闻标题及处置去向，便于复核漏判/误排。入选见正文，以下为未进入正文的备选与其排除归类。</p>
-<h4>✅ 已入选正文（4）</h4><ul>
+<h4>✅ 已入选正文（5）</h4><ul>
+<li><strong>[Top]</strong> Riot Games Vanguard反作弊6/24上线按需模式：开机不再自启，仅35%玩家设备达标</li>
 <li><strong>[Top]</strong> 美国众议院6/29以267-117通过KIDS Act：游戏平台须设默认未成年人安全保护，删除Duty of Care条款</li>
 <li><strong>[Top]</strong> 美国众议院6月29日267-117票通过KIDS Act：要求游戏/社媒平台限制未成年人成瘾功能、强制年龄验证、AI披露义务</li>
 <li><strong>[Top]</strong> 美国众议院6月29日以267-117票通过KIDS Act：要求平台为儿童提供防成瘾功能限制与年龄验证义务，参议院版本争议Duty of Care条款悬而未决</li>
@@ -202,8 +215,7 @@ footer{text-align:center;color:#a0aec0;font-size:12px;margin-top:40px;padding-to
 <h4>❌ 主题排除清单（1）</h4><ul>
 <li>玩家起诉任天堂关税重复收费：游戏价格已涨价且同时向联邦政府申请关税退款构成不当得利<span style="color:#a0aec0">｜延伸+主题边缘：US-NINTENDO-TARIFF链6/15/6/24已记录，关税争议偏离游戏</span></li>
 </ul>
-<h4>❌ 其他排除（2）</h4><ul>
-<li>Riot Games Vanguard反作弊6/24上线按需模式：开机不再自启，仅35%玩家设备达标<span style="color:#a0aec0">｜非合规事件+窗口外：Riot Vanguard按需模式为产品功能调整，6/24窗口外</span></li>
+<h4>❌ 其他排除（1）</h4><ul>
 <li>市场监管总局6月29日召开第二次企业公平竞争座谈会：强化反垄断执法信号，覆盖AI等新兴行业<span style="color:#a0aec0">｜程序性会议排除：SAMR第二次公平竞争座谈会，无新法规/罚单/裁定</span></li>
 </ul>
 </div>
