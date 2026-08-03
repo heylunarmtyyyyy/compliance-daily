@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>游戏合规日报</title>
+<style>
+:root {
+    --primary: #6366f1; --primary-light: #eef2ff; --bg: #f8fafc;
+    --card-bg: #ffffff; --text: #1e293b; --text-secondary: #64748b; --border: #e2e8f0;
+    --p0-bg: #fef2f2; --p0-border: #dc2626; --p0-text: #991b1b;
+    --p1-bg: #fff7ed; --p1-border: #ea580c; --p1-text: #9a3412;
+    --p2-bg: #fefce8; --p2-border: #ca8a04; --p2-text: #854d0e;
+    --alert-color: #dc2626;
+}
+* { margin: 0; padding: 0; box-sizing: border-box; }
+body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'PingFang SC', 'Microsoft YaHei', sans-serif;
+    background: var(--bg); color: var(--text); line-height: 1.75; padding: 20px; }
+.container { max-width: 920px; margin: 0 auto; }
+.header { background: linear-gradient(135deg, #6366f1 0%, #4338ca 50%, #3730a3 100%);
+    color: white; padding: 40px; border-radius: 16px; margin-bottom: 24px;
+    box-shadow: 0 4px 24px rgba(99, 102, 241, 0.3); position: relative; overflow: hidden; }
+.header::before { content: '⚖'; position: absolute; right: 30px; top: 50%; transform: translateY(-50%);
+    font-size: 80px; opacity: 0.15; }
+.header h1 { font-size: 28px; font-weight: 700; margin-bottom: 8px; }
+.content { background: var(--card-bg); border-radius: 12px; padding: 36px 40px; box-shadow: 0 2px 8px rgba(0,0,0,0.06); }
+h1, h2, h3, h4 { color: var(--text); margin-top: 1.5em; margin-bottom: 0.6em; line-height: 1.4; }
+h1 { font-size: 24px; }
+h2 { font-size: 20px; padding-bottom: 10px; border-bottom: 2px solid var(--border); }
+h3 { font-size: 17px; color: #4338ca; }
+h4 { font-size: 15px; color: var(--text-secondary); }
+p { margin: 0.8em 0; }
+ul, ol { margin: 0.6em 0 0.6em 1.5em; }
+li { margin: 0.3em 0; }
+strong { color: #dc2626; font-weight: 600; }
+a { color: #2563eb; text-decoration: none; }
+a:hover { text-decoration: underline; }
+hr { border: none; border-top: 1px solid var(--border); margin: 2em 0; }
+blockquote { background: var(--primary-light); border-left: 4px solid var(--primary);
+    padding: 12px 20px; margin: 1em 0; color: var(--text); border-radius: 0 6px 6px 0; }
+code { background: #f1f5f9; padding: 2px 6px; border-radius: 3px; font-family: 'Consolas', 'Monaco', monospace;
+    font-size: 0.9em; color: #dc2626; }
+.alert-p1 { background: var(--p1-bg); border-left: 5px solid var(--p1-border);
+    padding: 20px 24px; margin: 1.5em 0; border-radius: 0 10px 10px 0; }
+.alert-p1 h3 { color: var(--p1-text); margin-top: 0; }
+table { border-collapse: collapse; width: 100%; margin: 1.2em 0; font-size: 14px; box-shadow: 0 1px 3px rgba(0,0,0,0.05); }
+thead { background: linear-gradient(135deg, #6366f1 0%, #4338ca 100%); color: white; }
+th { padding: 10px 12px; text-align: left; font-weight: 600; border: 1px solid #4338ca; }
+td { padding: 10px 12px; border: 1px solid var(--border); vertical-align: top; }
+tbody tr:nth-child(even) { background: #f8fafc; }
+tbody tr:hover { background: var(--primary-light); }
+td strong { color: #dc2626; }
+footer { text-align: center; color: var(--text-secondary); font-size: 13px; padding: 20px; margin-top: 30px; }
+</style>
+</head>
+<body>
+<div class="container">
+<div class="header">
+<h1>🛡️ 游戏合规日报</h1>
+<div style="font-size:16px;opacity:0.9;margin-top:6px;">游戏合规日报</div>
+</div>
+<div class="content">
+<h1>游戏合规每日推送 · 2026-08-03</h1>
+<blockquote>覆盖窗口：UTC 2026-07-31 00:00 — 2026-08-02 23:59（周一合并周末三日）</blockquote>
+<blockquote>流程：链式自动化 ID=10（10-1/10-2/10-3 三分片采集 + 10-4 决策发布）｜信源等级：⭐⭐⭐ 政府/监管/主体一手 · ⭐⭐ 主流媒体/专业媒体 · ⭐ 二手聚合</blockquote>
+<blockquote>本期分档：<strong>0 Major Alert（P0/P1）+ 1 Top News（P2）+ 0 Unverified</strong>。周末低密度日，唯一实质新进展为欧盟 AI 法案通用大模型执法权与透明度义务 8 月 2 日正式生效。</blockquote>
+<hr>
+<h2>Major Alerts</h2>
+<p>当日无重大风险预警。</p>
+<hr>
+<h2>Top News</h2>
+<p><!-- META: level=P2; topic=AI 合规; juris=欧盟 --></p>
+<h3>P2 欧盟 AI 法案 GPAI 执法权与第 50 条透明度义务 8 月 2 日正式生效</h3>
+<p><strong>发生了什么</strong></p>
+<p>欧盟《人工智能法案》对通用人工智能（GPAI）模型的监管执法权自 2026 年 8 月 2 日起正式适用，标志着该法案分阶段实施进入可执法状态。这一节点在过去两个多月里以倒计时前瞻形式多次出现，8 月 2 日为条款本身如期落地生效，而非再次预告。</p>
+<p>自即日起，欧盟 AI 办公室可要求 GPAI 提供商提交技术文档、直接评估模型、要求采取风险缓解措施，对不合规提供商可处最高全球年营业额 3% 或 1500 万欧元（取高者）罚款，并可限制或撤回模型在欧盟市场流通。同步生效的第 50 条透明度义务要求：交互式 AI 系统须告知用户其正在与 AI 而非人类互动；AI 生成或篡改的图像、音频、视频等深度伪造内容须显著标识并附机器可读标记。</p>
+<p><strong>合规影响</strong></p>
+<p>游戏内 AI 伴聊、AI NPC、AI 角色扮演及 AI 生成内容等功能，若调用 GPAI 模型，8 月 2 日起面临欧盟 AI 办公室的文档核查与罚款风险。腾讯系出海游戏若集成第三方大模型能力，需核实供应商 Code of Practice 签署状态与合规文档链条，并确认 AI 交互界面已落实"非人类身份"披露、AIGC 内容已按第 50 条附机器可读标识。该节点与国内《人工智能拟人化互动服务管理暂行办法》（7 月 15 日生效）形成中欧监管时间线呼应，AI 拟人化交互已进入中欧双线强制合规区间。</p>
+<p><strong>建议动作</strong></p>
+<ul>
+<li>盘点欧盟上线产品中所有 AI 交互与 AIGC 功能，核实所调用 GPAI 模型提供商的合规文档与 Code of Practice 签署状态。</li>
+<li>在 AI 伴聊、AI NPC、客服机器人等交互入口落实"正在与 AI 互动"的显式披露。</li>
+<li>对 AI 生成的图像、语音、视频内容按第 50 条附加显著标识与机器可读标记，保存标识策略与生效记录。</li>
+<li>将欧盟与国内 AI 拟人化服务两套义务并表管理，避免同一功能在两地出现披露口径不一致。</li>
+</ul>
+<p><strong>信源</strong>：⭐⭐⭐ <a href="https://ai-act-service-desk.ec.europa.eu/en/ai-act/faq/when-does-enforcement-start" target="_blank">欧盟委员会 AI Act 执法起点说明</a>；⭐⭐ <a href="https://www.licentium.io/post/eu-ai-act-article-50-transparency-gpai-enforcement-2-august-2026" target="_blank">Licentium 第50条与 GPAI 执法解读（8月2日）</a>；⭐⭐ <a href="https://weibo.com/5396650564/5327443818447476" target="_blank">央视财经报道</a>。</p>
+<hr>
+<h2>Unverified</h2>
+<p>无。</p>
+<hr>
+<h2>Notes</h2>
+<h3>当日判断</h3>
+<ul>
+<li>周一合并周末覆盖 UTC 7/31–8/2 三日；三棒健康哨兵通过（查询 58/58、50/50、36/34，候选 2/2/0），低密度为真实态而非采集塌陷。</li>
+<li>欧盟 AI 法案 8 月 2 日生效按 P2 纳入：此前该链（EU-AIACT-ART50 / GPAI）在 6 月起以倒计时前瞻形式多次出现均排除，本期为条款本身如期正式生效，属实质进展第 1 类"新立法生效"，构成全新 action_trigger；因非腾讯 Direct、系外溢参照，按标尺降 P2。</li>
+<li>无腾讯 Direct 重大既成事件，0 Major Alerts。</li>
+</ul>
+<h3>未入选候选</h3>
+<ul>
+<li>❌ <strong>欧盟拟将 Roblox 与 ChatGPT 纳入 DSA 超大型平台（VLOP），预计 8 月公布（20260803-001）</strong>：彭博 7/29 独家援引知情人士，欧盟委员会发言人拒绝置评、企业未回应，正式指定尚未发生；且 7/30 日报已推送"两者用户规模越过 DSA 门槛、正式指定待定"同链节点，本次无新增官方动作，按已推延伸 + 传闻未证实排除。</li>
+<li>❌ <strong>《金币大富翁》诉《动友富翁》换皮不正当竞争案二审判赔 500 万（20260803-100）</strong>：web_fetch 核实一手信源为 2024 年 8 月旧案报道（采集棒误标为 2026-08-02），落窗口外；配套的《万国觉醒》诉《指挥官》案为华东政法学者在中国知识产权报的学术解读评论文章，属典型案例普法分析而非全新判决首披，按旧闻误标 + 学术普法降级排除。</li>
+</ul>
+<h3>搜索健康</h3>
+<ul>
+<li>三分片计划查询逐条执行：10-1 = 58/58、10-2 = 50/50、10-3 = 36/34，健康哨兵退出码 0，三棒 search_log 齐全。</li>
+<li>就绪门退出码 0，三分片全就绪（10-3 为 0 候选完成态，有 search_log，属合法完成态非塌陷）。</li>
+<li>jsonl_safe 前置修复：三分片仍坏 0 行。</li>
+</ul>
+<h3>调度信息</h3>
+<ul>
+<li>就绪门退出码 0；健康哨兵退出码 0。</li>
+<li>最终研判：4 条原始候选（去重后 3 个事件链）。</li>
+<li>决策结果：1 入选 / 0 候选 / 2 排除；0 Unverified。</li>
+</ul>
+<footer>游戏合规每日推送 · 2026-08-03 · 链式自动化 ID=10</footer>
+</div>
+</div>
+</body>
+</html>
