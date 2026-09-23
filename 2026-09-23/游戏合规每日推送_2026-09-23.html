@@ -44,6 +44,21 @@ footer { margin-top: 60px; padding-top: 20px; border-top: 1px solid #d0d7de; col
 <li>就绪门退 0（三分片全就绪：10-1=1 候选 / 10-2=0 候选完成有 search_log / 10-3=0 候选完成有 search_log）；健康哨兵退 0（查询 55/58、48/50、34/34，真实低密度非塌陷）；三分片 jsonl_safe 前置修复仍坏 0 行、可解析 1 行。</li>
 <li>web_fetch/web_search：0 次 + 0 次（唯一候选 date_confidence=high 且注定排除，不投入精核 token）。</li>
 </ul>
+<!-- CANDIDATES_BLOCK_BEGIN -->
+<div class="notes" style="margin-top:24px">
+<h3>全量备选新闻清单（2026-09-22 全量入库 4 条，判断留痕）</h3>
+<p style="font-size:13px;color:#718096">本板块列出当日扫描入库的<strong>全部</strong>候选新闻标题及处置去向，便于复核漏判/误排。入选见正文，以下为未进入正文的备选与其排除归类。</p>
+<h4>✅ 已入选正文（3）</h4><ul>
+<li><strong>[Top]</strong> EDPB 通过行政罚款裁量统一方法指南（五步法）并定稿 DSA-GDPR 交互指南：DSA 涉个人数据处理义务纳入 GDPR 罚款体系</li>
+<li><strong>[Top]</strong> 国家新闻出版署印发《出版业发展“十五五”规划》：加强网络游戏监管、版号向精品倾斜、推动游戏出海、完善未成年人保护</li>
+<li><strong>[Top]</strong> 爱尔兰数据保护委员会（DPC）对谷歌处理用户位置数据罚款 4.03 亿欧元</li>
+</ul>
+<h4>❌ 主体相关性不足（1）</h4><ul>
+<li>工信部通报 31 款侵害用户权益 App 及 SDK（名单与是否含游戏类 App 待核）<span style="color:#a0aec0">｜常态化批量通报+游戏主体未确认+信源不足：央视 9/21 报道工信部通报 31 款侵害用户权益 </span></li>
+</ul>
+</div>
+<!-- CANDIDATES_BLOCK_END -->
+
 <footer>
 游戏合规每日推送 · 2026-09-23｜链式自动化 ID=10（10-1/10-2/10-3 采集 + 10-4 决策发布）｜就绪门退 0（三分片全就绪 1/0/0）、健康哨兵退 0（查询 55/48/34 真实低密度）｜候选池 1 条，入选 0 条（0 Major Alert + 0 Top News + 0 Unverified），排除 1 条（Apple v. Epic 最高法院程序节点，列 Notes 背景观察）<br>
 信源等级：⭐⭐⭐ 政府/监管/主体一手 · ⭐⭐ 主流媒体/专业媒体 · ⭐ 二手聚合
