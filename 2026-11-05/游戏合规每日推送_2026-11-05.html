@@ -1,0 +1,190 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>游戏合规每日推送 | 2026-11-05</title>
+<style>
+body { max-width: 860px; margin: 0 auto; padding: 40px 24px; font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "PingFang SC", "Microsoft YaHei", sans-serif; color: #1f2328; line-height: 1.7; font-size: 15px; }
+h1 { font-size: 26px; border-bottom: 2px solid #0969da; padding-bottom: 12px; color: #0969da; }
+h2 { font-size: 20px; margin-top: 36px; color: #1f2328; border-bottom: 1px solid #d0d7de; padding-bottom: 6px; }
+h3 { font-size: 17px; margin-top: 28px; color: #1f2328; }
+a { color: #0969da; text-decoration: none; }
+a:hover { text-decoration: underline; }
+blockquote { border-left: 4px solid #d0d7de; margin: 12px 0; padding: 4px 12px; color: #656d76; background: #f6f8fa; font-size: 13px; }
+code { background: #f6f8fa; padding: 1px 6px; border-radius: 3px; font-size: 90%; }
+hr { border: none; border-top: 1px solid #d0d7de; margin: 24px 0; }
+strong { color: #0969da; }
+.tag-p0 { display:inline-block; background:#cf222e; color:#fff; font-size:12px; font-weight:700; padding:1px 8px; border-radius:4px; vertical-align:middle; }
+.tag-p1 { display:inline-block; background:#bf3989; color:#fff; font-size:12px; font-weight:700; padding:1px 8px; border-radius:4px; vertical-align:middle; }
+.tag-p2 { display:inline-block; background:#1a7f37; color:#fff; font-size:12px; font-weight:700; padding:1px 8px; border-radius:4px; vertical-align:middle; }
+.tag-unverified { display:inline-block; background:#9a6700; color:#fff; font-size:12px; font-weight:700; padding:1px 8px; border-radius:4px; vertical-align:middle; }
+table { border-collapse: collapse; margin: 12px 0; width: 100%; font-size: 14px; }
+th, td { border: 1px solid #d0d7de; padding: 6px 10px; text-align: left; }
+th { background: #f6f8fa; }
+footer { margin-top: 60px; padding-top: 20px; border-top: 1px solid #d0d7de; color: #656d76; font-size: 12px; }
+</style>
+</head>
+<body>
+<h1>游戏合规每日推送 · 2026-11-05</h1>
+<blockquote>
+覆盖窗口：UTC 2026-11-04（周三单日）<br>
+流程：链式自动化 ID=10（10-1/10-2/10-3 三分片采集 + 10-4 决策发布）｜信源等级：⭐⭐⭐ 政府/监管/主体一手 · ⭐⭐ 主流媒体/专业媒体 · ⭐ 二手聚合<br>
+本期分档：<strong>1 Major Alert（P0）+ 1 Major Alert（P1）+ 6 Top News（P2）</strong>。三分片共 24 条候选（10-1=4 / 10-2=15 / 10-3=5）。10-2 棒首轮未产出分片（就绪门等满 20 分钟退 2、健康哨兵判塌陷），经补跑后三棒重检全部就绪、健康哨兵退 0，jsonl_safe 三分片坏 0 行，窗口体检 24 条全部落窗；本期因此延后发布。P0 为腾讯发行的《胜利女神：妮姬》PC 启动器所加载的官方 CDN 脚本遭篡改、玩家启动即可能被植入远控木马。P1 为英国广告标准管理局集中裁定四款手游广告以非实际玩法误导玩家。Top News 覆盖英国明年春季起禁止 16 岁以下用户在游戏中与陌生人交流、甲骨文据报取消与腾讯的 AI 芯片租赁协议、欧盟首例中国企业《外国补贴条例》附条件批准、Nexus Mods 强制 AI 披露、《智能体发展自律公约》与市场监管总局处罚裁量新规。<br>
+</blockquote>
+<hr>
+<h2>Major Alerts</h2>
+<p><!-- META: level=P0; topic=数据隐私; juris=全球 --></p>
+<h3><span class="tag-p0">P0</span> 《胜利女神：妮姬》PC 启动器加载的官方 CDN 脚本遭篡改，10 月 23 日起启动即可能被植入远控木马，官方已修复并称影响范围仍在调查</h3>
+<p><strong>发生了什么</strong></p>
+<p>安全研究者 MotherSphere 11 月 4 日在 GitHub 公开技术报告，指腾讯旗下发行品牌 Level Infinite 的 CDN 上，被《胜利女神：妮姬》PC 启动器加载的 4 个官方 JavaScript 文件遭攻击者篡改。韩联社、MTN 等韩国媒体当日跟进报道。</p>
+<table><thead><tr><th>事项</th><th>内容</th></tr></thead><tbody><tr><td>被篡改文件</td><td>4 个，位于 playerinfinite.com 两个 CDN 域名下，其中 2 个位于公共库目录（/comm/assets/lib/）</td></tr><tr><td>篡改时间</td><td><strong>2026 年 9 月 27 日</strong>（UTC）</td></tr><tr><td>有效攻击期</td><td>最迟自 <strong>10 月 23 日</strong>起至 11 月 3 日，期间打开 PC 启动器即可能下载并运行远控程序</td></tr><tr><td>木马能力</td><td>执行任意命令、截屏、读取下载文件；解密 NIKKE 账号凭证；窃取浏览器保存的密码与 Cookie、SSH 密钥、云服务与 AI 工具令牌、<strong>28 种</strong>浏览器加密钱包数据；通过注册表与 Chrome 目录 DLL 驻留，启动器关闭后仍可能运行</td></tr><tr><td>清理进度</td><td>3 个文件 11 月 3 日 17 时（UTC）前后替换，最后 1 个文件 11 月 4 日 03 时清理；报告者 11 月 4 日 11 时复核 4 个文件均已干净</td></tr><tr><td>官方回应</td><td>Level Infinite 11 月 4 日声明启动器脚本“可能被第三方篡改”，客户端修复已推送，<strong>影响范围仍在调查</strong>，后续措施另行公告；称暂无证据表明手机端受影响</td></tr><tr><td>业内反应</td><td>Shift Up CEO 金亨泰公开致歉；Nexon 要求全体员工删除公司电脑上的启动器；KRAFTON、Netmarble 维持既有安全政策</td></tr><tr><td>尚未公开</td><td>受害人数、实际外泄数据规模、攻击入口；截至发稿未见韩国监管机构公开表态</td></tr></tbody></table>
+<p><strong>合规影响</strong></p>
+<p>本条 tencent_tag 判为 Direct：被篡改的是腾讯发行品牌自有 CDN 上、由腾讯运营的启动器加载的官方文件。</p>
+<p>第一，通知与报告义务需要逐法域判定。木马窃取的多为玩家本机数据（浏览器密码、钱包），是否构成运营方“个人信息泄露”存在定性空间；但 NIKKE 账号凭证属运营方处理的数据，且攻击经由官方分发链路实施。韩国《个人信息保护法》对外部非法访问导致的泄露设有 72 小时内通知用户并向监管报告的要求，欧盟 GDPR 第 33 条要求在知悉后 72 小时内向监管机构报告，起算点可能落在 11 月 3 日至 4 日。</p>
+<p>第二，韩国是 NIKKE 核心市场，同业公司已公开采取删除启动器措施，舆论关注度高，后续出现监管问询与用户集体维权的可能性较大。</p>
+<p>第三，官方声明未列出受影响文件与处置步骤，玩家目前依赖第三方报告自查。信息披露不充分本身可能成为监管关注点。</p>
+<p><strong>建议动作</strong></p>
+<ul>
+<li>法务与安全团队会同确认知悉时间点，逐法域评估通知与报告义务是否触发，并留存 CDN 访问日志与篡改证据。</li>
+<li>补充对外公告：受影响时间段、文件清单、自查方法（日志关键字与注册表项）与清除建议，优先韩语、英语、日语。</li>
+<li>排查 playerinfinite.com 公共库目录下的脚本是否被其他产品的启动器或网页引用。</li>
+</ul>
+<p><strong>信源</strong>：⭐⭐ MotherSphere 技术报告（GitHub）；⭐⭐ 4Gamers（转述 MTN）；⭐ Solidot；⭐ 17173</p>
+<p><strong>原文链接</strong>：<a href="https://gist.github.com/MotherSphere/d6c049a09ba8ac3085c51ee9df24a4e5" target="_blank">MotherSphere 技术报告（GitHub）</a> ｜ <a href="https://www.4gamers.com.tw/news/detail/83076/nikke-pc-launcher-hack-nexon-emergency-security-alert" target="_blank">4Gamers（转述 MTN）</a> ｜ <a href="https://www.solidot.org/story?sid=85798" target="_blank">Solidot</a> ｜ <a href="https://news.17173.com/content/11052026/113802859.shtml" target="_blank">17173</a></p>
+<hr>
+<p><!-- META: level=P1; topic=游戏机制; juris=英国 --></p>
+<h3><span class="tag-p1">P1</span> 英国广告标准管理局集中裁定四款手游广告误导：用游戏中不存在的玩法画面揽客，“非实际玩法”免责字样不能免责</h3>
+<p><strong>发生了什么</strong></p>
+<p>英国广告标准管理局（ASA）11 月 4 日公布四份手游广告裁定，均来自其主动发起的“误导性玩法”广告专项排查，涉事广告于 4 月 28 日被监测到。</p>
+<table><thead><tr><th>广告主</th><th>游戏</th><th>违规内容</th><th>结论</th></tr></thead><tbody><tr><td>King</td><td>Farm Heroes Saga</td><td>三消画面外加“钉子落下、电锯逼近奶牛”的救援情节，游戏中不存在</td><td>两则中一则违规</td></tr><tr><td>Scopely</td><td>Pixel Flow!</td><td>片头“旋转管道让小猪过河”的解谜，游戏只有像素消除一种玩法</td><td>两则中一则违规</td></tr><tr><td>Omnilojo</td><td>Dark War Survival</td><td>用非交互剧情与高规格画面冒充玩法；以月桂图标配“2026 Survival Game”暗示获奖</td><td>三则全部违规，另认定获奖暗示误导</td></tr><tr><td>Vistrex</td><td>Idle Zombie Miner</td><td>广告与 <strong>Google Play 商店截图</strong>展示直接操控挖掘机的开放地图玩法，实际为放置类，相关小游戏仅出现在 194 个矿区中的 4 个</td><td>广告与商店截图均违规</td></tr></tbody></table>
+<p>ASA 在四份裁定中给出了一致的判断标准：</p>
+<table><thead><tr><th>判断点</th><th>ASA 口径</th></tr></thead><tbody><tr><td>何时视为“展示玩法”</td><td>出现手形光标、点击反馈、计分或 HUD 等交互元素，或配音直接描述可玩内容</td></tr><tr><td>免责字样</td><td>“Not in-game footage”“Not actual gameplay”不能纠正整体印象，反而与画面矛盾</td></tr><tr><td>可接受的做法</td><td>片头短暂主题动画无交互元素、且其后接真实玩法，不违规</td></tr><tr><td>剧情素材</td><td>即使取自游戏内剧情，若以玩法方式呈现且画质明显高于实际，仍属夸大</td></tr><tr><td>获奖暗示</td><td>月桂图标加“年度”字样被理解为获奖，商店推荐位不能作为依据</td></tr></tbody></table>
+<p>四家均被要求相关广告不得以原样再投放。</p>
+<p><strong>合规影响</strong></p>
+<p>本条 tencent_tag 判为 Spillover，对在英国投放买量广告的手游是直接参照。</p>
+<p>第一，这是 ASA 主动排查后的批量裁定，而非个案投诉，说明“假玩法”广告已成为固定执法方向，后续可能扩大范围。</p>
+<p>第二，ASA 明确否定了行业普遍使用的“非实际玩法”免责字样，也否定了“素材取自游戏剧情”的抗辩，判断重心是普通玩家看到画面后对玩法的理解。</p>
+<p>第三，商店截图被纳入同一标准，买量素材与商店页需要一并检查。</p>
+<p><strong>建议动作</strong></p>
+<ul>
+<li>复核在英国投放的买量素材：带光标、点击反馈或 HUD 的片段须对应游戏内真实且常见的玩法。</li>
+<li>清理月桂图标、“年度最佳”等无可证实奖项来源的标识。</li>
+<li>商店页截图与宣传视频按同一标准核对。</li>
+</ul>
+<p><strong>信源</strong>：⭐⭐⭐ ASA 裁定：King.com Ltd；⭐⭐⭐ ASA 裁定：Scopely Inc；⭐⭐⭐ ASA 裁定：Omnilojo Pte Ltd；⭐⭐⭐ ASA 裁定：Vistrex Ltd；⭐ 腾讯新闻（IT时代网）</p>
+<p><strong>原文链接</strong>：<a href="https://www.asa.org.uk/rulings/king-com-ltd.html" target="_blank">ASA 裁定：King.com Ltd</a> ｜ <a href="https://www.asa.org.uk/rulings/scopely-inc.html" target="_blank">ASA 裁定：Scopely Inc</a> ｜ <a href="https://www.asa.org.uk/rulings/omnilojo-pte-ltd.html" target="_blank">ASA 裁定：Omnilojo Pte Ltd</a> ｜ <a href="https://www.asa.org.uk/rulings/vistrex-ltd.html" target="_blank">ASA 裁定：Vistrex Ltd</a> ｜ <a href="https://news.qq.com/rain/a/20261105A01L4W00" target="_blank">腾讯新闻（IT时代网）</a></p>
+<hr>
+<h2>Top News</h2>
+<p><!-- META: level=P2; topic=未成年保护; juris=英国 --></p>
+<h3><span class="tag-p2">P2</span> 英国确认明年春季起禁止 16 岁以下用户在游戏等服务中与陌生人交流，首批法规圣诞休会前提交议会，仍是提案、尚未落地</h3>
+<p><strong>发生了什么</strong></p>
+<p>英国创意产业、媒体与网络安全部长 Ian Murray 11 月 2 日在议会威斯敏斯特厅就 16 岁以下社交媒体禁令请愿辩论作答，首次给出立法时间表。此前 Ofcom 已于 10 月 29 日发布 16 岁年龄核验方法评估。</p>
+<table><thead><tr><th>事项</th><th>内容</th></tr></thead><tbody><tr><td>时间表</td><td>首批法规<strong>圣诞休会前</strong>提交议会，限制 <strong>2027 年春季</strong>生效；12 月至春末 Ofcom 制定配套指引</td></tr><tr><td>游戏纳入</td><td>16 岁以下用户在包括游戏在内的多类服务中<strong>不得直播、不得与陌生人交流</strong>；政府称为“澳大利亚加强版”，因澳大利亚禁令未覆盖游戏</td></tr><tr><td>16、17 岁</td><td>上述保护默认开启，另有自动播放、个性化推荐默认关闭与夜间宵禁</td></tr><tr><td>适用范围</td><td>以功能界定，法规不点名平台，新增社交功能的服务也会被覆盖</td></tr><tr><td>核验层级</td><td>放在应用商店、设备还是平台层，<strong>尚未确定</strong></td></tr><tr><td>Ofcom 评估</td><td>16 岁门槛下照片证件比对、银行核验、数字身份、人脸年龄估计四种方法可达“高度有效”，均需照片证件兜底；信用卡、手机运营商核验只能证明满 18 岁，不适用</td></tr></tbody></table>
+<p>采集稿称“保留陌生人匹配、只关闭语音”，该细节仅见于游侠网转述，部长发言原文为“不得与陌生人交流”，未区分语音与文字，正文按原文写。</p>
+<p><strong>合规影响</strong></p>
+<p>本条 tencent_tag 判为 Spillover。目前仍是提案、尚未落地，对游戏业务暂不形成直接义务，但游戏已被明确纳入。</p>
+<p>“陌生人交流”覆盖语音、文字、组队邀请、私信等入口，判断依据是对方是否为已确认的好友。叠加高度有效年龄核验，含社交功能的在英运营产品需要在 2027 年春季前完成功能分龄与核验接入。核验层级若最终落在应用商店或设备层，游戏侧的接入成本会明显降低。</p>
+<p><strong>建议动作</strong></p>
+<ul>
+<li>梳理在英运营产品的陌生人交流入口清单，评估按年龄默认关闭的改造范围。</li>
+<li>跟踪圣诞前提交的法规文本与 Ofcom 指引草案，重点看核验层级与“陌生人”的定义。</li>
+</ul>
+<p><strong>信源</strong>：⭐⭐ 议会辩论记录（TrustPolitics 转载）；⭐⭐ Labour Home；⭐⭐ Osborne Clarke；⭐ 游侠网</p>
+<p><strong>原文链接</strong>：<a href="https://trustpolitics.com/debate/social-media-ban-for-under-16s-2026-11-02-cbe0092e" target="_blank">议会辩论记录（TrustPolitics 转载）</a> ｜ <a href="https://www.labourhome.co.uk/ian_murray_sets_spring_2027_start_for_under_16_social_media_ban_as_first_regulations_come_before" target="_blank">Labour Home</a> ｜ <a href="https://www.osborneclarke.com/insights/uk-online-safety-ofcom-assesses-highly-effective-age-assurance-methods-online-services" target="_blank">Osborne Clarke</a> ｜ <a href="https://www.ali213.net/news/html/2026-11/1051891.html" target="_blank">游侠网</a></p>
+<hr>
+<p><!-- META: level=P2; topic=中国出海; juris=美国 --></p>
+<h3><span class="tag-p2">P2</span> 据英国《金融时报》报道，甲骨文在美国政府施压下取消与腾讯约 70 亿美元的五年期 AI 芯片租赁协议，双方未置评</h3>
+<p><strong>发生了什么</strong></p>
+<p>英国《金融时报》11 月 4 日援引知情人士报道，路透社转述。</p>
+<table><thead><tr><th>事项</th><th>内容</th></tr></thead><tbody><tr><td>原协议</td><td>10 月 1 日首次被报道：五年期，约 <strong>70 亿美元</strong>，通过甲骨文东南亚多个数据中心向腾讯提供最多约 <strong>10 万枚</strong>先进 AI 芯片算力，腾讯预付约 30%</td></tr><tr><td>取消原因（据报）</td><td>美国官员曾就该交易向甲骨文表达关切</td></tr><tr><td>国内侧</td><td>报道称广东省官员曾到访腾讯，要求支持国产芯片</td></tr><tr><td>各方回应</td><td>甲骨文、腾讯、美国政府均<strong>未公开置评</strong></td></tr></tbody></table>
+<p><strong>合规影响</strong></p>
+<p>本条 tencent_tag 判为 Direct，但属媒体援引知情人士的报道，未获当事方证实，按传闻口径最高 P2。</p>
+<p>报道如属实，美国对中国企业经第三国数据中心获取先进算力的限制，已从出口管制规则延伸到对具体商业交易的施压。游戏业务暂无直接义务变化，属地缘风险信号。</p>
+<p><strong>建议动作</strong></p>
+<ul>
+<li>跟踪当事方是否确认，以及美国是否出台针对境外云算力租赁的正式规则。</li>
+</ul>
+<p><strong>信源</strong>：⭐⭐ 联合早报（转述路透社、金融时报）；⭐⭐ 财经日报（韩国）；⭐ 腾讯新闻（观网）</p>
+<p><strong>原文链接</strong>：<a href="https://www.zaobao.com.sg/news/china/story20261104-9945155" target="_blank">联合早报（转述路透社、金融时报）</a> ｜ <a href="https://news.jkn.co.kr/editions/chinese/post/1071480" target="_blank">财经日报（韩国）</a> ｜ <a href="https://news.qq.com/rain/a/20261105A04TVQ00" target="_blank">腾讯新闻（观网）</a></p>
+<hr>
+<p><!-- META: level=P2; topic=中国出海; juris=欧盟 --></p>
+<h3><span class="tag-p2">P2</span> 欧盟首次依据《外国补贴条例》附条件批准中国企业并购：京东收购 Ceconomy 须承诺 10 年按市场条件交易并向第三方开放物流</h3>
+<p><strong>发生了什么</strong></p>
+<p>欧盟委员会 11 月 3 日依据《外国补贴条例》（FSR）附条件批准京东收购德国消费电子零售集团 Ceconomy（MediaMarkt、Saturn 母公司）。这是该条例生效以来，首次对中国企业收购在深入调查后附条件放行。</p>
+<table><thead><tr><th>事项</th><th>内容</th></tr></thead><tbody><tr><td>调查</td><td>5 月 28 日立案深入调查，认定京东获得中国优惠融资、税收优惠与补助等外国补贴，可能扭曲欧盟市场</td></tr><tr><td>承诺一</td><td>京东与 Ceconomy 之间的集团内部交易（含融资）按市场条件进行</td></tr><tr><td>承诺二</td><td>以与 Ceconomy 相同条件向第三方零售商提供仓储物流服务</td></tr><tr><td>承诺三</td><td>技术服务以同等条件向第三方开放</td></tr><tr><td>期限与监督</td><td><strong>10 年</strong>，独立受托人监督，欧委会监管</td></tr><tr><td>其他审批</td><td>此前已通过德、法、意、西、奥五国外资审查，德国要求保护 Ceconomy 德国客户个人数据</td></tr></tbody></table>
+<p><strong>合规影响</strong></p>
+<p>本条 tencent_tag 判为 Spillover。</p>
+<p>FSR 申报门槛为目标方在欧盟营业额 5 亿欧元以上、交易各方三年内获第三国财务资助合计 5000 万欧元以上。本案给出了中国企业并购通过深入调查的救济模板，也说明审查周期可能超过一年。集团在欧盟并购或增持游戏公司时可参照。</p>
+<p><strong>建议动作</strong></p>
+<ul>
+<li>涉欧盟并购项目在交易时间表中预留 FSR 申报与深入调查周期，提前整理第三国财务资助清单。</li>
+</ul>
+<p><strong>信源</strong>：⭐⭐ 腾讯新闻；⭐⭐ 界面新闻；⭐ 云南网（转述德新社）</p>
+<p><strong>原文链接</strong>：<a href="https://news.qq.com/rain/a/20261104A07N8200" target="_blank">腾讯新闻</a> ｜ <a href="https://www.jiemian.com/article/15290155.html" target="_blank">界面新闻</a> ｜ <a href="https://news.yunnan.cn/system/2026/11/04/034189299.shtml" target="_blank">云南网（转述德新社）</a></p>
+<hr>
+<p><!-- META: level=P2; topic=AI 合规; juris=全球 --></p>
+<h3><span class="tag-p2">P2</span> Nexus Mods 强制模组作者披露 AI 使用情况：新上传须声明，存量模组 2027 年 1 月 2 日前补报，逾期可能下架</h3>
+<p><strong>发生了什么</strong></p>
+<p>PC 游戏模组平台 Nexus Mods（支持 5700 余款游戏）11 月 3 日公布生成式 AI 内容政策。</p>
+<table><thead><tr><th>事项</th><th>内容</th></tr></thead><tbody><tr><td>总体立场</td><td><strong>不全面禁止</strong> AI 模组</td></tr><tr><td>新上传</td><td>须声明是否使用 AI；标记“AI 辅助”的须公开说明用在何处、如何使用</td></tr><tr><td>存量模组</td><td>60 天宽限期，至 <strong>2027 年 1 月 2 日</strong></td></tr><tr><td>违规处理</td><td>逾期未如实标注将被审查并要求更正，不配合可能<strong>限权或下架</strong>；鼓励用户举报</td></tr><tr><td>用户侧</td><td>可在首页与游戏页隐藏 AI 内容，搜索筛选在规划中</td></tr><tr><td>其他</td><td>平台不用模组数据训练 AI，也不出售或授权；将限制单一作者在“最新发布”中的展示数量</td></tr></tbody></table>
+<p><strong>合规影响</strong></p>
+<p>本条 tencent_tag 判为 Ecosystem。继 Steam 要求披露、itch.io 把披露与下架挂钩之后，模组平台也采取同一做法。对开放官方模组或内置 UGC 编辑器的产品，“强制披露 + 用户过滤 + 不实标注下架”正在成为平台侧的通行规则。</p>
+<p><strong>建议动作</strong></p>
+<ul>
+<li>检视自有 UGC 平台的 AI 内容标识规则、举报与申诉流程，与主要分发平台口径对齐。</li>
+</ul>
+<p><strong>信源</strong>：⭐⭐ 4Gamers；⭐ 3DM；⭐ 凤凰网科技（IT之家）</p>
+<p><strong>原文链接</strong>：<a href="https://www.4gamers.com.tw/news/detail/83080/nexus-mods-requires-mod-creators-to-disclose-ai-use" target="_blank">4Gamers</a> ｜ <a href="https://www.3dmgame.com/news/202611/3958828.html" target="_blank">3DM</a> ｜ <a href="https://tech.ifeng.com/c/8xmTraMSmTe" target="_blank">凤凰网科技（IT之家）</a></p>
+<hr>
+<p><!-- META: level=P2; topic=AI 合规; juris=中国 --></p>
+<h3><span class="tag-p2">P2</span> 中国信通院牵头腾讯等 20 家单位发布《智能体发展自律公约》，承诺通过合规性测试约束智能体行为并保护未成年人</h3>
+<p><strong>发生了什么</strong></p>
+<p>11 月 4 日世界互联网大会乌镇峰会“智能体互信互联互操作全球合作创新”论坛上，中国信息通信研究院与腾讯、阿里、蚂蚁、抖音、华为、小米等 20 家单位联合发布公约。</p>
+<table><thead><tr><th>方面</th><th>内容</th></tr></thead><tbody><tr><td>八方面措施</td><td>信任体系、互联基础设施、互操作、安全防护、治理机制、用户权益、产业赋能、技术普惠</td></tr><tr><td>合规手段</td><td>通过规则表达与内嵌、合规性测试等技术手段确保智能体行为守法合规</td></tr><tr><td>抵制行为</td><td>利用智能体实施算法压榨、黑灰产</td></tr><tr><td>特殊群体</td><td>未成年人、老年人纳入权益保护</td></tr></tbody></table>
+<p><strong>合规影响</strong></p>
+<p>本条 tencent_tag 判为 Direct，腾讯为发起单位之一。公约属行业自律，不设罚则。游戏内 AI NPC、AI 角色扮演类功能的硬性依据仍是《人工智能拟人化互动服务管理暂行办法》与生成式 AI 管理办法，公约中的合规性测试与未成年人保护承诺可作为内部自查的参照项。</p>
+<p><strong>建议动作</strong></p>
+<ul>
+<li>关注信通院后续是否发布配套的智能体合规测试标准。</li>
+</ul>
+<p><strong>信源</strong>：⭐⭐⭐ 新华网；⭐⭐ 环球网</p>
+<p><strong>原文链接</strong>：<a href="https://www.news.cn/local/20261105/2a6c1ad0ebc447aa9023e991b988e52c/c.html" target="_blank">新华网</a> ｜ <a href="https://china.huanqiu.com/article/4TtloIVaBEx" target="_blank">环球网</a></p>
+<hr>
+<p><!-- META: level=P2; topic=反垄断; juris=中国 --></p>
+<h3><span class="tag-p2">P2</span> 市场监管总局出台《市场监督管理行政处罚裁量规定》：罚款按 30% 与 70% 分档裁量，2027 年 1 月 1 日施行</h3>
+<p><strong>发生了什么</strong></p>
+<p>市场监管总局 11 月 4 日对外介绍《市场监督管理行政处罚裁量规定》（总局令第 129 号，10 月 8 日公布），把 2019 年以来的裁量指导意见升为部门规章。</p>
+<table><thead><tr><th>事项</th><th>内容</th></tr></thead><tbody><tr><td>五阶次</td><td>不予、减轻、从轻、一般、从重</td></tr><tr><td>罚款幅度</td><td>从轻落在法定幅度较低 <strong>30%</strong>；一般为 <strong>30% 至 70%</strong>；从重为较高 30%</td></tr><tr><td>初次违法</td><td>两年内首次实施同性质违法；涉生命健康、金融安全且有危害后果的为五年</td></tr><tr><td>首违不罚</td><td>须同时满足初次违法、危害后果轻微、及时改正</td></tr><tr><td>情节恶劣</td><td>侵害对象为<strong>未成年人</strong>、老年人、残疾人等特殊群体可作为认定因素</td></tr><tr><td>反垄断</td><td>按总局专项规定执行，未规定的参照本规定</td></tr><tr><td>施行</td><td><strong>2027 年 1 月 1 日</strong></td></tr></tbody></table>
+<p><strong>合规影响</strong></p>
+<p>本条 tencent_tag 判为 Spillover。游戏运营涉及的广告、价格标示、消费者权益、网络交易等市场监管处罚，2027 年起按统一的五阶次裁量。侵害未成年人被列为情节恶劣的考量因素，未成年人充值、虚假宣传类案件可能被从重处理；及时改正、主动退款等可作为从轻或减轻依据。</p>
+<p><strong>建议动作</strong></p>
+<ul>
+<li>内部合规整改与监管沟通流程中，留存“及时改正”“主动消除危害后果”的证据，作为裁量从轻依据。</li>
+</ul>
+<p><strong>信源</strong>：⭐⭐⭐ 市场监管总局规章原文；⭐⭐⭐ 市场监管总局新闻稿；⭐⭐ 北京青年报</p>
+<p><strong>原文链接</strong>：<a href="https://www.samr.gov.cn/zw/zfxxgk/fdzdgknr/fgs/art/2026/art_e1e110a177e14cc5b74fda00c814c3d6.html" target="_blank">市场监管总局规章原文</a> ｜ <a href="https://www.samr.gov.cn/xw/zj/art/2026/art_ae47c409c4be4a68a8de2d26c5c68c2b.html" target="_blank">市场监管总局新闻稿</a> ｜ <a href="https://news.qq.com/rain/a/20261104A074P900" target="_blank">北京青年报</a></p>
+<hr>
+<h2>Notes</h2>
+<ul>
+<li>⚠️ 采集链路：10-2 棒首轮未产出分片与 search_log，就绪门等满 20 分钟退 2，健康哨兵判 10-2 塌陷（退 10）；补跑后 10-2 写入 15 条（查询 68 次），三棒重检就绪门退 0、健康哨兵退 0（查询 60/68/58），jsonl_safe 三分片坏 0 行，窗口体检 24 条全部落窗。本期因等待补跑延后发布。</li>
+<li>web_fetch/web_search：本期 7 次 web_fetch（MotherSphere 技术报告、ASA 裁定列表与四份裁定原文、Labour Home 部长发言），约 20 次 web_search。</li>
+<li>首披豁免：英国部长时间表（11 月 2 日）、Ofcom 年龄核验评估（10 月 29 日）、京东 FSR 批准（11 月 3 日）、Nexus Mods 政策（11 月 3 日）略早于窗口，本项目此前未推送，按首披纳入。</li>
+<li>跨棒合并：妮姬启动器（001/100）；ASA 手游广告（003/101/203）；英国 16 岁以下游戏交流限制（004/113/202）；索尼黑心奖（102/204）；诺禾致源诉 1260H（109/201）。</li>
+<li>更正：采集稿称 ASA 裁定针对“电影级动画镜头”，原文判断重心是带交互元素的非实际玩法画面，片头主题动画在无交互元素时不违规；采集稿称市场监管裁量规定“11 月 4 日发布”，总局令公布日期为 10 月 8 日，11 月 4 日为对外解读。</li>
+<li>排除（苹果年龄分级问卷新增约会与关系申报）：11 月 3 日期已作 P1 推送。</li>
+<li>排除（美国财政部对外投资拟议规则）：10 月 30 日期已推。</li>
+<li>排除（徐汇法院游戏账号黑灰产案）：9 月 17 日期已推，本条为报纸再刊。</li>
+<li>排除（腾讯元器、扣子企业版下线）：元器停服为 10 月 8 日官方通知、原因为业务调整，扣子为企业版套餐调整，采集稿“合规清退潮”属媒体分析。</li>
+<li>排除（北京市通信管理局第十一期问题 App 通报）：例行通报，未见游戏类产品。</li>
+<li>观察（索尼获澳洲 Choice 年度“黑心奖”）：点名数字游戏仅为访问授权、2028 年起停产新游戏实体光盘，属民间评选，暂无 ACCC 动作。</li>
+<li>观察（最高检侵犯著作权犯罪数据）：2023 年至 2026 年 9 月起诉 7100 余人，侵权对象扩至网络游戏、短剧、剧本杀，含私服充值 672 万余元案。</li>
+<li>观察（猫王版权方诉 Anthropic）：274 首歌曲训练 Claude，索赔约 4100 万美元，AI 训练版权诉讼常规新增。</li>
+<li>观察（诺禾致源起诉美国国防部 1260H 认定）：列名前未通知、未给申辩机会，同类诉讼已有多例，非游戏主体。</li>
+</ul>
+<footer>
+游戏合规每日推送 · 2026-11-05｜链式自动化 ID=10（10-1/10-2/10-3 采集 + 10-4 决策发布）｜覆盖 UTC 2026-11-04（周三单日）｜10-2 首轮塌陷经补跑后就绪门退 0、健康哨兵退 0（查询 60/68/58）、jsonl_safe 三分片坏 0 行｜候选池 24 条（10-1=4/10-2=15/10-3=5），入选 8 条（1 P0 + 1 P1 + 6 Top News P2），排除 16 条<br>
+信源等级：⭐⭐⭐ 政府/监管/主体一手 · ⭐⭐ 主流媒体/专业媒体 · ⭐ 二手聚合
+</footer>
+</body>
+</html>
